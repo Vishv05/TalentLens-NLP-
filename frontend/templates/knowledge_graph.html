@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Knowledge Concept Graph — TalentLens</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; color: #1e293b; }
+        #networkContainer {
+            width: 100%;
+            height: 580px;
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+        }
+        .inspector-card {
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    {% set active_page = 'knowledge_graph' %}
+    {% include 'navbar.html' %}
+
+    <main class="container py-4 my-auto">
+        <div class="d-flex flex-wrap align-items-center justify-content-between mb-3 gap-2">
+            <div>
+                <h3 class="fw-bold mb-1"><i class="fa-solid fa-diagram-project text-primary me-2"></i>Interactive Concept Prerequisites Graph</h3>
+                <p class="text-muted small mb-0">Drag and zoom nodes to explore prerequisite learning paths across subjects. <strong>Click any node</strong> to inspect concepts and take targeted actions.</p>
+            </div>
+            <div class="d-flex gap-2 align-items-center small">
+                <span class="badge" style="background-color: #e0e7ff; color: #4338ca;">NLP</span>
+                <span class="badge" style="background-color: #dcfce7; color: #166534;">Machine Learning</span>
+                <span class="badge" style="background-color: #fef3c7; color: #92400e;">DBMS</span>
+                <span class="badge" style="background-color: #e0f2fe; color: #075985;">Python</span>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <!-- Left Interactive Network Canvas -->
+            <div class="col-lg-8">
+                <div id="networkContainer"></div>
+            </div>
+
+            <!-- Right Concept Node Inspector -->
+            <div class="col-lg-4">
+                <div class="card inspector-card p-4 h-100 d-flex flex-column" id="nodeInspector">
+                    <div id="inspectorEmpty" class="my-auto text-center text-muted">
+                        <i class="fa-solid fa-hand-pointer fa-2x mb-3 text-primary"></i>
+                        <h6 class="fw-bold">Click Any Node in Graph</h6>
+                        <p class="small mb-0">Select any prerequisite node to view its definition, subject domain, and learning shortcuts.</p>
+                    </div>
+
+                    <div id="inspectorContent" class="d-none">
+                        <span class="badge bg-primary mb-2" id="nodeSubject">Subject</span>
+                        <h5 class="fw-bold text-dark mb-2" id="nodeTitle">Concept Title</h5>
+                        <p class="small text-muted mb-3" id="nodeDef">Definition will appear here.</p>
+
+                        <hr class="my-3">
+
+                        <h6 class="small fw-bold text-muted mb-2"><i class="fa-solid fa-arrows-split-up-and-left me-1"></i>Connected Prerequisites:</h6>
+                        <ul class="small text-secondary ps-3 mb-4" id="nodePrereqs">
+                            <li>None</li>
+                        </ul>
+
+                        <div class="mt-auto d-grid gap-2">
+                            <a href="#" class="btn btn-primary btn-sm" id="btnAskNodeTutor"><i class="fa-solid fa-comments me-2"></i>Ask AI Tutor About Concept</a>
+                            <a href="#" class="btn btn-outline-success btn-sm" id="btnQuizNode"><i class="fa-solid fa-vial me-2"></i>Take Practice Quiz</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
+        <div class="container">
+            TalentLens &copy; 2026 — Concept Dependency & Topological Learning Graph
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch("/api/knowledge-graph/topology")
+                .then(res => res.json())
+                .then(data => {
+                    const nodeMap = {};
+                    data.nodes.forEach(n => { nodeMap[n.id] = n; });
+
+                    const container = document.getElementById('networkContainer');
+                    const nodes = new vis.DataSet(data.nodes.map(n => ({
+                        id: n.id,
+                        label: n.label,
+                        shape: 'box',
+                        margin: 12,
+                        color: {
+                            background: n.group === 'Natural Language Processing' ? '#e0e7ff' :
+                                        n.group === 'Machine Learning' ? '#dcfce7' :
+                                        n.group === 'Database Management Systems' ? '#fef3c7' : '#e0f2fe',
+                            border: '#2563eb',
+                            highlight: {
+                                background: '#fbcfe8',
+                                border: '#db2777'
+                            }
+                        },
+                        font: { face: 'Segoe UI', size: 14, color: '#1e293b' }
+                    })));
+
+                    const edges = new vis.DataSet(data.edges);
+                    const graphData = { nodes: nodes, edges: edges };
+                    const options = {
+                        nodes: { borderWidth: 2 },
+                        edges: { arrows: 'to', color: '#94a3b8', smooth: { type: 'cubicBezier' } },
+                        physics: {
+                            solver: 'forceAtlas2Based',
+                            forceAtlas2Based: {
+                                gravitationalConstant: -50,
+                                centralGravity: 0.01,
+                                springLength: 100,
+                                springConstant: 0.08
+                            }
+                        }
+                    };
+
+                    const network = new vis.Network(container, graphData, options);
+
+                    network.on("click", function(params) {
+                        if (params.nodes.length > 0) {
+                            const nodeId = params.nodes[0];
+                            const node = nodeMap[nodeId];
+                            if (node) {
+                                document.getElementById("inspectorEmpty").classList.add("d-none");
+                                document.getElementById("inspectorContent").classList.remove("d-none");
+
+                                document.getElementById("nodeSubject").innerText = node.subject || "Academic";
+                                document.getElementById("nodeTitle").innerText = node.title_full || node.label;
+                                document.getElementById("nodeDef").innerText = node.definition || "A key academic concept in this learning pathway.";
+
+                                // Find prerequisites
+                                const prereqs = data.edges.filter(e => e.to === nodeId).map(e => e.from);
+                                const prereqUl = document.getElementById("nodePrereqs");
+                                prereqUl.innerHTML = "";
+                                if (prereqs.length > 0) {
+                                    prereqs.forEach(p => {
+                                        prereqUl.innerHTML += `<li><strong>${p}</strong></li>`;
+                                    });
+                                } else {
+                                    prereqUl.innerHTML = '<li><em>Foundational concept (No prerequisites)</em></li>';
+                                }
+
+                                document.getElementById("btnAskNodeTutor").href = `/chat?topic=${encodeURIComponent(node.label)}`;
+                                document.getElementById("btnQuizNode").href = `/quiz?subject=${encodeURIComponent(node.subject)}&topic=${encodeURIComponent(node.label)}`;
+                            }
+                        }
+                    });
+                });
+        });
+    </script>
+    {% include 'companion.html' %}
+</body>
+</html>

@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Tutor Chat — TalentLens</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/favicon.svg') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- KaTeX Mathematical LaTeX Typography Engine -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f1f5f9; }
+        .chat-container { height: calc(100vh - 140px); border-radius: 16px; overflow: hidden; background: #fff; }
+        .chat-box { overflow-y: auto; height: calc(100% - 150px); padding: 1.5rem; }
+        .msg-user { background: #e0e7ff; color: #1e1b4b; border-radius: 16px 16px 0 16px; margin-left: auto; max-width: 75%; }
+        .msg-tutor { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px 16px 16px 0; max-width: 85%; }
+        .nlp-panel { background: #0f172a; color: #f8fafc; border-radius: 12px; font-family: monospace; font-size: 0.85rem; }
+        .badge-pos { background: #334155; color: #38bdf8; margin: 2px; padding: 2px 6px; border-radius: 4px; display: inline-block; }
+        pre code { background: #1e293b; color: #e2e8f0; padding: 10px; border-radius: 8px; display: block; overflow-x: auto; }
+        .voice-active { animation: pulse-mic 1.5s infinite; color: #ef4444 !important; }
+        @keyframes pulse-mic { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    {% set active_page = 'chat' %}
+    {% include 'navbar.html' %}
+
+    <main class="container py-3 my-auto">
+        <div class="row g-3">
+            <!-- Left Chat Panel -->
+            <div class="col-lg-8">
+                <div class="card chat-container shadow-sm border-0 d-flex flex-column">
+                    <div class="card-header bg-white py-3 border-bottom d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <i class="fa-solid fa-robot text-primary fa-lg me-2"></i>
+                            <div>
+                                <h6 class="fw-bold mb-0">AI Educational Tutor</h6>
+                                <small class="text-muted">NLP Intent Recognition & Pedagogical Assistant</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <button class="btn btn-sm btn-outline-secondary" onclick="exportChatTranscript()" title="Download conversation as Markdown"><i class="fa-solid fa-download me-1"></i>Export</button>
+                            <button class="btn btn-sm btn-outline-danger" onclick="clearChat()" title="Clear chat history"><i class="fa-solid fa-trash-can me-1"></i>Clear</button>
+                            <div class="form-check form-switch ms-2">
+                                <input class="form-check-input" type="checkbox" id="toggleNLP" checked>
+                                <label class="form-check-label small fw-semibold" for="toggleNLP">Academic NLP Panel</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Messages Box -->
+                    <div class="chat-box flex-grow-1" id="chatBox">
+                        <div class="p-3 msg-tutor mb-3">
+                            <div class="d-flex align-items-center justify-content-between mb-1">
+                                <h6 class="fw-bold text-primary mb-0"><i class="fa-solid fa-graduation-cap me-1"></i>Tutor</h6>
+                                <button class="btn btn-sm text-secondary p-0" onclick="readAloud(this.parentElement.nextElementSibling.innerText)" title="Listen to answer"><i class="fa-solid fa-volume-high"></i></button>
+                            </div>
+                            <p class="mb-0">Hello! I am your AI Tutor. Ask me any question on NLP, Machine Learning, DBMS, Python, or your custom uploaded lecture notes. What would you like to learn today?</p>
+                        </div>
+                    </div>
+
+                    <!-- Suggested Prompts -->
+                    <div class="px-3 py-2 bg-light border-top text-nowrap overflow-x-auto">
+                        <span class="small text-muted me-2 fw-semibold">Quick Prompts:</span>
+                        <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill me-1" onclick="sendPrompt('What is tokenization in NLP?')">What is tokenization?</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill me-1" onclick="sendPrompt('Explain TF-IDF step by step.')">Explain TF-IDF</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill me-1" onclick="sendPrompt('Compare stemming vs lemmatization.')">Stemming vs Lemmatization</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill me-1" onclick="sendPrompt('What are ACID properties in DBMS?')">ACID Properties</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill me-1" onclick="sendPrompt('Explain Python list comprehensions.')">Python List Comprehension</button>
+                    </div>
+
+                    <!-- Input Box with Voice Input -->
+                    <div class="p-3 bg-white border-top">
+                        <form id="chatForm" class="d-flex gap-2 align-items-center">
+                            <button type="button" class="btn btn-outline-secondary" id="voiceBtn" title="Voice Input (Speech-to-Text)"><i class="fa-solid fa-microphone"></i></button>
+                            <input type="text" id="userInput" class="form-control py-2" placeholder="Ask a question (e.g., Explain TF-IDF or Self-Attention)..." required autocomplete="off">
+                            <button type="submit" class="btn btn-primary px-4 fw-semibold"><i class="fa-solid fa-paper-plane me-1"></i>Send</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Academic NLP Demonstration Panel -->
+            <div class="col-lg-4" id="nlpSidebar">
+                <div class="card border-0 shadow-sm p-3 h-100">
+                    <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-microscope me-2"></i>Academic NLP Pipeline Panel</h6>
+                    <p class="small text-muted mb-2">Real-time linguistic parsing, POS tags, intent classification, and vector search matching.</p>
+                    
+                    <div class="nlp-panel p-3 flex-grow-1 overflow-y-auto" id="nlpOutput">
+                        <div class="text-white-50 small italic">Ask a question in the chat to see real-time NLP analysis breakdown...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const chatBox = document.getElementById("chatBox");
+        const chatForm = document.getElementById("chatForm");
+        const userInput = document.getElementById("userInput");
+        const nlpOutput = document.getElementById("nlpOutput");
+        const voiceBtn = document.getElementById("voiceBtn");
+
+        document.getElementById("toggleNLP").addEventListener("change", function(e) {
+            document.getElementById("nlpSidebar").style.display = e.target.checked ? "block" : "none";
+        });
+
+        function sendPrompt(text) {
+            submitQuestion(text);
+        }
+
+        function clearChat() {
+            if (confirm("Are you sure you want to clear the conversation window?")) {
+                chatBox.innerHTML = `
+                    <div class="p-3 msg-tutor mb-3">
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                            <h6 class="fw-bold text-primary mb-0"><i class="fa-solid fa-graduation-cap me-1"></i>Tutor</h6>
+                            <button class="btn btn-sm text-secondary p-0" onclick="readAloud(this.parentElement.nextElementSibling.innerText)" title="Listen to answer"><i class="fa-solid fa-volume-high"></i></button>
+                        </div>
+                        <p class="mb-0">Chat cleared! Feel free to ask your next question.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function readAloud(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text.replace(/[#*`_]/g, ''));
+                utterance.rate = 1.0;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Voice Input Web Speech API
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRec();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            voiceBtn.addEventListener('click', () => {
+                try {
+                    recognition.start();
+                    voiceBtn.classList.add('voice-active');
+                } catch (e) {
+                    recognition.stop();
+                    voiceBtn.classList.remove('voice-active');
+                }
+            });
+
+            recognition.onresult = (event) => {
+                const speechResult = event.results[0][0].transcript;
+                userInput.value = speechResult;
+                voiceBtn.classList.remove('voice-active');
+                sendPrompt(speechResult);
+            };
+
+            recognition.onerror = () => {
+                voiceBtn.classList.remove('voice-active');
+            };
+
+            recognition.onend = () => {
+                voiceBtn.classList.remove('voice-active');
+            };
+        } else {
+            voiceBtn.style.display = 'none';
+        }
+
+        function renderMarkdown(content) {
+            if (!content) return "";
+            try {
+                if (typeof marked !== "undefined" && typeof marked.parse === "function") {
+                    return marked.parse(content);
+                }
+            } catch (e) {
+                console.warn("marked.parse encountered an error, using built-in renderer:", e);
+            }
+            let escaped = String(content)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+
+            escaped = escaped.replace(/^### (.*$)/gim, '<h6 class="fw-bold text-primary mt-2 mb-1">$1</h6>');
+            escaped = escaped.replace(/^## (.*$)/gim, '<h5 class="fw-bold mt-2 mb-1">$1</h5>');
+            escaped = escaped.replace(/^# (.*$)/gim, '<h4 class="fw-bold mt-2 mb-1">$1</h4>');
+            escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            escaped = escaped.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            escaped = escaped.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+            escaped = escaped.replace(/`([^`]+)`/g, '<code class="bg-light px-1 rounded">$1</code>');
+            escaped = escaped.replace(/^\s*-\s+(.*$)/gim, '<li>$1</li>');
+            escaped = escaped.replace(/\n/g, '<br>');
+            return escaped;
+        }
+
+        async function submitQuestion(questionText) {
+            const text = (questionText || "").trim();
+            if (!text) return;
+
+            // Render User Message
+            const userMsgDiv = document.createElement("div");
+            userMsgDiv.className = "p-3 msg-user mb-3";
+            userMsgDiv.innerText = text;
+            chatBox.appendChild(userMsgDiv);
+            if (userInput) userInput.value = "";
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Render Loading Indicator
+            const loadingDiv = document.createElement("div");
+            loadingDiv.className = "p-3 msg-tutor mb-3 text-muted";
+            loadingDiv.id = "tempLoading";
+            loadingDiv.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin me-2"></i>Analyzing question & retrieving knowledge...';
+            chatBox.appendChild(loadingDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            try {
+                const response = await fetch("/api/tutor/ask", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ question: text })
+                });
+
+                const data = await response.json();
+                const temp = document.getElementById("tempLoading");
+                if (temp) temp.remove();
+
+                if (!response.ok || data.error) {
+                    const errDiv = document.createElement("div");
+                    errDiv.className = "p-3 msg-tutor mb-3 border border-danger text-danger";
+                    errDiv.innerHTML = `<i class="fa-solid fa-triangle-exclamation me-2"></i>${data.error || "Unable to process question at this time."}`;
+                    chatBox.appendChild(errDiv);
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                    return;
+                }
+
+                // Render Tutor Response
+                const tutorMsgDiv = document.createElement("div");
+                tutorMsgDiv.className = "p-3 msg-tutor mb-3";
+                
+                const noteCitation = data.nlp_analysis && data.nlp_analysis.user_notes_match 
+                    ? `<div class="badge bg-info-subtle text-info border border-info mb-2"><i class="fa-solid fa-book-bookmark me-1"></i>Cited from your note: ${data.nlp_analysis.user_notes_match}</div>`
+                    : '';
+
+                const renderedBody = renderMarkdown(data.answer || "");
+
+                tutorMsgDiv.innerHTML = `
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <h6 class="fw-bold text-primary mb-0"><i class="fa-solid fa-graduation-cap me-1"></i>Tutor</h6>
+                        <button type="button" class="btn btn-sm text-secondary p-0" onclick="readAloud(this.parentElement.parentElement.querySelector('.tutor-body').innerText)" title="Listen"><i class="fa-solid fa-volume-high"></i></button>
+                    </div>
+                    ${noteCitation}
+                    <div class="tutor-body">${renderedBody}</div>
+                `;
+                chatBox.appendChild(tutorMsgDiv);
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+                // Render Mathematical LaTeX Formulations via KaTeX
+                if (window.renderMathInElement) {
+                    try {
+                        renderMathInElement(tutorMsgDiv, {
+                            delimiters: [
+                                {left: '$$', right: '$$', display: true},
+                                {left: '$', right: '$', display: false},
+                                {left: '\\(', right: '\\)', display: false},
+                                {left: '\\[', right: '\\]', display: true}
+                            ],
+                            throwOnError: false
+                        });
+                    } catch (err) {
+                        console.warn('KaTeX render notification:', err);
+                    }
+                }
+
+                // Render Academic NLP Panel Data
+                if (data.nlp_analysis && nlpOutput) {
+                    const nlp = data.nlp_analysis;
+                    let posHtml = (nlp.pos_tags || []).map(p => `<span class="badge-pos">${p[0]}: <strong>${p[1]}</strong></span>`).join(' ');
+                    let entHtml = (nlp.entities && nlp.entities.length > 0) 
+                        ? nlp.entities.map(e => `<span class="badge bg-warning text-dark me-1">${e.text} (${e.label})</span>`).join(' ')
+                        : '<span class="text-white-50">None detected</span>';
+
+                    nlpOutput.innerHTML = `
+                        <div class="mb-2"><span class="text-info fw-bold">Intent:</span> <span class="badge bg-success">${nlp.intent}</span> (${Math.round((nlp.intent_confidence || 0) * 100)}%)</div>
+                        <div class="mb-2"><span class="text-info fw-bold">Topic:</span> ${nlp.subject || 'General'} -> <strong>${nlp.topic || 'General'}</strong></div>
+                        <div class="mb-2"><span class="text-info fw-bold">Vector Similarity:</span> <span class="text-warning fw-bold">${nlp.similarity_score || 0}%</span></div>
+                        <div class="mb-2"><span class="text-info fw-bold">Matched Concept:</span> ${nlp.retrieved_concept || 'General Knowledge'}</div>
+                        ${nlp.user_notes_match ? `<div class="mb-2 text-info"><i class="fa-solid fa-file-lines me-1"></i>Student Note: <strong>${nlp.user_notes_match}</strong></div>` : ''}
+                        <hr class="border-secondary my-2">
+                        <div class="mb-2"><span class="text-info fw-bold">Tokens:</span> [${(nlp.tokens || []).join(', ')}]</div>
+                        <div class="mb-2"><span class="text-info fw-bold">Lemmas:</span> [${(nlp.lemmas || []).join(', ')}]</div>
+                        <div class="mb-2"><span class="text-info fw-bold">Named Entities:</span> ${entHtml}</div>
+                        <div class="mb-1"><span class="text-info fw-bold">POS Tags:</span></div>
+                        <div class="mb-2">${posHtml}</div>
+                    `;
+                }
+            } catch (err) {
+                const temp = document.getElementById("tempLoading");
+                if (temp) temp.remove();
+                console.error("Chat error:", err);
+                const errDiv = document.createElement("div");
+                errDiv.className = "p-3 msg-tutor mb-3 border border-danger text-danger";
+                errDiv.innerHTML = `<i class="fa-solid fa-triangle-exclamation me-2"></i>Network or server error while reaching AI Tutor. Please try again.`;
+                chatBox.appendChild(errDiv);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
+
+        chatForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const text = userInput ? userInput.value : "";
+            submitQuestion(text);
+        });
+
+        function exportChatTranscript() {
+            let markdown = `# AI Tutor Conversation Transcript\n*Exported on ${new Date().toLocaleString()}*\n\n---\n\n`;
+            const msgs = chatBox.children;
+            for (let m of msgs) {
+                if (m.classList.contains("msg-user")) {
+                    markdown += `### 👤 Student:\n${m.innerText}\n\n`;
+                } else if (m.classList.contains("msg-tutor")) {
+                    const text = m.querySelector(".tutor-body") ? m.querySelector(".tutor-body").innerText : m.innerText;
+                    markdown += `### 🎓 AI Tutor:\n${text}\n\n---\n\n`;
+                }
+            }
+            const blob = new Blob([markdown], { type: "text/markdown" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `ai_tutor_transcript_${Date.now()}.md`;
+            a.click();
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const topicParam = urlParams.get('topic');
+            const qParam = urlParams.get('q');
+            if (qParam) {
+                sendPrompt(qParam);
+            } else if (topicParam) {
+                sendPrompt(`Explain ${topicParam} in detail with examples.`);
+            }
+        });
+    </script>
+    {% include 'companion.html' %}
+</body>
+</html>

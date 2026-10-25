@@ -1,0 +1,1341 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Instructor & Admin Portal — TalentLens</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/favicon.svg') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; color: #1e293b; }
+        .admin-card { border-radius: 14px; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .nav-pills .nav-link.active { background-color: #2563eb; font-weight: 600; }
+        .nav-pills .nav-link { color: #475569; font-weight: 500; }
+        .card-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-xl navbar-dark tl-navbar py-2 shadow-sm sticky-top">
+        <div class="container-fluid px-xl-4 px-lg-3 px-3">
+            <!-- Brand Logo & Platform Title -->
+            <a class="navbar-brand fw-bold d-flex align-items-center me-xl-4 me-2" href="{{ url_for('admin_view') }}">
+                <div class="tl-brand-icon text-white rounded-3 d-inline-flex align-items-center justify-content-center shadow-sm me-2.5" style="width: 38px; height: 38px; background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%) !important;">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                </div>
+                <div class="d-flex flex-column">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="fs-5 fw-bold text-white lh-1">TalentLens</span>
+                        <span class="badge bg-danger rounded-pill px-2 py-0.5" style="font-size: 0.65rem; letter-spacing: 0.05em; font-weight: 700;">INSTRUCTOR PORTAL</span>
+                    </div>
+                    <span class="text-white-50 small d-none d-sm-inline" style="font-size: 0.65rem; letter-spacing: 0.03em;">ADMINISTRATION & COHORT TELEMETRY</span>
+                </div>
+            </a>
+
+            <!-- Mobile Navbar Toggler -->
+            <button class="navbar-toggler border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navMenu">
+                <!-- Left Tabs Quick Switchers -->
+                <ul class="navbar-nav me-auto mb-2 mb-xl-0 d-flex align-items-center gap-1">
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-pill active" href="javascript:void(0)" onclick="switchAdminTab('tab-analytics')" id="nav-btn-analytics">
+                            <i class="fa-solid fa-chart-pie me-1.5 text-primary"></i>Cohort Analytics
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-pill" href="javascript:void(0)" onclick="switchAdminTab('tab-blindspots')" id="nav-btn-blindspots">
+                            <i class="fa-solid fa-fire-flame-curved me-1.5 text-danger"></i>Blind-Spots
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-pill" href="javascript:void(0)" onclick="switchAdminTab('tab-rubric')" id="nav-btn-rubric">
+                            <i class="fa-solid fa-sliders me-1.5 text-info"></i>Rubrics & Models
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-pill" href="javascript:void(0)" onclick="switchAdminTab('tab-knowledge')" id="nav-btn-knowledge">
+                            <i class="fa-solid fa-book-bookmark me-1.5 text-warning"></i>Knowledge CMS
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-pill" href="javascript:void(0)" onclick="switchAdminTab('tab-quiz')" id="nav-btn-quiz">
+                            <i class="fa-solid fa-vial-circle-check me-1.5 text-success"></i>Question Studio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-pill" href="javascript:void(0)" onclick="switchAdminTab('tab-students')" id="nav-btn-students">
+                            <i class="fa-solid fa-users me-1.5 text-secondary"></i>Students DNA
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Right Action Cluster -->
+                <div class="d-flex align-items-center gap-2 mt-2 mt-xl-0">
+                    <!-- Port Status Indicator -->
+                    <span class="badge bg-secondary-subtle text-light border border-secondary px-2.5 py-1 d-none d-xxl-inline-flex align-items-center gap-1.5 rounded-pill" style="font-size: 0.72rem;">
+                        <i class="fa-solid fa-circle text-success" style="font-size: 0.45rem;"></i> Port 5001 &bull; Admin Live
+                    </span>
+
+                    <!-- Architecture Blueprint Evaluator Modal Trigger -->
+                    <button type="button" class="btn btn-outline-info btn-sm rounded-pill px-3 d-flex align-items-center gap-1.5 shadow-sm" data-bs-toggle="modal" data-bs-target="#architectureBlueprintModal" title="Faculty Architecture & Diagnostic Blueprint">
+                        <i class="fa-solid fa-microchip"></i>
+                        <span class="d-none d-md-inline small fw-semibold">NLP Architecture</span>
+                    </button>
+
+                    <!-- Student Portal Link -->
+                    <a href="{{ url_for('dashboard_view') }}" target="_blank" class="btn btn-primary btn-sm rounded-pill px-3 d-flex align-items-center gap-1.5 shadow-sm" title="Open Student Learning Portal (Port 5000)">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        <span class="d-none d-sm-inline small fw-semibold">Student Portal</span>
+                    </a>
+
+                    <!-- Theme Toggle Button -->
+                    <button type="button" class="btn tl-icon-btn rounded-circle d-flex align-items-center justify-content-center shadow-sm theme-toggle-btn" onclick="toggleTheme()" title="Switch to Dark / Light Mode" aria-label="Toggle theme">
+                        <i class="fa-solid fa-moon theme-toggle-icon"></i>
+                    </button>
+
+                    <!-- Formatted Instructor Profile Dropdown -->
+                    <div class="dropdown">
+                        <button class="btn tl-user-btn d-flex align-items-center gap-2 rounded-pill shadow-sm dropdown-toggle" type="button" id="adminUserDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="tl-avatar-circle" style="background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%) !important;">
+                                A
+                            </div>
+                            <div class="d-none d-md-flex flex-column text-start lh-sm me-1">
+                                <span class="tl-user-name fw-semibold text-truncate" style="max-width: 130px;">{{ user_name or 'Course Instructor' }}</span>
+                                <span class="text-danger-emphasis small" style="font-size: 0.68rem; font-weight: 600;">Faculty Admin</span>
+                            </div>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-lg tl-dropdown-menu tl-user-dropdown" aria-labelledby="adminUserDropdown" style="min-width: 280px;">
+                            <li class="px-3 py-2.5 border-bottom border-secondary-subtle">
+                                <div class="d-flex align-items-center gap-2.5">
+                                    <div class="tl-avatar-circle tl-avatar-lg" style="background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%) !important;">
+                                        A
+                                    </div>
+                                    <div class="overflow-hidden">
+                                        <div class="fw-bold text-white text-truncate">{{ user_name or 'Lead Instructor' }}</div>
+                                        <div class="text-white-50 small text-truncate" style="font-size: 0.75rem;">{{ user_email or 'admin@gmail.com' }}</div>
+                                        <div class="d-flex align-items-center gap-1.5 mt-1">
+                                            <span class="badge bg-danger text-white fw-bold" style="font-size: 0.68rem;"><i class="fa-solid fa-shield-halved me-1"></i>ADMIN PRIVILEGES</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="pt-1">
+                                <a class="dropdown-item tl-dropdown-item" href="{{ url_for('dashboard_view') }}" target="_blank">
+                                    <div class="tl-dropdown-icon bg-primary-subtle text-primary"><i class="fa-solid fa-graduation-cap"></i></div>
+                                    <div>
+                                        <div class="fw-semibold">Student Learning Portal</div>
+                                        <small class="text-white-50" style="font-size: 0.72rem;">Open student interface (Port 5000)</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item tl-dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#architectureBlueprintModal">
+                                    <div class="tl-dropdown-icon bg-info-subtle text-info"><i class="fa-solid fa-microchip"></i></div>
+                                    <div>
+                                        <div class="fw-semibold">Architecture Blueprint</div>
+                                        <small class="text-white-50" style="font-size: 0.72rem;">NLP pipelines & mathematical rubric</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider border-secondary my-1"></li>
+                            <li>
+                                <a class="dropdown-item tl-dropdown-item text-danger" href="{{ url_for('auth.logout') }}">
+                                    <div class="tl-dropdown-icon bg-danger-subtle text-danger"><i class="fa-solid fa-right-from-bracket"></i></div>
+                                    <div>
+                                        <div class="fw-semibold text-danger">Sign Out</div>
+                                        <small class="text-white-50" style="font-size: 0.72rem;">Terminate admin session</small>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-4 my-auto">
+        <div class="d-flex flex-wrap align-items-center justify-content-between mb-4 gap-2">
+            <div>
+                <h3 class="fw-bold mb-1"><i class="fa-solid fa-chalkboard-user text-primary me-2"></i>Course Instructor & System Admin Portal</h3>
+                <p class="text-muted small mb-0">Manage institutional curriculum, author exam questions, monitor NLP query telemetry, and analyze cohort learning gaps.</p>
+            </div>
+            <a href="{{ url_for('dashboard_view') }}" class="btn btn-outline-primary"><i class="fa-solid fa-arrow-left me-1"></i>Back to Student Portal</a>
+        </div>
+
+        <!-- Admin Navigation Tabs -->
+        <ul class="nav nav-pills mb-4 bg-white p-2 rounded border shadow-sm" id="adminTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="tab-analytics" data-bs-toggle="pill" data-bs-target="#content-analytics" type="button" role="tab"><i class="fa-solid fa-chart-pie me-2"></i>Cohort Analytics</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-blindspots" data-bs-toggle="pill" data-bs-target="#content-blindspots" type="button" role="tab" onclick="loadBlindSpots()"><i class="fa-solid fa-fire-flame-curved me-2 text-danger"></i>Curriculum Blind-Spots</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-rubric" data-bs-toggle="pill" data-bs-target="#content-rubric" type="button" role="tab" onclick="loadRubricConfig()"><i class="fa-solid fa-sliders me-2 text-primary"></i>Rubric & Hyperparameters</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-knowledge" data-bs-toggle="pill" data-bs-target="#content-knowledge" type="button" role="tab"><i class="fa-solid fa-book-bookmark me-2"></i>Knowledge Base CMS</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-quiz" data-bs-toggle="pill" data-bs-target="#content-quiz" type="button" role="tab"><i class="fa-solid fa-vial-circle-check me-2"></i>Quiz Question Studio</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-students" data-bs-toggle="pill" data-bs-target="#content-students" type="button" role="tab" onclick="loadStudents()"><i class="fa-solid fa-users me-2"></i>Enrolled Students & DNA</button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="adminTabsContent">
+            <!-- TAB 1: COHORT ANALYTICS & TELEMETRY -->
+            <div class="tab-pane fade show active" id="content-analytics" role="tabpanel">
+                <!-- Metrics Row -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-3">
+                        <div class="card admin-card p-3 bg-white">
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon bg-primary-subtle text-primary me-3"><i class="fa-solid fa-users"></i></div>
+                                <div>
+                                    <div class="text-muted small">Enrolled Students</div>
+                                    <h4 class="fw-bold mb-0" id="adm-metric-students">0</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card admin-card p-3 bg-white">
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon bg-info-subtle text-info me-3"><i class="fa-solid fa-comments"></i></div>
+                                <div>
+                                    <div class="text-muted small">NLP Queries Handled</div>
+                                    <h4 class="fw-bold mb-0" id="adm-metric-questions">0</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card admin-card p-3 bg-white">
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon bg-success-subtle text-success me-3"><i class="fa-solid fa-vial"></i></div>
+                                <div>
+                                    <div class="text-muted small">Quizzes Attempted</div>
+                                    <h4 class="fw-bold mb-0" id="adm-metric-quizzes">0</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card admin-card p-3 bg-white">
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon bg-warning-subtle text-warning me-3"><i class="fa-solid fa-award"></i></div>
+                                <div>
+                                    <div class="text-muted small">Cohort Avg Score</div>
+                                    <h4 class="fw-bold mb-0" id="adm-metric-score">0%</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts & Learning Gap Row -->
+                <div class="row g-3 mb-4">
+                    <div class="col-lg-6">
+                        <div class="card admin-card p-4 bg-white h-100">
+                            <h5 class="fw-bold mb-3"><i class="fa-solid fa-pie-chart me-2 text-primary"></i>Student Intent Distribution (NLP Telemetry)</h5>
+                            <canvas id="intentChart" height="220"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card admin-card p-4 bg-white h-100">
+                            <h5 class="fw-bold mb-2"><i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>Cohort Learning Gaps & Weak Topics</h5>
+                            <p class="small text-muted mb-3">Topics where students scored lowest on automated short answer and MCQ evaluations:</p>
+                            <div id="cohortGapsContainer">
+                                <div class="text-muted small">Analyzing cohort topic trends...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Platform Activity Stream -->
+                <div class="card admin-card p-4 bg-white mb-4">
+                    <h5 class="fw-bold mb-3"><i class="fa-solid fa-clock-rotate-left me-2 text-secondary"></i>Live Student Interaction Stream</h5>
+                    <div class="table-responsive">
+                        <table class="table table-sm align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Activity Type</th>
+                                    <th>Content / Details</th>
+                                    <th>Topic Domain</th>
+                                    <th>Timestamp</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admRecentActivityBody">
+                                <tr><td colspan="4" class="text-muted small text-center">Loading recent activity...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: CURRICULUM BLIND-SPOTS & MISCONCEPTION HEATMAP -->
+            <div class="tab-pane fade" id="content-blindspots" role="tabpanel">
+                <!-- Summary Metrics Row -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-3">
+                        <div class="card admin-card p-3 bg-white border-start border-danger border-4">
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon bg-danger-subtle text-danger me-3"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                                <div>
+                                    <div class="text-muted small">Critical Blind Spots</div>
+                                    <h4 class="fw-bold text-danger mb-0" id="bs-metric-critical">0</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card admin-card p-3 bg-white border-start border-warning border-4">
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon bg-warning-subtle text-warning me-3"><i class="fa-solid fa-cloud-fog"></i></div>
+                                <div>
+                                    <div class="text-muted small">Moderate Confusion</div>
+                                    <h4 class="fw-bold text-warning mb-0" id="bs-metric-moderate">0</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card admin-card p-3 bg-white border-start border-success border-4">
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon bg-success-subtle text-success me-3"><i class="fa-solid fa-circle-check"></i></div>
+                                <div>
+                                    <div class="text-muted small">Mastered Topics</div>
+                                    <h4 class="fw-bold text-success mb-0" id="bs-metric-mastered">0</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card admin-card p-3 bg-white border-start border-primary border-4">
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon bg-primary-subtle text-primary me-3"><i class="fa-solid fa-chart-line"></i></div>
+                                <div>
+                                    <div class="text-muted small">Topics Monitored</div>
+                                    <h4 class="fw-bold text-primary mb-0" id="bs-metric-total">0</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Misconception Clusters Row -->
+                <div class="card admin-card p-4 bg-white mb-4">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div>
+                            <h5 class="fw-bold mb-1"><i class="fa-solid fa-brain text-danger me-2"></i>Classroom Misconception Clusters</h5>
+                            <p class="small text-muted mb-0">Automated NLP clustering of recurring confusion patterns detected across student questions, quiz errors, and oral vivas.</p>
+                        </div>
+                        <button class="btn btn-sm btn-outline-secondary" onclick="loadBlindSpots()"><i class="fa-solid fa-rotate me-1"></i>Re-scan Cohort</button>
+                    </div>
+                    <div class="row g-3" id="misconceptionClustersContainer">
+                        <div class="text-muted small py-3">Scanning student misconceptions...</div>
+                    </div>
+                </div>
+
+                <!-- Cohort Topic Heatmap Table -->
+                <div class="card admin-card p-4 bg-white mb-4">
+                    <h5 class="fw-bold mb-1"><i class="fa-solid fa-fire-flame-curved text-warning me-2"></i>Curriculum Confusion Heatmap</h5>
+                    <p class="small text-muted mb-3">Topics sorted by Priority Confusion Index (high student inquiry frequency combined with low cohort accuracy).</p>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light small">
+                                <tr>
+                                    <th>Curriculum Topic</th>
+                                    <th>Subject Domain</th>
+                                    <th>Cohort Accuracy</th>
+                                    <th>Student Inquiries</th>
+                                    <th>Confusion Priority Index</th>
+                                    <th>Diagnostic Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="blindSpotsTableBody">
+                                <tr><td colspan="6" class="text-muted small text-center">Loading topic heatmap...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 5-Minute Lecture Interventions -->
+                <div class="card admin-card p-4 bg-white mb-4">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <div class="bg-primary text-white rounded p-2 d-inline-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-0">Recommended 5-Minute Lecture Interventions</h5>
+                            <small class="text-muted">Targeted, high-leverage micro-teaching blueprints to deploy in your next live class.</small>
+                        </div>
+                    </div>
+                    <div class="row g-3" id="lectureInterventionsContainer">
+                        <!-- Interventions injected dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: RUBRIC & HYPERPARAMETER TUNING STUDIO -->
+            <div class="tab-pane fade" id="content-rubric" role="tabpanel">
+                <div class="row g-4">
+                    <!-- Left: Hyperparameters Control Panel -->
+                    <div class="col-lg-6">
+                        <div class="card admin-card p-4 bg-white h-100">
+                            <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-3">
+                                <div>
+                                    <h5 class="fw-bold mb-1"><i class="fa-solid fa-sliders text-primary me-2"></i>NLP Evaluation Weights & Thresholds</h5>
+                                    <small class="text-muted">Control the mathematical weights applied across all student short-answer and viva evaluations.</small>
+                                </div>
+                            </div>
+
+                            <form id="rubricConfigForm">
+                                <!-- Weights Slider -->
+                                <div class="p-3 bg-light rounded-3 border mb-3">
+                                    <label class="form-label small fw-bold text-dark d-flex justify-content-between mb-1">
+                                        <span>Dense Semantic Vector Weight:</span>
+                                        <span class="text-primary fw-bold" id="labelSemanticWeight">60%</span>
+                                    </label>
+                                    <input type="range" class="form-range" id="inputSemanticWeight" min="0.10" max="0.90" step="0.05" value="0.60" oninput="syncWeights('semantic')">
+                                    
+                                    <label class="form-label small fw-bold text-dark d-flex justify-content-between mt-2 mb-1">
+                                        <span>Lemmatized Keyword Coverage Weight:</span>
+                                        <span class="text-warning-emphasis fw-bold" id="labelKeywordWeight">40%</span>
+                                    </label>
+                                    <input type="range" class="form-range" id="inputKeywordWeight" min="0.10" max="0.90" step="0.05" value="0.40" oninput="syncWeights('keyword')">
+                                    <small class="text-muted" style="font-size: 0.75rem;"><i class="fa-solid fa-info-circle me-1"></i>Weights are normalized to sum to 100%.</small>
+                                </div>
+
+                                <!-- Thresholds -->
+                                <div class="row g-2 mb-3">
+                                    <div class="col-6">
+                                        <label class="form-label small fw-semibold">Pass Threshold (%)</label>
+                                        <input type="number" class="form-control form-control-sm" id="inputPassThreshold" min="30" max="80" value="55">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label small fw-semibold">Distinction Threshold (%)</label>
+                                        <input type="number" class="form-control form-control-sm" id="inputDistinctionThreshold" min="70" max="95" value="80">
+                                    </div>
+                                </div>
+
+                                <!-- Socratic Persona -->
+                                <div class="mb-3">
+                                    <label class="form-label small fw-semibold">Examiner Socratic Toughness</label>
+                                    <select class="form-select form-select-sm" id="selectExaminerPersona">
+                                        <option value="balanced">👨‍🏫 University Lecturer (Balanced)</option>
+                                        <option value="strict">🎓 PhD Defense Panelist (Strict & Rigorous)</option>
+                                        <option value="mentor">🤝 Encouraging Teaching Assistant (Guided)</option>
+                                    </select>
+                                </div>
+
+                                <!-- Bonuses & Penalties -->
+                                <div class="row g-2 mb-4">
+                                    <div class="col-6">
+                                        <label class="form-label small fw-semibold">Circularity Penalty (%)</label>
+                                        <input type="number" class="form-control form-control-sm" id="inputCircularityPenalty" min="0" max="50" value="25">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label small fw-semibold">Analogy Bonus (%)</label>
+                                        <input type="number" class="form-control form-control-sm" id="inputAnalogyBonus" min="0" max="40" value="20">
+                                    </div>
+                                </div>
+
+                                <div id="rubricSaveStatus" class="mb-2"></div>
+                                <button type="button" class="btn btn-primary btn-sm w-100 fw-bold" onclick="saveRubricConfig()"><i class="fa-solid fa-cloud-arrow-up me-2"></i>Save & Deploy Hyperparameters Globally</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Right: Live Grading Simulation Sandbox -->
+                    <div class="col-lg-6">
+                        <div class="card admin-card p-4 bg-white h-100 d-flex flex-column">
+                            <h5 class="fw-bold mb-1"><i class="fa-solid fa-flask-vial text-success me-2"></i>Live Grading Simulation Sandbox</h5>
+                            <p class="small text-muted mb-3">Test student responses in real time against your configured weights to inspect mathematical step-by-step scoring traces.</p>
+
+                            <div class="mb-2">
+                                <label class="form-label small fw-semibold">Canonical / Model Answer</label>
+                                <textarea class="form-control form-control-sm font-monospace" id="simExpected" rows="2">Tokenization is the foundational process of dividing raw text into atomic tokens such as words, subwords, or punctuation.</textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label small fw-semibold">Sample Student Answer</label>
+                                <textarea class="form-control form-control-sm font-monospace" id="simStudent" rows="2">Tokenization cuts sentences into smaller pieces like words so the machine can compute embeddings.</textarea>
+                            </div>
+
+                            <button type="button" class="btn btn-outline-success btn-sm w-100 fw-bold mb-3" onclick="runRubricSimulation()"><i class="fa-solid fa-play me-2"></i>Simulate Real-Time Evaluation</button>
+
+                            <!-- Simulation Output Card -->
+                            <div class="p-3 bg-light rounded-3 border flex-grow-1" id="simOutputBox">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <span class="small fw-bold text-dark">Simulation Result:</span>
+                                    <span class="badge bg-secondary" id="simVerdictBadge">Awaiting Run</span>
+                                </div>
+                                <div class="mb-2">
+                                    <div class="d-flex justify-content-between small fw-bold mb-1">
+                                        <span class="text-muted">Simulated Score</span>
+                                        <span id="simScoreLabel">0%</span>
+                                    </div>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar bg-success" id="simScoreBar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <label class="small fw-bold text-muted d-block mb-1">Mathematical Formula Step Trace:</label>
+                                <pre class="p-2 bg-dark text-info rounded font-monospace small mb-0" id="simTracePre" style="font-size: 0.75rem; white-space: pre-wrap;">Click 'Simulate Real-Time Evaluation' above to view the dense vector cosine similarity and keyword coverage weight multiplication steps.</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: KNOWLEDGE BASE CMS -->
+            <div class="tab-pane fade" id="content-knowledge" role="tabpanel">
+                <div class="row g-4">
+                    <!-- Add Concept Form -->
+                    <div class="col-lg-5">
+                        <div class="card admin-card p-4 bg-white h-100">
+                            <h5 class="fw-bold mb-2"><i class="fa-solid fa-file-circle-plus text-primary me-2"></i>Publish New Curriculum Concept</h5>
+                            <p class="small text-muted mb-3">Add a new topic. The backend will automatically compute dense vector embeddings in real time.</p>
+
+                            <form id="addConceptForm">
+                                <div class="mb-2">
+                                    <label class="form-label small fw-semibold">Subject Domain</label>
+                                    <select class="form-select form-select-sm" id="conceptSubject" required>
+                                        <option value="Natural Language Processing">Natural Language Processing</option>
+                                        <option value="Machine Learning">Machine Learning</option>
+                                        <option value="Database Management Systems">Database Management Systems</option>
+                                        <option value="Python Programming">Python Programming</option>
+                                    </select>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label small fw-semibold">Topic Key Name</label>
+                                    <input type="text" id="conceptTopic" class="form-control form-control-sm" placeholder="e.g. Attention Mechanism" required>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label small fw-semibold">Full Display Title</label>
+                                    <input type="text" id="conceptTitle" class="form-control form-control-sm" placeholder="e.g. Multi-Head Self-Attention in Transformers" required>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label small fw-semibold">Canonical Definition</label>
+                                    <textarea id="conceptDef" class="form-control form-control-sm" rows="2" placeholder="Clear, concise core definition..." required></textarea>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label small fw-semibold">In-Depth Pedagogical Explanation</label>
+                                    <textarea id="conceptExp" class="form-control form-control-sm" rows="3" placeholder="Detailed theoretical explanation with working mechanics..." required></textarea>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label small fw-semibold">Practical Example / Code</label>
+                                    <textarea id="conceptEx" class="form-control form-control-sm" rows="2" placeholder="Code sample or real-world practical example..."></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-semibold">Key Points (One per line)</label>
+                                    <textarea id="conceptPoints" class="form-control form-control-sm" rows="2" placeholder="Key takeaway 1&#10;Key takeaway 2"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-sm w-100 fw-semibold" id="btnPublishConcept"><i class="fa-solid fa-cloud-arrow-up me-2"></i>Publish & Re-Index Vector Store</button>
+                            </form>
+                            <div id="conceptPublishStatus" class="mt-2"></div>
+                        </div>
+                    </div>
+
+                    <!-- Knowledge Base Table -->
+                    <div class="col-lg-7">
+                        <div class="card admin-card p-4 bg-white h-100 d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="fw-bold mb-0"><i class="fa-solid fa-list-check text-success me-2"></i>Indexed Curriculum Concepts</h5>
+                                <span class="badge bg-primary" id="kbCountBadge">0 Concepts</span>
+                            </div>
+                            <div class="table-responsive flex-grow-1" style="max-height: 520px;">
+                                <table class="table table-sm align-middle">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Topic / Title</th>
+                                            <th>Subject</th>
+                                            <th>Definition Preview</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="kbTableBody">
+                                        <tr><td colspan="4" class="text-muted small text-center">Loading knowledge base...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: QUIZ QUESTION STUDIO -->
+            <div class="tab-pane fade" id="content-quiz" role="tabpanel">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="card admin-card p-4 bg-white">
+                            <h5 class="fw-bold mb-2"><i class="fa-solid fa-pen-to-square text-primary me-2"></i>Author New Practice Quiz Question</h5>
+                            <p class="small text-muted mb-4">Add new MCQs, True/False, or Short Answer questions. Short answers will be graded by the NLP composite semantic evaluation engine.</p>
+
+                            <form id="addQuizQuestionForm">
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-semibold">Subject</label>
+                                        <select class="form-select" id="qqSubject" required>
+                                            <option value="Natural Language Processing">Natural Language Processing</option>
+                                            <option value="Machine Learning">Machine Learning</option>
+                                            <option value="Database Management Systems">Database Management Systems</option>
+                                            <option value="Python Programming">Python Programming</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-semibold">Topic</label>
+                                        <input type="text" id="qqTopic" class="form-control" placeholder="e.g. Tokenization or Overfitting" required>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label small fw-semibold">Question Type</label>
+                                    <select class="form-select" id="qqType" onchange="toggleOptionFields(this.value)">
+                                        <option value="mcq">Multiple Choice Question (MCQ)</option>
+                                        <option value="true_false">True / False</option>
+                                        <option value="short_answer">Short Answer (Automated NLP Vector Grading)</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label small fw-semibold">Question Prompt</label>
+                                    <textarea id="qqText" class="form-control" rows="2" placeholder="Type the question clearly..." required></textarea>
+                                </div>
+
+                                <!-- MCQ Options Box -->
+                                <div class="mb-3" id="mcqOptionsBox">
+                                    <label class="form-label small fw-semibold">Options (Enter 4 comma-separated options)</label>
+                                    <input type="text" id="qqOptions" class="form-control" placeholder="Option A, Option B, Option C, Option D">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label small fw-semibold">Correct / Canonical Answer</label>
+                                    <textarea id="qqCorrect" class="form-control" rows="2" placeholder="For MCQs: Exact matching option text. For Short Answer: The ideal reference answer for semantic similarity grading..." required></textarea>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label small fw-semibold">Feedback & Educational Explanation</label>
+                                    <input type="text" id="qqExplanation" class="form-control" placeholder="Explanation displayed after student submits...">
+                                </div>
+
+                                <button type="submit" class="btn btn-success fw-semibold"><i class="fa-solid fa-plus me-2"></i>Add Question to Question Bank</button>
+                            </form>
+                            <div id="qqStatus" class="mt-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: ENROLLED STUDENTS ROSTER -->
+            <div class="tab-pane fade" id="content-students" role="tabpanel">
+                <div class="card admin-card p-4 bg-white">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold mb-0"><i class="fa-solid fa-users text-primary me-2"></i>Enrolled Student Directory & Performance</h5>
+                        <div class="d-flex gap-2">
+                            <a href="/api/admin/students/export-csv" class="btn btn-sm btn-success rounded-pill px-3 shadow-sm fw-bold">
+                                <i class="fa-solid fa-file-excel me-1.5"></i>Export Cohort Gradebook (.CSV)
+                            </a>
+                            <button class="btn btn-sm btn-outline-secondary rounded-pill px-3" onclick="loadStudents()">
+                                <i class="fa-solid fa-rotate me-1"></i>Refresh
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Student Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Gamification Level</th>
+                                    <th>XP Points</th>
+                                    <th>Questions Asked</th>
+                                    <th>Quizzes Taken</th>
+                                    <th>Avg Accuracy</th>
+                                    <th>Login Activity</th>
+                                    <th>Cognitive DNA</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentsTableBody">
+                                <tr><td colspan="10" class="text-muted small text-center">Loading student records...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Student Cognitive DNA & Viva Defense Inspector Modal -->
+        <div class="modal fade" id="studentDnaModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content border-0 shadow-lg" style="border-radius: 20px;">
+                    <!-- Modal Header -->
+                    <div class="p-4 text-white position-relative" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
+                        <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"></button>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center shadow" style="width: 64px; height: 64px; font-size: 1.75rem; border: 3px solid rgba(255,255,255,0.2);">
+                                <i class="fa-solid fa-dna"></i>
+                            </div>
+                            <div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <h4 class="fw-bold mb-0 text-white" id="dnaStudentName">Student Name</h4>
+                                    <span class="badge bg-success-subtle text-success border border-success" id="dnaAcademicStanding">Good Standing</span>
+                                </div>
+                                <div class="text-white-50 small mt-1"><i class="fa-solid fa-envelope me-1"></i><span id="dnaStudentEmail">email@example.com</span> &bull; <i class="fa-solid fa-calendar me-1"></i>Enrolled: <span id="dnaJoinedDate">2026-08-15</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Body -->
+                    <div class="modal-body p-4 bg-light">
+                        <!-- Key Cognitive Metric Pills -->
+                        <div class="row g-2 mb-4">
+                            <div class="col-3">
+                                <div class="p-3 bg-white rounded-3 border text-center shadow-sm">
+                                    <small class="text-muted d-block">Overall Accuracy</small>
+                                    <h5 class="fw-bold text-success mb-0" id="dnaMetricAccuracy">0%</h5>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="p-3 bg-white rounded-3 border text-center shadow-sm">
+                                    <small class="text-muted d-block">Viva Readiness</small>
+                                    <h5 class="fw-bold text-primary mb-0" id="dnaMetricViva">0%</h5>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="p-3 bg-white rounded-3 border text-center shadow-sm">
+                                    <small class="text-muted d-block">Feynman Intuition</small>
+                                    <h5 class="fw-bold text-warning-emphasis mb-0" id="dnaMetricFeynman">0%</h5>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="p-3 bg-white rounded-3 border text-center shadow-sm">
+                                    <small class="text-muted d-block">Total Interactions</small>
+                                    <h5 class="fw-bold text-dark mb-0" id="dnaMetricInteractions">0</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Domain Mastery Progress -->
+                        <div class="card border-0 shadow-sm p-3 bg-white mb-4" style="border-radius: 14px;">
+                            <h6 class="fw-bold mb-3"><i class="fa-solid fa-layer-group text-primary me-2"></i>Subject Domain Competency Matrix</h6>
+                            <div id="dnaDomainMasteryContainer">
+                                <!-- Domain bars injected dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Oral Viva Defense Dossier -->
+                        <div class="card border-0 shadow-sm p-3 bg-white mb-4" style="border-radius: 14px;">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <h6 class="fw-bold mb-0"><i class="fa-solid fa-microphone text-danger me-2"></i>Oral Defense & Viva Dossier</h6>
+                                <span class="badge bg-danger-subtle text-danger" id="dnaVivaVerdictBadge">Passed Defense</span>
+                            </div>
+                            <div class="row g-2 mb-2 text-center small">
+                                <div class="col-4 p-2 bg-light rounded border">Keyword Hit Rate: <strong id="dnaVivaKeywordRate" class="text-primary">0%</strong></div>
+                                <div class="col-4 p-2 bg-light rounded border">Reasoning Depth: <strong id="dnaVivaDepthScore" class="text-success">0%</strong></div>
+                                <div class="col-4 p-2 bg-light rounded border">Defenses Attempted: <strong id="dnaVivaAttempts" class="text-dark">0</strong></div>
+                            </div>
+                            <div class="p-3 bg-light rounded border small">
+                                <span class="text-muted fw-bold d-block mb-1">Examiner Socratic Evaluation Note:</span>
+                                <p class="mb-0 text-dark fst-italic" id="dnaVivaExaminerNotes">Loading notes...</p>
+                            </div>
+                        </div>
+
+                        <!-- Ebbinghaus Memory Retention Decay Curve -->
+                        <div class="card border-0 shadow-sm p-3 bg-white mb-3" style="border-radius: 14px;">
+                            <h6 class="fw-bold mb-2"><i class="fa-solid fa-clock-rotate-left text-info me-2"></i>Ebbinghaus Memory Retention Status (SM-2)</h6>
+                            <p class="small text-muted mb-3">Predicted long-term synaptic retention per curriculum topic based on review intervals:</p>
+                            <div class="table-responsive">
+                                <table class="table table-sm align-middle mb-0">
+                                    <thead class="table-light small">
+                                        <tr>
+                                            <th>Topic</th>
+                                            <th>Estimated Retention</th>
+                                            <th>Memory Status</th>
+                                            <th>Days Since Review</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dnaMemoryDecayBody" class="small">
+                                        <!-- Injected dynamically -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <div class="modal-footer bg-white border-top">
+                        <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary btn-sm fw-bold" onclick="printStudentDossier()"><i class="fa-solid fa-print me-1"></i>Print Official Accreditation Dossier</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
+        <div class="container">
+            TalentLens &copy; 2026 — Instructor & Curriculum Administration
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let intentChartInstance = null;
+
+        function toggleOptionFields(type) {
+            const box = document.getElementById("mcqOptionsBox");
+            box.style.display = (type === "mcq") ? "block" : "none";
+        }
+
+        function loadAdminDashboard() {
+            fetch("/api/admin/dashboard")
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("adm-metric-students").innerText = data.metrics.total_students;
+                    document.getElementById("adm-metric-questions").innerText = data.metrics.total_questions_processed;
+                    document.getElementById("adm-metric-quizzes").innerText = data.metrics.total_quizzes_completed;
+                    document.getElementById("adm-metric-score").innerText = data.metrics.cohort_average_score + "%";
+
+                    // Render Intent Doughnut Chart
+                    const ctx = document.getElementById("intentChart").getContext("2d");
+                    if (intentChartInstance) intentChartInstance.destroy();
+
+                    intentChartInstance = new Chart(ctx, {
+                        type: "doughnut",
+                        data: {
+                            labels: data.intent_distribution.labels,
+                            datasets: [{
+                                data: data.intent_distribution.counts,
+                                backgroundColor: [
+                                    "#3b82f6", "#10b981", "#f59e0b", "#8b5cf6", "#ec4899", "#06b6d4"
+                                ]
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: { position: "bottom" }
+                            }
+                        }
+                    });
+
+                    // Render Cohort Learning Gaps
+                    const gapsDiv = document.getElementById("cohortGapsContainer");
+                    gapsDiv.innerHTML = "";
+                    const weakest = data.topic_analytics.weakest_topics;
+                    if (weakest && weakest.length > 0) {
+                        weakest.forEach(w => {
+                            gapsDiv.innerHTML += `
+                                <div class="p-3 bg-light rounded mb-2 border-start border-4 border-danger d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="fw-bold mb-1">${w.topic}</h6>
+                                        <small class="text-muted">Cohort average score is below threshold</small>
+                                    </div>
+                                    <span class="badge bg-danger p-2">${w.accuracy}% Avg</span>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        gapsDiv.innerHTML = '<div class="alert alert-success py-2 small"><i class="fa-solid fa-circle-check me-1"></i>No severe cohort learning gaps detected. All studied topics averaging above 65%!</div>';
+                    }
+
+                    // Render Recent Platform Activity
+                    const actBody = document.getElementById("admRecentActivityBody");
+                    actBody.innerHTML = "";
+                    if (data.recent_activity && data.recent_activity.length > 0) {
+                        data.recent_activity.forEach(a => {
+                            const badge = a.type === 'question' 
+                                ? '<span class="badge bg-primary-subtle text-primary"><i class="fa-solid fa-comment me-1"></i>Question</span>'
+                                : '<span class="badge bg-success-subtle text-success"><i class="fa-solid fa-vial me-1"></i>Quiz Score: ' + a.score + '%</span>';
+
+                            actBody.innerHTML += `
+                                <tr>
+                                    <td>${badge}</td>
+                                    <td class="small fw-semibold">${a.text}</td>
+                                    <td><span class="badge bg-light text-dark border">${a.topic}</span></td>
+                                    <td class="small text-muted">${a.timestamp}</td>
+                                </tr>
+                            `;
+                        });
+                    } else {
+                        actBody.innerHTML = '<tr><td colspan="4" class="text-muted small text-center">No activity recorded yet.</td></tr>';
+                    }
+                });
+        }
+
+        function loadKnowledgeBase() {
+            fetch("/api/admin/knowledge/list")
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("kbCountBadge").innerText = `${data.total} Concepts`;
+                    const tbody = document.getElementById("kbTableBody");
+                    tbody.innerHTML = "";
+                    data.concepts.forEach(c => {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td>
+                                    <strong class="small">${c.title || c.topic}</strong>
+                                    <div class="text-muted" style="font-size: 0.72rem;">${c.topic}</div>
+                                </td>
+                                <td><span class="badge bg-info-subtle text-info border">${c.subject}</span></td>
+                                <td class="small text-muted" style="font-size: 0.8rem; max-width: 250px;">${c.definition ? c.definition.substring(0, 80) + '...' : ''}</td>
+                                <td>
+                                    <button class="btn btn-outline-danger btn-sm py-0 px-2" onclick="deleteConcept('${c.id || c.topic}')" title="Delete concept"><i class="fa-solid fa-trash-can"></i></button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                });
+        }
+
+        function deleteConcept(conceptId) {
+            if (confirm(`Delete concept '${conceptId}' and re-build vector embeddings?`)) {
+                fetch(`/api/admin/knowledge/delete/${encodeURIComponent(conceptId)}`, { method: 'POST' })
+                    .then(res => res.json())
+                    .then(data => {
+                        loadKnowledgeBase();
+                    });
+            }
+        }
+
+        function loadStudents() {
+            fetch("/api/admin/students")
+                .then(res => res.json())
+                .then(data => {
+                    const tbody = document.getElementById("studentsTableBody");
+                    tbody.innerHTML = "";
+                    if (!data.students || data.students.length === 0) {
+                        tbody.innerHTML = `<tr><td colspan="10" class="text-muted text-center py-4">No enrolled students found.</td></tr>`;
+                        return;
+                    }
+                    data.students.forEach(s => {
+                        const scoreColor = s.average_score >= 85 ? 'success' : (s.average_score >= 70 ? 'primary' : 'warning');
+                        const initials = s.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                        tbody.innerHTML += `
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="rounded-circle bg-primary-subtle text-primary fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; font-size: 0.75rem;">
+                                            ${initials}
+                                        </div>
+                                        <span class="fw-bold text-dark small">${s.name}</span>
+                                    </div>
+                                </td>
+                                <td class="small text-muted font-monospace">${s.email}</td>
+                                <td><span class="badge bg-primary-subtle text-primary border"><i class="fa-solid fa-graduation-cap me-1"></i>Student</span></td>
+                                <td><span class="badge bg-warning text-dark"><i class="fa-solid fa-trophy me-1"></i>Level ${s.level}</span></td>
+                                <td class="fw-bold small text-primary">${s.total_xp.toLocaleString()} XP</td>
+                                <td class="small"><span class="badge bg-light text-dark border">${s.questions_asked}</span></td>
+                                <td class="small"><span class="badge bg-light text-dark border">${s.quizzes_completed}</span></td>
+                                <td><span class="badge bg-${scoreColor}-subtle text-${scoreColor} border">${s.average_score}%</span></td>
+                                <td class="small">
+                                    ${s.last_active && s.last_active.includes('Recent') 
+                                        ? `<span class="badge bg-success-subtle text-success border"><i class="fa-solid fa-circle text-success me-1" style="font-size:0.5rem"></i>Active Recently</span>`
+                                        : `<span class="badge bg-secondary-subtle text-secondary border"><i class="fa-solid fa-clock-rotate-left me-1"></i>${s.last_active || 'Earlier Session'}</span>`}
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary rounded-pill px-3 py-1 shadow-sm" onclick="inspectStudentDNA('${s.id}')" title="Inspect Student Cognitive DNA">
+                                        <i class="fa-solid fa-dna me-1"></i>Inspect DNA
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                });
+        }
+
+        // ==========================================
+        // FEATURE 1: CURRICULUM BLIND-SPOTS
+        // ==========================================
+        function loadBlindSpots() {
+            fetch("/api/admin/blind-spots")
+                .then(res => res.json())
+                .then(data => {
+                    // Summary metrics
+                    document.getElementById("bs-metric-critical").textContent = data.summary.critical_blind_spots;
+                    document.getElementById("bs-metric-moderate").textContent = data.summary.moderate_confusion;
+                    document.getElementById("bs-metric-mastered").textContent = data.summary.mastered_topics;
+                    document.getElementById("bs-metric-total").textContent = data.summary.total_topics_analyzed;
+
+                    // Misconception Clusters
+                    const miscContainer = document.getElementById("misconceptionClustersContainer");
+                    miscContainer.innerHTML = "";
+                    (data.misconception_clusters || []).forEach(m => {
+                        miscContainer.innerHTML += `
+                            <div class="col-md-6">
+                                <div class="p-3 rounded-3 border bg-light h-100 d-flex flex-column justify-content-between shadow-sm">
+                                    <div>
+                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                            <span class="badge bg-${m.urgency === 'High' ? 'danger' : 'warning'} text-white">${m.urgency} Urgency</span>
+                                            <small class="text-muted fw-bold">${m.subject}</small>
+                                        </div>
+                                        <h6 class="fw-bold text-dark mb-1">${m.title}</h6>
+                                        <div class="d-flex align-items-center gap-2 mb-2">
+                                            <div class="progress flex-grow-1" style="height: 6px;">
+                                                <div class="progress-bar bg-danger" style="width: ${m.affected_percentage}%"></div>
+                                            </div>
+                                            <span class="small fw-bold text-danger">${m.affected_percentage}% of Class Affected</span>
+                                        </div>
+                                        <p class="small text-muted mb-2"><strong>Core Misconception:</strong> ${m.core_issue}</p>
+                                    </div>
+                                    <div class="p-2 bg-white rounded border small mt-2">
+                                        <strong class="text-primary"><i class="fa-solid fa-lightbulb me-1"></i>Pedagogical Remedy:</strong> ${m.remedy}
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    // Heatmap Table
+                    const tbody = document.getElementById("blindSpotsTableBody");
+                    tbody.innerHTML = "";
+                    (data.heatmap || []).forEach(h => {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td class="fw-bold text-dark">${h.topic}</td>
+                                <td><span class="badge bg-secondary-subtle text-secondary border">${h.subject}</span></td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="progress flex-grow-1" style="width: 80px; height: 6px;">
+                                            <div class="progress-bar bg-${h.status_color}" style="width: ${h.accuracy}%"></div>
+                                        </div>
+                                        <span class="small fw-bold">${h.accuracy}%</span>
+                                    </div>
+                                </td>
+                                <td><span class="badge bg-light text-dark border">${h.inquiry_count} Inquiries</span></td>
+                                <td><strong class="text-dark">${h.priority_index}</strong></td>
+                                <td><span class="badge bg-${h.status_color}">${h.status}</span></td>
+                            </tr>
+                        `;
+                    });
+
+                    // 5-Minute Lecture Interventions
+                    const lecContainer = document.getElementById("lectureInterventionsContainer");
+                    lecContainer.innerHTML = "";
+                    (data.lecture_interventions || []).forEach(it => {
+                        lecContainer.innerHTML += `
+                            <div class="col-md-4">
+                                <div class="p-3 rounded-3 border bg-light h-100 d-flex flex-column justify-content-between shadow-sm">
+                                    <div>
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="badge bg-primary">${it.duration_minutes} Min Blueprint</span>
+                                            <span class="badge bg-info-subtle text-info-emphasis border">${it.recommended_timing}</span>
+                                        </div>
+                                        <h6 class="fw-bold text-dark mb-1">${it.lecture_topic}</h6>
+                                        <p class="small text-muted mb-2">${it.target_misconception}</p>
+                                    </div>
+                                    <div class="p-2 bg-white rounded border small mt-2">
+                                        <strong>Suggested Board Demonstration:</strong><br>
+                                        <span class="text-muted font-monospace">${it.suggested_board_example}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                });
+        }
+
+        // ==========================================
+        // FEATURE 2: RUBRIC & HYPERPARAMETER TUNING
+        // ==========================================
+        function loadRubricConfig() {
+            fetch("/api/admin/rubric/config")
+                .then(res => res.json())
+                .then(data => {
+                    const cfg = data.config;
+                    document.getElementById("inputSemanticWeight").value = cfg.semantic_weight;
+                    document.getElementById("inputKeywordWeight").value = cfg.keyword_weight;
+                    document.getElementById("labelSemanticWeight").textContent = `${Math.round(cfg.semantic_weight * 100)}%`;
+                    document.getElementById("labelKeywordWeight").textContent = `${Math.round(cfg.keyword_weight * 100)}%`;
+                    document.getElementById("inputPassThreshold").value = cfg.pass_threshold;
+                    document.getElementById("inputDistinctionThreshold").value = cfg.distinction_threshold;
+                    document.getElementById("selectExaminerPersona").value = cfg.examiner_persona || "balanced";
+                    document.getElementById("inputCircularityPenalty").value = cfg.circularity_penalty || 25;
+                    document.getElementById("inputAnalogyBonus").value = cfg.analogy_bonus || 20;
+                });
+        }
+
+        function syncWeights(source) {
+            if (source === 'semantic') {
+                const sem = parseFloat(document.getElementById("inputSemanticWeight").value);
+                const kw = Math.round((1.0 - sem) * 100) / 100;
+                document.getElementById("inputKeywordWeight").value = kw;
+                document.getElementById("labelSemanticWeight").textContent = `${Math.round(sem * 100)}%`;
+                document.getElementById("labelKeywordWeight").textContent = `${Math.round(kw * 100)}%`;
+            } else {
+                const kw = parseFloat(document.getElementById("inputKeywordWeight").value);
+                const sem = Math.round((1.0 - kw) * 100) / 100;
+                document.getElementById("inputSemanticWeight").value = sem;
+                document.getElementById("labelSemanticWeight").textContent = `${Math.round(sem * 100)}%`;
+                document.getElementById("labelKeywordWeight").textContent = `${Math.round(kw * 100)}%`;
+            }
+        }
+
+        function saveRubricConfig() {
+            const payload = {
+                semantic_weight: parseFloat(document.getElementById("inputSemanticWeight").value),
+                keyword_weight: parseFloat(document.getElementById("inputKeywordWeight").value),
+                pass_threshold: parseFloat(document.getElementById("inputPassThreshold").value),
+                distinction_threshold: parseFloat(document.getElementById("inputDistinctionThreshold").value),
+                examiner_persona: document.getElementById("selectExaminerPersona").value,
+                circularity_penalty: parseFloat(document.getElementById("inputCircularityPenalty").value),
+                analogy_bonus: parseFloat(document.getElementById("inputAnalogyBonus").value)
+            };
+
+            const status = document.getElementById("rubricSaveStatus");
+            status.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Saving...`;
+
+            fetch("/api/admin/rubric/config", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                status.innerHTML = `<div class="alert alert-success py-2 small mb-0"><i class="fa-solid fa-circle-check me-1"></i>${data.message}</div>`;
+                setTimeout(() => status.innerHTML = "", 3000);
+            })
+            .catch(() => {
+                status.innerHTML = `<div class="alert alert-danger py-2 small mb-0">Error updating hyperparameters.</div>`;
+            });
+        }
+
+        function runRubricSimulation() {
+            const expected = document.getElementById("simExpected").value.trim();
+            const student = document.getElementById("simStudent").value.trim();
+            const customCfg = {
+                semantic_weight: parseFloat(document.getElementById("inputSemanticWeight").value),
+                keyword_weight: parseFloat(document.getElementById("inputKeywordWeight").value),
+                pass_threshold: parseFloat(document.getElementById("inputPassThreshold").value),
+                distinction_threshold: parseFloat(document.getElementById("inputDistinctionThreshold").value)
+            };
+
+            document.getElementById("simTracePre").textContent = "Running dense vector cosine similarity and keyword coverage...";
+
+            fetch("/api/admin/rubric/simulate", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    expected_answer: expected,
+                    student_answer: student,
+                    custom_config: customCfg
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                const badge = document.getElementById("simVerdictBadge");
+                badge.className = `badge bg-${data.status_color}`;
+                badge.textContent = data.status;
+
+                document.getElementById("simScoreLabel").textContent = `${data.final_score}%`;
+                const bar = document.getElementById("simScoreBar");
+                bar.style.width = `${data.final_score}%`;
+                bar.className = `progress-bar bg-${data.status_color}`;
+
+                document.getElementById("simTracePre").textContent = data.math_trace;
+            });
+        }
+
+        // ==========================================
+        // FEATURE 3: STUDENT COGNITIVE DNA
+        // ==========================================
+        function inspectStudentDNA(studentId) {
+            fetch(`/api/admin/student/${encodeURIComponent(studentId)}/cognitive-dna`)
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("dnaStudentName").textContent = data.name;
+                    document.getElementById("dnaStudentEmail").textContent = data.email;
+                    document.getElementById("dnaJoinedDate").textContent = data.joined_date;
+                    document.getElementById("dnaAcademicStanding").textContent = data.academic_standing;
+
+                    document.getElementById("dnaMetricAccuracy").textContent = `${data.overall_accuracy}%`;
+                    document.getElementById("dnaMetricViva").textContent = `${data.viva_metrics.average_viva_readiness}%`;
+                    document.getElementById("dnaMetricFeynman").textContent = `${data.feynman_metrics.average_simplicity_score}%`;
+                    document.getElementById("dnaMetricInteractions").textContent = data.total_questions_asked + data.total_quizzes_completed;
+
+                    // Domain Mastery
+                    const domContainer = document.getElementById("dnaDomainMasteryContainer");
+                    domContainer.innerHTML = "";
+                    Object.entries(data.domain_mastery).forEach(([subj, info]) => {
+                        domContainer.innerHTML += `
+                            <div class="mb-2">
+                                <div class="d-flex justify-content-between small fw-bold mb-1">
+                                    <span>${subj}</span>
+                                    <span class="text-primary">${info.accuracy}% (${info.status})</span>
+                                </div>
+                                <div class="progress" style="height: 8px;">
+                                    <div class="progress-bar bg-primary" style="width: ${info.accuracy}%"></div>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    // Viva Dossier
+                    document.getElementById("dnaVivaVerdictBadge").textContent = data.viva_metrics.latest_verdict;
+                    document.getElementById("dnaVivaKeywordRate").textContent = `${data.viva_metrics.keyword_hit_rate}%`;
+                    document.getElementById("dnaVivaDepthScore").textContent = `${data.viva_metrics.architectural_depth_score}%`;
+                    document.getElementById("dnaVivaAttempts").textContent = data.viva_metrics.total_defenses_attempted;
+                    document.getElementById("dnaVivaExaminerNotes").textContent = `"${data.viva_metrics.examiner_notes}"`;
+
+                    // Memory Decay Table
+                    const decayBody = document.getElementById("dnaMemoryDecayBody");
+                    decayBody.innerHTML = "";
+                    data.memory_decay.forEach(m => {
+                        decayBody.innerHTML += `
+                            <tr>
+                                <td class="fw-bold">${m.topic}</td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="progress flex-grow-1" style="height: 6px; width: 70px;">
+                                            <div class="progress-bar bg-${m.status_badge}" style="width: ${m.retention_percent}%"></div>
+                                        </div>
+                                        <span>${m.retention_percent}%</span>
+                                    </div>
+                                </td>
+                                <td><span class="badge bg-${m.status_badge}">${m.status}</span></td>
+                                <td class="text-muted">${m.days_since_review} days ago</td>
+                            </tr>
+                        `;
+                    });
+
+                    const modal = new bootstrap.Modal(document.getElementById("studentDnaModal"));
+                    modal.show();
+                });
+        }
+
+        function printStudentDossier() {
+            window.print();
+        }
+
+        // Add Concept Form Handler
+        document.getElementById("addConceptForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const btn = document.getElementById("btnPublishConcept");
+            const statusDiv = document.getElementById("conceptPublishStatus");
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin me-2"></i>Re-indexing Vector Embeddings...';
+
+            const payload = {
+                subject: document.getElementById("conceptSubject").value,
+                topic: document.getElementById("conceptTopic").value,
+                title: document.getElementById("conceptTitle").value,
+                definition: document.getElementById("conceptDef").value,
+                explanation: document.getElementById("conceptExp").value,
+                example: document.getElementById("conceptEx").value,
+                important_points: document.getElementById("conceptPoints").value
+            };
+
+            fetch("/api/admin/knowledge/add", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) {
+                    statusDiv.innerHTML = `<div class="alert alert-danger py-2 small">${data.error}</div>`;
+                } else {
+                    statusDiv.innerHTML = `<div class="alert alert-success py-2 small"><i class="fa-solid fa-check-circle me-1"></i>${data.message}</div>`;
+                    document.getElementById("addConceptForm").reset();
+                    loadKnowledgeBase();
+                }
+            })
+            .finally(() => {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up me-2"></i>Publish & Re-Index Vector Store';
+            });
+        });
+
+        // Add Quiz Question Form Handler
+        document.getElementById("addQuizQuestionForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const subject = document.getElementById("qqSubject").value;
+            const topic = document.getElementById("qqTopic").value;
+            const type = document.getElementById("qqType").value;
+            const text = document.getElementById("qqText").value;
+            const correct = document.getElementById("qqCorrect").value;
+            const explanation = document.getElementById("qqExplanation").value;
+            const optionsRaw = document.getElementById("qqOptions").value;
+
+            const options = optionsRaw ? optionsRaw.split(",").map(o => o.trim()).filter(Boolean) : [];
+
+            fetch("/api/admin/quiz/add-question", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    subject,
+                    topic,
+                    question: { type, question: text, correct_answer: correct, explanation, options }
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                const status = document.getElementById("qqStatus");
+                if (data.error) {
+                    status.innerHTML = `<div class="alert alert-danger py-2 small">${data.error}</div>`;
+                } else {
+                    status.innerHTML = `<div class="alert alert-success py-2 small"><i class="fa-solid fa-check-circle me-1"></i>${data.message}</div>`;
+                    document.getElementById("addQuizQuestionForm").reset();
+                }
+            });
+        });
+
+        function switchAdminTab(tabId) {
+            const btn = document.getElementById(tabId);
+            if (btn) {
+                btn.click();
+            }
+            const map = {
+                'tab-analytics': 'nav-btn-analytics',
+                'tab-blindspots': 'nav-btn-blindspots',
+                'tab-rubric': 'nav-btn-rubric',
+                'tab-knowledge': 'nav-btn-knowledge',
+                'tab-quiz': 'nav-btn-quiz',
+                'tab-students': 'nav-btn-students'
+            };
+            document.querySelectorAll('.tl-navbar .nav-link-pill').forEach(p => p.classList.remove('active'));
+            const activeNavBtn = document.getElementById(map[tabId]);
+            if (activeNavBtn) activeNavBtn.classList.add('active');
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            loadAdminDashboard();
+            loadKnowledgeBase();
+            loadStudents();
+            loadBlindSpots();
+            loadRubricConfig();
+
+            // Synchronize navbar active state when pills on page are clicked
+            document.querySelectorAll('#adminTabs button[data-bs-toggle="pill"]').forEach(tab => {
+                tab.addEventListener('shown.bs.tab', function(e) {
+                    const map = {
+                        'tab-analytics': 'nav-btn-analytics',
+                        'tab-blindspots': 'nav-btn-blindspots',
+                        'tab-rubric': 'nav-btn-rubric',
+                        'tab-knowledge': 'nav-btn-knowledge',
+                        'tab-quiz': 'nav-btn-quiz',
+                        'tab-students': 'nav-btn-students'
+                    };
+                    document.querySelectorAll('.tl-navbar .nav-link-pill').forEach(p => p.classList.remove('active'));
+                    const activeNavBtn = document.getElementById(map[e.target.id]);
+                    if (activeNavBtn) activeNavBtn.classList.add('active');
+                });
+            });
+        });
+    </script>
+
+    {% include 'blueprint_modal.html' %}
+</body>
+</html>

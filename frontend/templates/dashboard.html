@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Student Learning Dashboard — TalentLens</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/favicon.svg') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; color: #1e293b; }
+        .stat-card { border-radius: 14px; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: transform 0.2s; }
+        .stat-card:hover { transform: translateY(-3px); }
+        .card-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    {% set active_page = 'dashboard' %}
+    {% include 'navbar.html' %}
+
+    <main class="container py-4 my-auto">
+        <div class="d-flex flex-wrap align-items-center justify-content-between mb-4 gap-2">
+            <div>
+                <h3 class="fw-bold mb-1">Learning Performance Dashboard</h3>
+                <p class="text-muted small mb-0">Track your progress, quiz history, composite accuracy, and SuperMemo-2 spaced review schedule.</p>
+            </div>
+            <div class="d-flex gap-2">
+                <button onclick="window.print()" class="btn btn-outline-secondary"><i class="fa-solid fa-print me-1"></i>Print Report</button>
+                <a href="{{ url_for('chat_view') }}" class="btn btn-primary"><i class="fa-solid fa-comments me-2"></i>Ask AI Tutor</a>
+            </div>
+        </div>
+
+        <!-- Metrics Row -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-3">
+                <div class="card stat-card p-3 bg-white">
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon bg-primary-subtle text-primary me-3"><i class="fa-solid fa-message"></i></div>
+                        <div>
+                            <div class="text-muted small">Questions Asked</div>
+                            <h4 class="fw-bold mb-0" id="metric-questions">0</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card p-3 bg-white">
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon bg-success-subtle text-success me-3"><i class="fa-solid fa-vial"></i></div>
+                        <div>
+                            <div class="text-muted small">Quizzes Completed</div>
+                            <h4 class="fw-bold mb-0" id="metric-quizzes">0</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card p-3 bg-white">
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon bg-warning-subtle text-warning me-3"><i class="fa-solid fa-bullseye"></i></div>
+                        <div>
+                            <div class="text-muted small">Overall Accuracy</div>
+                            <h4 class="fw-bold mb-0" id="metric-accuracy">0%</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card p-3 bg-white">
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon bg-info-subtle text-info me-3"><i class="fa-solid fa-layer-group"></i></div>
+                        <div>
+                            <div class="text-muted small">Adaptive Level</div>
+                            <h4 class="fw-bold mb-0" id="metric-difficulty">Medium</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- Daily Study Objectives & Streak Challenge -->
+        <div class="card stat-card p-4 bg-white mb-4 border">
+            <div class="d-flex flex-wrap align-items-center justify-content-between mb-3 gap-2">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="card-icon bg-warning-subtle text-warning" style="width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
+                        <i class="fa-solid fa-fire-flame-curved text-danger"></i>
+                    </div>
+                    <div>
+                        <div class="d-flex align-items-center gap-2">
+                            <h5 class="fw-bold mb-0">Daily Study Objectives</h5>
+                            <span class="badge bg-danger-subtle text-danger border border-danger-subtle rounded-pill px-2.5 py-0.5" id="dailyStreakBadge">
+                                <i class="fa-solid fa-fire me-1"></i>Active Streak: 1 Day
+                            </span>
+                        </div>
+                        <p class="text-muted small mb-0">Complete daily micro-goals to build consistent study habits and earn bonus XP.</p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="text-end d-none d-sm-block">
+                        <div class="small fw-bold" id="dailyObjectivesCompletionText">0 of 3 Completed</div>
+                        <div class="text-muted" style="font-size: 0.72rem;">Goal progress today</div>
+                    </div>
+                    <div style="width: 100px;">
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar bg-success" id="dailyObjectivesProgressBar" role="progressbar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="p-3 rounded-3 border bg-body-tertiary h-100 d-flex flex-column justify-content-between" id="objCardTutor">
+                        <div class="d-flex align-items-start justify-content-between mb-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="badge bg-primary text-white rounded-circle p-1" style="width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem;"><i class="fa-solid fa-robot"></i></span>
+                                <span class="fw-bold small">1. Ask AI Tutor</span>
+                            </div>
+                            <span class="badge bg-secondary-subtle text-secondary" id="objStatusTutor"><i class="fa-solid fa-hourglass-half me-1"></i>Pending</span>
+                        </div>
+                        <p class="text-muted small mb-2" style="font-size: 0.78rem;">Clarify 1 NLP concept or ask a study question in Socratic AI Chat.</p>
+                        <a href="{{ url_for('chat_view') }}" class="btn btn-sm btn-outline-primary rounded-pill w-100" style="font-size: 0.75rem;">Open Chat <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3 rounded-3 border bg-body-tertiary h-100 d-flex flex-column justify-content-between" id="objCardCards">
+                        <div class="d-flex align-items-start justify-content-between mb-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="badge bg-warning text-dark rounded-circle p-1" style="width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem;"><i class="fa-solid fa-clone"></i></span>
+                                <span class="fw-bold small">2. Review Flashcards</span>
+                            </div>
+                            <span class="badge bg-secondary-subtle text-secondary" id="objStatusCards"><i class="fa-solid fa-hourglass-half me-1"></i>Pending</span>
+                        </div>
+                        <p class="text-muted small mb-2" style="font-size: 0.78rem;">Review scheduled flashcards via SuperMemo-2 spaced repetition.</p>
+                        <a href="{{ url_for('flashcards_view') }}" class="btn btn-sm btn-outline-warning text-dark rounded-pill w-100" style="font-size: 0.75rem;">Study Flashcards <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3 rounded-3 border bg-body-tertiary h-100 d-flex flex-column justify-content-between" id="objCardQuiz">
+                        <div class="d-flex align-items-start justify-content-between mb-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="badge bg-success text-white rounded-circle p-1" style="width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem;"><i class="fa-solid fa-vial"></i></span>
+                                <span class="fw-bold small">3. Attempt Quiz / Viva</span>
+                            </div>
+                            <span class="badge bg-secondary-subtle text-secondary" id="objStatusQuiz"><i class="fa-solid fa-hourglass-half me-1"></i>Pending</span>
+                        </div>
+                        <p class="text-muted small mb-2" style="font-size: 0.78rem;">Test conceptual retention in an adaptive quiz or oral viva defense.</p>
+                        <a href="{{ url_for('quiz_view') }}" class="btn btn-sm btn-outline-success rounded-pill w-100" style="font-size: 0.75rem;">Take Practice Quiz <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gamification & Spaced Repetition Row -->
+        <div class="row g-3 mb-4">
+            <div class="col-lg-6">
+                <div class="card stat-card p-4 bg-white h-100">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h5 class="fw-bold mb-0"><i class="fa-solid fa-trophy text-warning me-2"></i>Gamification Mastery & Level</h5>
+                        <span class="badge bg-warning text-dark fw-bold px-3 py-2" id="userLevelBadge">Level 1 Student</span>
+                    </div>
+                    <div class="mb-2 d-flex justify-content-between small fw-semibold">
+                        <span>XP Progress towards next level</span>
+                        <span id="xpText">0 / 250 XP</span>
+                    </div>
+                    <div class="progress mb-3" style="height: 10px;">
+                        <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" id="xpProgressBar" role="progressbar" style="width: 0%"></div>
+                    </div>
+                    <h6 class="fw-bold small text-muted mb-2">Earned Achievements & Badges:</h6>
+                    <div id="badgesContainer" class="d-flex flex-wrap gap-2">
+                        <span class="text-muted small">Loading achievements...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card stat-card p-4 bg-white h-100">
+                    <h5 class="fw-bold mb-2"><i class="fa-solid fa-clock-rotate-left text-info me-2"></i>Spaced Repetition (SM-2) Schedule</h5>
+                    <p class="small text-muted mb-3">Concepts scheduled for long-term memory retention review:</p>
+                    <div id="spacedRepetitionContainer">
+                        <div class="spinner-border spinner-border-sm text-info" role="status"></div>
+                    </div>
+                </div>
+            </div>
+        <!-- Advanced Cognitive Studios Row -->
+        <div class="row g-3 mb-4">
+            <div class="col-12">
+                <div class="card stat-card p-4 bg-white border">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between mb-3 gap-2">
+                        <div>
+                            <span class="badge bg-primary-subtle text-primary border border-primary px-3 py-1 mb-1"><i class="fa-solid fa-wand-magic-sparkles me-1"></i>Next-Gen Learning Studios</span>
+                            <h5 class="fw-bold mb-0">Active Cognitive Mastery Labs</h5>
+                        </div>
+                        <span class="text-muted small">Elevate your understanding through oral defense, Feynman intuition, and visual pipelines.</span>
+                    </div>
+
+                    <div class="row g-3">
+                        <!-- Oral Viva Simulator Card -->
+                        <div class="col-md-4">
+                            <div class="p-3 rounded-4 border bg-dark text-white h-100 d-flex flex-column justify-content-between shadow-sm">
+                                <div>
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <div class="rounded-3 bg-primary text-white p-2 d-inline-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+                                            <i class="fa-solid fa-shield-halved"></i>
+                                        </div>
+                                        <span class="badge bg-danger-subtle text-danger border border-danger">Oral Defense</span>
+                                    </div>
+                                    <h6 class="fw-bold text-white mb-1">Reverse Viva Simulator</h6>
+                                    <p class="small text-white-50 mb-3">Defend your answers against an automated Socratic AI professor. Evaluates keyword coverage, semantic depth, and speech-to-text defense.</p>
+                                </div>
+                                <a href="{{ url_for('viva_view') }}" class="btn btn-outline-light btn-sm w-100 fw-semibold"><i class="fa-solid fa-microphone me-1"></i>Enter Viva Room</a>
+                            </div>
+                        </div>
+
+                        <!-- Feynman Teach-Back Studio Card -->
+                        <div class="col-md-4">
+                            <div class="p-3 rounded-4 border bg-light h-100 d-flex flex-column justify-content-between shadow-sm">
+                                <div>
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <div class="rounded-3 bg-warning text-dark p-2 d-inline-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+                                            <i class="fa-solid fa-lightbulb"></i>
+                                        </div>
+                                        <span class="badge bg-warning-subtle text-dark border border-warning">Intuition Lab</span>
+                                    </div>
+                                    <h6 class="fw-bold text-dark mb-1">Feynman Teach-Back Studio</h6>
+                                    <p class="small text-muted mb-3">Teach concepts to Specs like a 10-year-old. Automated detection of analogies, metaphors, simplicity level, and circular definitions.</p>
+                                </div>
+                                <a href="{{ url_for('teach_back_view') }}" class="btn btn-warning btn-sm w-100 fw-bold text-dark"><i class="fa-solid fa-chalkboard-user me-1"></i>Teach Specs Now</a>
+                            </div>
+                        </div>
+
+                        <!-- Interactive NLP Stepper Card -->
+                        <div class="col-md-4">
+                            <div class="p-3 rounded-4 border bg-light h-100 d-flex flex-column justify-content-between shadow-sm">
+                                <div>
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <div class="rounded-3 bg-info text-white p-2 d-inline-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+                                            <i class="fa-solid fa-microscope"></i>
+                                        </div>
+                                        <span class="badge bg-info-subtle text-info-emphasis border border-info">Visual Lab</span>
+                                    </div>
+                                    <h6 class="fw-bold text-dark mb-1">Interactive NLP Stepper</h6>
+                                    <p class="small text-muted mb-3">Type any sentence to visually inspect tokenization chips, stopword pruning, POS tag dependencies, stem vs. lemma, and 384D vectors.</p>
+                                </div>
+                                <a href="{{ url_for('pipeline_view') }}" class="btn btn-outline-primary btn-sm w-100 fw-semibold"><i class="fa-solid fa-play me-1"></i>Open Pipeline Lab</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="row g-3 mb-4">
+            <div class="col-lg-7">
+                <div class="card stat-card p-4 bg-white h-100">
+                    <h5 class="fw-bold mb-3"><i class="fa-solid fa-chart-bar me-2 text-primary"></i>Topic-wise Learning Accuracy</h5>
+                    <canvas id="topicAccuracyChart" height="210"></canvas>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="card stat-card p-4 bg-white h-100">
+                    <h5 class="fw-bold mb-3"><i class="fa-solid fa-chart-pie me-2 text-success"></i>Subject Domain Distribution</h5>
+                    <canvas id="subjectDoughnutChart" height="210"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Quizzes History & AI Recommendations Row -->
+        <div class="row g-3 mb-4">
+            <div class="col-lg-7">
+                <div class="card stat-card p-4 bg-white h-100">
+                    <h5 class="fw-bold mb-3"><i class="fa-solid fa-clock-rotate-left text-primary me-2"></i>Recent Quiz Attempts</h5>
+                    <div class="table-responsive">
+                        <table class="table table-sm align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Subject / Topic</th>
+                                    <th>Difficulty</th>
+                                    <th>Score</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentQuizzesBody">
+                                <tr><td colspan="4" class="text-muted small text-center">No quiz attempts yet. Try taking your first quiz!</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="card stat-card p-4 bg-white h-100">
+                    <h5 class="fw-bold mb-3"><i class="fa-solid fa-lightbulb me-2 text-warning"></i>AI Recommendations</h5>
+                    <div id="recommendations-container">
+                        <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
+        <div class="container">
+            TalentLens &copy; 2026 — Academic NLP-Based Learning Platform
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch("/api/analytics/dashboard")
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("metric-questions").innerText = data.metrics.questions_asked;
+                    document.getElementById("metric-quizzes").innerText = data.metrics.quizzes_attempted;
+                    document.getElementById("metric-accuracy").innerText = data.metrics.overall_accuracy + "%";
+                    document.getElementById("metric-difficulty").innerText = data.metrics.suggested_difficulty;
+                    latestMetrics = data.metrics;
+                    if (typeof refreshDailyGoals === 'function') refreshDailyGoals();
+
+                    // Render Topic Bar Chart
+                    const ctxBar = document.getElementById('topicAccuracyChart').getContext('2d');
+                    new Chart(ctxBar, {
+                        type: 'bar',
+                        data: {
+                            labels: data.charts.topic_labels,
+                            datasets: [{
+                                label: 'Accuracy Score (%)',
+                                data: data.charts.topic_accuracies,
+                                backgroundColor: 'rgba(37, 99, 235, 0.75)',
+                                borderColor: '#2563eb',
+                                borderWidth: 1,
+                                borderRadius: 6
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: { beginAtZero: true, max: 100 }
+                            }
+                        }
+                    });
+
+                    // Render Subject Doughnut Chart
+                    const ctxPie = document.getElementById('subjectDoughnutChart').getContext('2d');
+                    new Chart(ctxPie, {
+                        type: 'doughnut',
+                        data: {
+                            labels: data.charts.subject_labels,
+                            datasets: [{
+                                data: data.charts.subject_accuracies,
+                                backgroundColor: [
+                                    '#3b82f6', '#10b981', '#f59e0b', '#06b6d4'
+                                ]
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: { position: 'bottom' }
+                            }
+                        }
+                    });
+
+                    // Render Recent Quizzes Table
+                    const recentTbody = document.getElementById("recentQuizzesBody");
+                    if (data.recent_quizzes && data.recent_quizzes.length > 0) {
+                        recentTbody.innerHTML = "";
+                        data.recent_quizzes.forEach(q => {
+                            const badgeColor = q.score >= 80 ? 'bg-success' : q.score >= 60 ? 'bg-warning text-dark' : 'bg-danger';
+                            recentTbody.innerHTML += `
+                                <tr>
+                                    <td>
+                                        <div class="fw-semibold small">${q.topic}</div>
+                                        <div class="text-muted" style="font-size: 0.72rem;">${q.subject}</div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border">${q.difficulty}</span></td>
+                                    <td><span class="badge ${badgeColor}">${q.score}%</span></td>
+                                    <td><a href="/quiz?subject=${encodeURIComponent(q.subject)}&topic=${encodeURIComponent(q.topic)}" class="btn btn-sm btn-outline-primary py-0 px-2 small">Retake</a></td>
+                                </tr>
+                            `;
+                        });
+                    }
+
+                    // Render recommendations
+                    const recContainer = document.getElementById("recommendations-container");
+                    recContainer.innerHTML = "";
+                    if (data.recommendations && data.recommendations.length > 0) {
+                        data.recommendations.forEach(rec => {
+                            recContainer.innerHTML += `
+                                <div class="p-3 bg-light rounded mb-2 border-start border-4 border-warning">
+                                    <h6 class="fw-bold mb-1">${rec.topic}</h6>
+                                    <p class="small text-muted mb-2">${rec.reason}</p>
+                                    <a href="/chat?topic=${encodeURIComponent(rec.topic)}" class="btn btn-sm btn-outline-warning text-dark fw-semibold"><i class="fa-solid fa-graduation-cap me-1"></i>${rec.action}</a>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        recContainer.innerHTML = '<p class="text-muted small">No specific weak topics detected. Keep up the good work!</p>';
+                    }
+                })
+                .catch(err => console.error("Error loading dashboard data:", err));
+
+            let latestMetrics = null;
+            let latestGamData = null;
+            let latestSrData = null;
+
+            function refreshDailyGoals() {
+                let completed = 0;
+
+                // Goal 1: Ask AI Tutor
+                const hasAsked = (latestMetrics && latestMetrics.questions_asked > 0);
+                const tutorStatus = document.getElementById("objStatusTutor");
+                if (hasAsked) {
+                    completed++;
+                    if (tutorStatus) {
+                        tutorStatus.innerHTML = '<i class="fa-solid fa-check me-1"></i>Completed';
+                        tutorStatus.className = 'badge bg-success-subtle text-success';
+                    }
+                }
+
+                // Goal 2: Flashcards
+                const hasCards = (latestSrData && (!latestSrData.due_topics || latestSrData.due_topics.length === 0));
+                const cardsStatus = document.getElementById("objStatusCards");
+                if (hasCards) {
+                    completed++;
+                    if (cardsStatus) {
+                        cardsStatus.innerHTML = '<i class="fa-solid fa-check me-1"></i>Completed';
+                        cardsStatus.className = 'badge bg-success-subtle text-success';
+                    }
+                }
+
+                // Goal 3: Quiz or Viva
+                const hasQuiz = (latestMetrics && latestMetrics.quizzes_attempted > 0);
+                const quizStatus = document.getElementById("objStatusQuiz");
+                if (hasQuiz) {
+                    completed++;
+                    if (quizStatus) {
+                        quizStatus.innerHTML = '<i class="fa-solid fa-check me-1"></i>Completed';
+                        quizStatus.className = 'badge bg-success-subtle text-success';
+                    }
+                }
+
+                const pct = Math.round((completed / 3) * 100);
+                const pbar = document.getElementById("dailyObjectivesProgressBar");
+                const ptext = document.getElementById("dailyObjectivesCompletionText");
+                if (pbar) pbar.style.width = pct + "%";
+                if (ptext) ptext.innerText = `${completed} of 3 Completed (${pct}%)`;
+
+                if (latestGamData && latestGamData.streak_days) {
+                    const streakBadge = document.getElementById("dailyStreakBadge");
+                    if (streakBadge) {
+                        streakBadge.innerHTML = `<i class="fa-solid fa-fire me-1"></i>Active Streak: ${latestGamData.streak_days} Day${latestGamData.streak_days > 1 ? 's' : ''}`;
+                    }
+                }
+            }
+
+            // Load Gamification Profile
+            fetch("/api/gamification/profile")
+                .then(res => res.json())
+                .then(gamData => {
+                    latestGamData = gamData;
+                    refreshDailyGoals();
+                    document.getElementById("userLevelBadge").innerText = `Level ${gamData.level} Student`;
+                    document.getElementById("xpText").innerText = `${gamData.xp_in_level} / 250 XP (Total: ${gamData.total_xp} XP)`;
+                    document.getElementById("xpProgressBar").style.width = `${gamData.level_progress_pct}%`;
+
+                    const badgesDiv = document.getElementById("badgesContainer");
+                    badgesDiv.innerHTML = "";
+                    if (gamData.earned_badges && gamData.earned_badges.length > 0) {
+                        gamData.earned_badges.forEach(b => {
+                            badgesDiv.innerHTML += `
+                                <span class="badge bg-warning-subtle text-dark border border-warning p-2" title="${b.desc}">
+                                    <i class="fa-solid ${b.icon} me-1 text-warning"></i>${b.name}
+                                </span>
+                            `;
+                        });
+                    } else {
+                        badgesDiv.innerHTML = '<span class="text-muted small">Complete quizzes and ask questions to unlock badges!</span>';
+                    }
+                });
+
+            // Load Spaced Repetition Due Reviews
+            fetch("/api/spaced-repetition/due")
+                .then(res => res.json())
+                .then(srData => {
+                    latestSrData = srData;
+                    refreshDailyGoals();
+                    const srDiv = document.getElementById("spacedRepetitionContainer");
+                    srDiv.innerHTML = "";
+                    if (srData.due_topics && srData.due_topics.length > 0) {
+                        srData.due_topics.forEach(t => {
+                            srDiv.innerHTML += `
+                                <div class="p-2 bg-light rounded mb-2 d-flex align-items-center justify-content-between border">
+                                    <div>
+                                        <strong class="small">${t.topic}</strong>
+                                        <div class="text-muted" style="font-size: 0.75rem;">Interval: ${t.interval_days}d | Last Score: ${t.last_score}%</div>
+                                    </div>
+                                    <a href="/quiz?topic=${encodeURIComponent(t.topic)}" class="btn btn-sm btn-info text-white py-1 px-2 small">Review Now</a>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        srDiv.innerHTML = '<p class="text-success small mb-0"><i class="fa-solid fa-check-circle me-1"></i>All learned topics are currently retained! The SM-2 algorithm will schedule reviews as needed.</p>';
+                    }
+                });
+        });
+    </script>
+    {% include 'companion.html' %}
+</body>
+</html>

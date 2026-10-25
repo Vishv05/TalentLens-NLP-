@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Account — TalentLens</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+    <style>
+        body { background-color: #f1f5f9; font-family: 'Segoe UI', system-ui, sans-serif; }
+        .auth-card { border-radius: 16px; border: none; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); }
+        .auth-header { background: #1e293b; border-radius: 16px 16px 0 0; }
+        .role-badge { transition: all 0.25s ease; }
+    </style>
+</head>
+<body class="d-flex align-items-center min-vh-100 py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card auth-card">
+                    <div class="card-header auth-header text-white p-4 text-center position-relative">
+                        <button type="button" class="btn btn-sm btn-outline-light rounded-pill px-2 py-1 position-absolute top-0 end-0 m-3 theme-toggle-btn" onclick="toggleTheme()" title="Switch to Dark / Light Mode" aria-label="Toggle theme">
+                            <i class="fa-solid fa-moon text-info theme-toggle-icon"></i>
+                        </button>
+                        <h4 class="mb-1"><i class="fa-solid fa-graduation-cap me-2 text-primary"></i>TalentLens</h4>
+                        <p class="small text-white-50 mb-0">Create your personal student account</p>
+                    </div>
+                    <div class="card-body p-4">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                        {{ message }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+
+                        <form action="{{ url_for('auth.register') }}" method="POST">
+                            <div class="mb-3">
+                                <label for="name" class="form-label fw-semibold">Full Name</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                                    <input type="text" class="form-control" id="name" name="name" value="{{ name or '' }}" placeholder="e.g. Alex Morgan" required autofocus>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label fw-semibold">Email Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+                                    <input type="email" class="form-control" id="email" name="email" value="{{ email or '' }}" placeholder="e.g. yourname@university.edu" required>
+                                </div>
+                                <div class="form-text text-muted" style="font-size: 0.76rem;">
+                                    💡 <em>Enter your email address to create your personalized student profile.</em>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="password" class="form-label fw-semibold">Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="At least 6 characters" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold mb-3">
+                                <i class="fa-solid fa-user-plus me-2"></i>Create Student Account
+                            </button>
+                        </form>
+                        <div class="text-center mt-3">
+                            <span class="text-muted small">Already have an account?</span>
+                            <a href="{{ url_for('auth.login') }}" class="small fw-bold text-decoration-none ms-1">Sign in here</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    {% include 'companion.html' %}
+</body>
+</html>

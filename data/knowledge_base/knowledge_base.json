@@ -1,0 +1,440 @@
+[
+  {
+    "id": "nlp_tokenization",
+    "subject": "Natural Language Processing",
+    "topic": "Tokenization",
+    "title": "Tokenization in NLP",
+    "definition": "Tokenization is the process of breaking raw text down into smaller meaningful units called tokens, such as words, subwords, or characters.",
+    "explanation": "Tokenization is the foundational first step in any NLP pipeline. Raw text cannot be processed directly by computers, so tokenization breaks down sentences into individual words or subwords. There are word-level tokenizers, character-level tokenizers, and subword-level tokenizers (like Byte-Pair Encoding used in LLMs). For instance, 'I love NLP!' becomes ['I', 'love', 'NLP', '!'].",
+    "example": "Input: 'Tokenization is simple.' -> Output tokens: ['Tokenization', 'is', 'simple', '.']",
+    "important_points": [
+      "Serves as the entry point for linguistic preprocessing and text vectorization.",
+      "Handles punctuation and whitespace normalization.",
+      "Types include Word Tokenization, Sentence Tokenization, and Subword Tokenization (BPE, WordPiece)."
+    ],
+    "keywords": [
+      "tokenization",
+      "tokens",
+      "tokenize",
+      "words",
+      "subwords",
+      "text processing",
+      "nlp pipeline"
+    ],
+    "formula": null
+  },
+  {
+    "id": "nlp_lemmatization",
+    "subject": "Natural Language Processing",
+    "topic": "Lemmatization",
+    "title": "Lemmatization in NLP",
+    "definition": "Lemmatization is the linguistic process of grouping together the inflected forms of a word so they can be analyzed as a single item, identified by the word's lemma or dictionary form.",
+    "explanation": "Unlike stemming, which simply chops off prefixes or suffixes using crude heuristic rules, lemmatization leverages vocabulary dictionaries and full morphological analysis of words. It considers the context and Part-of-Speech (POS) of the word. For example, the word 'running' becomes 'run', 'better' becomes 'good' (when adjective), and 'mice' becomes 'mouse'.",
+    "example": "Input: 'The feet were running better' -> Lemmatized: 'The foot be run good'",
+    "important_points": [
+      "Uses morphological context and vocabulary lookup (e.g., WordNet, spaCy).",
+      "Produces valid dictionary words (lemmas).",
+      "Preserves semantic meaning better than stemming."
+    ],
+    "keywords": [
+      "lemmatization",
+      "lemma",
+      "lemmatize",
+      "dictionary form",
+      "morphology",
+      "spacy",
+      "wordnet"
+    ],
+    "formula": null
+  },
+  {
+    "id": "nlp_tfidf",
+    "subject": "Natural Language Processing",
+    "topic": "TF-IDF",
+    "title": "Term Frequency - Inverse Document Frequency (TF-IDF)",
+    "definition": "TF-IDF is a numerical statistic intended to reflect how important a word is to a document in a collection or corpus.",
+    "explanation": "TF-IDF evaluates word relevance rather than simple frequency. Term Frequency (TF) measures how often a word occurs in a document. Inverse Document Frequency (IDF) measures how rare a word is across the entire collection of documents. Common words like 'is', 'the', and 'and' get low weights, while unique topical words get high weights.",
+    "example": "In a dataset of medical papers, the word 'patient' may appear in every document (low IDF), whereas 'hypertrophic' appears in only a few (high IDF).",
+    "important_points": [
+      "Used for text mining, document classification, and information retrieval.",
+      "TF(t, d) = (Count of t in d) / (Total words in d).",
+      "IDF(t, D) = log(Total documents / Documents containing t).",
+      "TF-IDF(t, d, D) = TF(t, d) * IDF(t, D)."
+    ],
+    "keywords": [
+      "tf-idf",
+      "tfidf",
+      "term frequency",
+      "inverse document frequency",
+      "text vectorization",
+      "scikit-learn"
+    ],
+    "formula": "TF-IDF = TF(t, d) * log(N / DF(t))"
+  },
+  {
+    "id": "nlp_pos_tagging",
+    "subject": "Natural Language Processing",
+    "topic": "POS Tagging",
+    "title": "Part-of-Speech (POS) Tagging",
+    "definition": "Part-of-Speech (POS) Tagging is the process of marking up a word in a text as corresponding to a particular part of speech (noun, verb, adjective, adverb, etc.) based on both its definition and its context.",
+    "explanation": "POS Tagging assigns grammatical categories to tokens. This is crucial for resolving syntactic ambiguity because a word like 'book' can be a noun ('read a book') or a verb ('book a flight'). Hidden Markov Models (HMM), Conditional Random Fields (CRF), and deep neural transformers are commonly used to assign Penn Treebank tags like NN (Noun), VB (Verb), and JJ (Adjective).",
+    "example": "'She (PRP) reads (VBZ) an (DT) interesting (JJ) book (NN).'",
+    "important_points": [
+      "Resolves lexical and grammatical ambiguity in natural language.",
+      "Essential for dependency parsing, lemmatization, and Named Entity Recognition.",
+      "Common tagsets include Penn Treebank and Universal Dependencies (UD)."
+    ],
+    "keywords": [
+      "pos tagging",
+      "part of speech",
+      "grammar",
+      "penn treebank",
+      "nouns",
+      "verbs",
+      "spacy tagger"
+    ],
+    "formula": null
+  },
+  {
+    "id": "nlp_ner",
+    "subject": "Natural Language Processing",
+    "topic": "Named Entity Recognition",
+    "title": "Named Entity Recognition (NER)",
+    "definition": "Named Entity Recognition (NER) is an information extraction technique that locates and classifies named entities in unstructured text into predefined categories such as person names, organizations, locations, dates, and quantities.",
+    "explanation": "NER transforms raw text into structured knowledge. Given a sentence like 'Sundar Pichai visited Google headquarters in Mountain View on Monday', an NER model detects [Sundar Pichai (PERSON), Google (ORG), Mountain View (GPE), Monday (DATE)]. It powers search engines, question answering, and knowledge graphs.",
+    "example": "'Albert Einstein (PERSON) was born in Ulm (GPE) in 1879 (DATE).'",
+    "important_points": [
+      "Extracts structured knowledge facts from unstructured text.",
+      "Common entity categories: PERSON, ORG, GPE, DATE, MONEY, PRODUCT.",
+      "Implemented using Sequence Tagging architectures (CRFs, BiLSTM-CRF, BERT)."
+    ],
+    "keywords": [
+      "ner",
+      "named entity recognition",
+      "entities",
+      "information extraction",
+      "spacy ner",
+      "knowledge extraction"
+    ],
+    "formula": null
+  },
+  {
+    "id": "nlp_word_embeddings",
+    "subject": "Natural Language Processing",
+    "topic": "Word Embeddings",
+    "title": "Word Embeddings (Word2Vec, GloVe, FastText)",
+    "definition": "Word embeddings are dense vector representations of words in a continuous vector space where semantically similar words are mapped close together.",
+    "explanation": "Traditional sparse encodings like One-Hot Encoding or Bag of Words fail to capture semantic relationships. Word Embeddings (e.g., Word2Vec, GloVe) map words to fixed-dimensional vectors (e.g., 100 or 300 dimensions) learned from large text corpora. In this embedding space, algebraic operations preserve semantic meaning, such as Vector('King') - Vector('Man') + Vector('Woman') \u2248 Vector('Queen').",
+    "example": "The distance between embedding vectors for 'cat' and 'dog' is much smaller than between 'cat' and 'airplane'.",
+    "important_points": [
+      "Captures semantic similarity, syntactic analogies, and context.",
+      "Dense vectors replace high-dimensional sparse representations.",
+      "Word2Vec uses Skip-Gram or Continuous Bag-of-Words (CBOW) architectures."
+    ],
+    "keywords": [
+      "word embeddings",
+      "word2vec",
+      "glove",
+      "fasttext",
+      "embeddings",
+      "dense vectors",
+      "semantic similarity"
+    ],
+    "formula": null
+  },
+  {
+    "id": "nlp_transformers",
+    "subject": "Natural Language Processing",
+    "topic": "Transformers",
+    "title": "Transformer Architecture in NLP",
+    "definition": "The Transformer is a deep learning architecture based on self-attention mechanisms that processes sequential text data in parallel without relying on recurrent networks.",
+    "explanation": "Introduced in 'Attention Is All You Need' (2017), Transformers revolutionized NLP. Unlike RNNs or LSTMs that process text token by token sequentially, Transformers process entire sequences simultaneously. The core component is Multi-Head Self-Attention, which calculates contextual weights between all pairs of words in a sentence.",
+    "example": "In 'The animal didn't cross the street because it was too tired', self-attention helps the model learn that 'it' refers to 'animal'.",
+    "important_points": [
+      "Replaced RNNs/LSTMs due to high parallelization and context modeling capabilities.",
+      "Powers models like BERT, GPT-4, LLaMA, and Gemini.",
+      "Consists of Encoder and Decoder blocks with Multi-Head Self-Attention."
+    ],
+    "keywords": [
+      "transformers",
+      "attention mechanism",
+      "self attention",
+      "bert",
+      "gpt",
+      "deep learning",
+      "nlp"
+    ],
+    "formula": "Attention(Q, K, V) = softmax((Q * K^T) / sqrt(d_k)) * V"
+  },
+  {
+    "id": "nlp_bert",
+    "subject": "Natural Language Processing",
+    "topic": "BERT",
+    "title": "BERT: Bidirectional Encoder Representations from Transformers",
+    "definition": "BERT is a pretrained transformer-based language representation model designed to pretrain deep bidirectional representations from unlabeled text by jointly conditioning on both left and right context in all layers.",
+    "explanation": "Before BERT, language models were unidirectional (left-to-right or right-to-left). BERT introduced Masked Language Modeling (MLM), where 15% of words are randomly masked and the model predicts them using bidirectional context, alongside Next Sentence Prediction (NSP). Pretrained BERT models can be fine-tuned with just one additional output layer for tasks like sentiment analysis, QA, and NER.",
+    "example": "In 'The bank of the river is muddy' vs 'He deposited money in the bank', BERT generates different contextual embeddings for the word 'bank'.",
+    "important_points": [
+      "Generates dynamic contextual embeddings rather than static word embeddings.",
+      "Trained using Masked Language Model (MLM) and Next Sentence Prediction (NSP).",
+      "Fine-tunable for downstream classification, question answering, and parsing."
+    ],
+    "keywords": [
+      "bert",
+      "masked language model",
+      "bidirectional transformers",
+      "contextual embeddings",
+      "fine-tuning"
+    ],
+    "formula": null
+  },
+  {
+    "id": "ml_overfitting",
+    "subject": "Machine Learning",
+    "topic": "Overfitting",
+    "title": "Overfitting and Underfitting",
+    "definition": "Overfitting occurs when a machine learning model learns the training data too well, capturing noise and details that do not generalize to unseen test data.",
+    "explanation": "An overfitted model achieves near 100% accuracy on training data but performs poorly on new validation/testing data. It happens when the model is excessively complex relative to the amount of training data. Countermeasures include regularization (L1/L2), cross-validation, dropout, early stopping, and simplifying the model architecture.",
+    "example": "A high-degree polynomial regression line passing through every single noisy data point in a training scatter plot.",
+    "important_points": [
+      "High variance, low bias problem.",
+      "Indicated by high training accuracy but low test accuracy.",
+      "Solutions: L1/L2 Regularization, Pruning, Dropout, More Training Data, Cross-Validation."
+    ],
+    "keywords": [
+      "overfitting",
+      "underfitting",
+      "bias variance tradeoff",
+      "regularization",
+      "generalization",
+      "machine learning"
+    ],
+    "formula": null
+  },
+  {
+    "id": "ml_supervised_unsupervised",
+    "subject": "Machine Learning",
+    "topic": "Supervised Learning",
+    "title": "Supervised vs Unsupervised Learning",
+    "definition": "Supervised learning trains models on labeled input-output pairs to predict outcomes, whereas unsupervised learning discovers hidden patterns, groupings, or representations in unlabeled data.",
+    "explanation": "Supervised learning includes Classification (predicting discrete labels like Spam/Not Spam) and Regression (predicting continuous numerical values like house prices). Unsupervised learning includes Clustering (K-Means, DBSCAN), Dimensionality Reduction (PCA, t-SNE), and Association Rule Learning.",
+    "example": "Supervised: Predicting student exam marks based on study hours. Unsupervised: Grouping customers into market segments based on purchasing behavior.",
+    "important_points": [
+      "Supervised requires ground-truth target labels (y) for training.",
+      "Unsupervised finds natural structures in input data (X) without target labels.",
+      "Semi-supervised learning combines a small labeled set with large unlabeled data."
+    ],
+    "keywords": [
+      "supervised learning",
+      "unsupervised learning",
+      "classification",
+      "regression",
+      "clustering",
+      "k-means",
+      "pca"
+    ],
+    "formula": null
+  },
+  {
+    "id": "ml_neural_networks",
+    "subject": "Machine Learning",
+    "topic": "Neural Networks",
+    "title": "Artificial Neural Networks (ANN) & Deep Learning",
+    "definition": "An Artificial Neural Network is a computational model inspired by biological neural networks, consisting of interconnected layers of artificial neurons that transform input data through nonlinear activation functions.",
+    "explanation": "A standard feedforward network consists of an Input Layer, one or more Hidden Layers, and an Output Layer. Each neuron computes a weighted sum of inputs plus a bias term, followed by an activation function (e.g., ReLU, Sigmoid, Softmax). The network learns optimal weights through Forward Propagation, computing Loss, and applying Backpropagation via Gradient Descent.",
+    "example": "Classifying handwritten digits (MNIST dataset) from 28x28 pixel inputs into digits 0-9 using hidden dense layers.",
+    "important_points": [
+      "Deep Learning refers to neural networks with multiple hidden representation layers.",
+      "Activation functions (ReLU, Sigmoid, GeLU) introduce non-linearity.",
+      "Trained using Backpropagation and optimization algorithms like Adam or SGD."
+    ],
+    "keywords": [
+      "neural networks",
+      "deep learning",
+      "ann",
+      "backpropagation",
+      "activation function",
+      "relu",
+      "gradient descent"
+    ],
+    "formula": "y = f(W * x + b)"
+  },
+  {
+    "id": "ml_evaluation_metrics",
+    "subject": "Machine Learning",
+    "topic": "Evaluation Metrics",
+    "title": "Classification Evaluation Metrics (Precision, Recall, F1)",
+    "definition": "Classification evaluation metrics assess the performance of a model beyond simple accuracy by measuring true positives, false positives, and false negatives from a Confusion Matrix.",
+    "explanation": "Accuracy can be misleading on imbalanced datasets. Precision measures the proportion of positive predictions that are truly positive (TP / (TP + FP)). Recall (Sensitivity) measures the proportion of actual positives correctly identified (TP / (TP + FN)). F1-Score is the harmonic mean of Precision and Recall.",
+    "example": "In disease diagnosis, high Recall is critical to avoid missing sick patients (low False Negatives), even if Precision drops slightly.",
+    "important_points": [
+      "Precision = True Positives / (True Positives + False Positives).",
+      "Recall = True Positives / (True Positives + False Negatives).",
+      "F1-Score = 2 * (Precision * Recall) / (Precision + Recall).",
+      "ROC-AUC measures discrimination capability across classification thresholds."
+    ],
+    "keywords": [
+      "precision",
+      "recall",
+      "f1 score",
+      "confusion matrix",
+      "evaluation metrics",
+      "roc-auc",
+      "accuracy"
+    ],
+    "formula": "F1 = 2 * (Precision * Recall) / (Precision + Recall)"
+  },
+  {
+    "id": "dbms_normalization",
+    "subject": "Database Management Systems",
+    "topic": "Normalization",
+    "title": "Database Normalization (1NF, 2NF, 3NF, BCNF)",
+    "definition": "Database normalization is the systematic process of organizing data in a relational database to reduce data redundancy and eliminate update, insertion, and deletion anomalies.",
+    "explanation": "Normalization decomposes large tables into smaller, well-structured relational tables linked by foreign keys. Key normal forms include: 1NF (atomic attributes), 2NF (in 1NF and no partial dependencies on composite primary keys), 3NF (in 2NF and no transitive functional dependencies), and BCNF (Boyce-Codd Normal Form: every determinant is a candidate key).",
+    "example": "Splitting a denormalized Student-Course table into separate Student, Course, and Enrollment junction tables.",
+    "important_points": [
+      "Prevents Insertion, Deletion, and Update Anomalies.",
+      "1NF: Atomic values, unique row identification.",
+      "2NF: In 1NF + no non-prime attribute dependent on a subset of candidate key.",
+      "3NF: In 2NF + no transitive functional dependencies."
+    ],
+    "keywords": [
+      "normalization",
+      "1nf",
+      "2nf",
+      "3nf",
+      "bcnf",
+      "database management",
+      "functional dependency",
+      "sql"
+    ],
+    "formula": null
+  },
+  {
+    "id": "dbms_acid",
+    "subject": "Database Management Systems",
+    "topic": "ACID Properties",
+    "title": "ACID Properties in Database Transactions",
+    "definition": "ACID is a set of four fundamental properties (Atomicity, Consistency, Isolation, Durability) that guarantee database transactions are processed reliably.",
+    "explanation": "Atomicity ensures 'all or nothing' execution (if one step fails, the entire transaction is rolled back). Consistency ensures the database moves from one valid state to another, preserving all constraints. Isolation ensures concurrent transactions execute independently without interference (using locking or MVCC). Durability ensures committed transaction changes survive system crashes (using Write-Ahead Logging).",
+    "example": "Bank transfer: Deducting $100 from Account A and crediting $100 to Account B must be atomic; both succeed or both rollback.",
+    "important_points": [
+      "Atomicity: All operations succeed or none do (Rollback/Commit).",
+      "Consistency: Enforces schema integrity rules and constraints.",
+      "Isolation: Concurrency control prevents dirty reads and non-repeatable reads.",
+      "Durability: Committed data is written to non-volatile storage."
+    ],
+    "keywords": [
+      "acid",
+      "atomicity",
+      "consistency",
+      "isolation",
+      "durability",
+      "transactions",
+      "concurrency",
+      "dbms"
+    ],
+    "formula": null
+  },
+  {
+    "id": "dbms_sql_queries",
+    "subject": "Database Management Systems",
+    "topic": "SQL Querying",
+    "title": "SQL Joins, Subqueries & Aggregations",
+    "definition": "Structured Query Language (SQL) is the standard language for storing, manipulating, and querying relational database management systems.",
+    "explanation": "SQL allows declarative data manipulation. Key components include DDL (CREATE, ALTER, DROP), DML (SELECT, INSERT, UPDATE, DELETE), and DQL. Joins combine rows from multiple tables based on related columns: INNER JOIN (matching rows in both tables), LEFT JOIN (all left rows plus matching right), RIGHT JOIN, and FULL OUTER JOIN. Aggregations use GROUP BY and HAVING clauses.",
+    "example": "SELECT department, COUNT(*), AVG(salary) FROM employees GROUP BY department HAVING AVG(salary) > 50000;",
+    "important_points": [
+      "INNER JOIN returns rows when there is a match in both tables.",
+      "LEFT JOIN returns all records from left table and matched records from right.",
+      "WHERE filters rows before aggregation; HAVING filters groups after aggregation.",
+      "Window functions (ROW_NUMBER, RANK, DENSE_RANK) perform calculations across row partitions."
+    ],
+    "keywords": [
+      "sql",
+      "sql joins",
+      "inner join",
+      "left join",
+      "group by",
+      "having",
+      "database queries",
+      "rdbms"
+    ],
+    "formula": null
+  },
+  {
+    "id": "python_data_structures",
+    "subject": "Python Programming",
+    "topic": "Data Structures",
+    "title": "Python Built-in Data Structures",
+    "definition": "Python provides four primary built-in data structures: Lists, Tuples, Sets, and Dictionaries.",
+    "explanation": "Lists are mutable ordered sequences ([1, 2, 3]). Tuples are immutable ordered sequences ((1, 2, 3)). Sets are unordered collections of unique elements ({1, 2, 3}) supporting set operations like union and intersection. Dictionaries are key-value mappings ({'key': 'value'}) implemented using hash tables for O(1) average lookup speed.",
+    "example": "student = {'id': 101, 'courses': ['NLP', 'DBMS']}; scores = (95, 88, 92)",
+    "important_points": [
+      "Lists: Mutable, ordered, duplicates allowed, O(1) append, O(n) search.",
+      "Tuples: Immutable, ordered, hashable if elements are hashable.",
+      "Sets: Unordered, unique elements, fast O(1) membership test.",
+      "Dicts: Key-Value pairs, fast O(1) average hash lookup."
+    ],
+    "keywords": [
+      "python",
+      "list",
+      "tuple",
+      "dict",
+      "set",
+      "data structures",
+      "mutability"
+    ],
+    "formula": null
+  },
+  {
+    "id": "python_oop",
+    "subject": "Python Programming",
+    "topic": "OOP Concepts",
+    "title": "Object-Oriented Programming (OOP) in Python",
+    "definition": "Object-Oriented Programming is a paradigm based on the concept of 'objects' containing data (attributes) and code (methods), organized around four pillars: Encapsulation, Abstraction, Inheritance, and Polymorphism.",
+    "explanation": "Classes act as blueprints for creating instances. Encapsulation bundles data and restricts direct access (using private variables with `__`). Inheritance allows a child class to inherit attributes and methods from a parent class (`class Child(Parent):`). Polymorphism enables different classes to be treated through the same interface. Abstraction hides implementation details using Abstract Base Classes (`abc.ABC`).",
+    "example": "class Student(Person):\n    def __init__(self, name, student_id):\n        super().__init__(name)\n        self.student_id = student_id",
+    "important_points": [
+      "Encapsulation: Bundling data and methods while restricting internal access.",
+      "Inheritance: Reusing code across class hierarchies.",
+      "Polymorphism: Overriding methods to customize child behavior.",
+      "Special dunder methods (`__init__`, `__str__`, `__repr__`, `__len__`) customize object behavior."
+    ],
+    "keywords": [
+      "oop",
+      "classes",
+      "objects",
+      "inheritance",
+      "polymorphism",
+      "encapsulation",
+      "python oop"
+    ],
+    "formula": null
+  },
+  {
+    "id": "python_algorithms",
+    "subject": "Python Programming",
+    "topic": "Time & Space Complexity",
+    "title": "Algorithmic Complexity & Big-O Notation",
+    "definition": "Big-O notation describes the limiting behavior of an algorithm's execution time or memory space requirement as the input size (n) grows towards infinity.",
+    "explanation": "Time complexity measures the number of operations performed, while space complexity measures auxiliary memory used. Common complexity classes from best to worst: O(1) Constant, O(log n) Logarithmic (e.g. Binary Search), O(n) Linear (e.g. Linear Search), O(n log n) Linearithmic (e.g. MergeSort, QuickSort), O(n^2) Quadratic (e.g. BubbleSort), and O(2^n) Exponential.",
+    "example": "Binary search on a sorted array of 1,000,000 items takes at most ~20 comparisons (O(log2 n)).",
+    "important_points": [
+      "O(1): Constant time (Hash table lookup).",
+      "O(log n): Logarithmic time (Binary search, Balanced BSTs).",
+      "O(n log n): Efficient comparison-based sorting (MergeSort, TimSort).",
+      "O(n^2): Inefficient nested loops (BubbleSort, SelectionSort)."
+    ],
+    "keywords": [
+      "big-o",
+      "time complexity",
+      "space complexity",
+      "algorithms",
+      "binary search",
+      "sorting",
+      "data structures"
+    ],
+    "formula": "T(n) = O(f(n))"
+  }
+]

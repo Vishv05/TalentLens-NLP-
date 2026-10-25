@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ error_code | default(404) }} — TalentLens Academic Platform</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/favicon.svg') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: radial-gradient(circle at top center, rgba(37, 99, 235, 0.08) 0%, rgba(15, 23, 42, 0.02) 60%), #f8fafc;
+            min-height: 100vh;
+        }
+        [data-bs-theme="dark"] body {
+            background: radial-gradient(circle at top center, rgba(37, 99, 235, 0.12) 0%, rgba(11, 17, 32, 1) 60%), #0b1120;
+        }
+        .error-card {
+            border-radius: 20px;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            backdrop-filter: blur(10px);
+            max-width: 580px;
+            margin: auto;
+        }
+        [data-bs-theme="dark"] .error-card {
+            border-color: rgba(51, 65, 85, 0.8);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+        }
+        .error-code-badge {
+            font-size: 4rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column justify-content-center align-items-center py-5">
+    <div class="container text-center">
+        <div class="card error-card p-4 p-md-5">
+            <!-- Brand Badge -->
+            <div class="d-inline-flex align-items-center justify-content-center mx-auto mb-3">
+                <div class="bg-primary text-white rounded-3 d-inline-flex align-items-center justify-content-center shadow-sm" style="width: 48px; height: 48px; font-size: 1.3rem;">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+            </div>
+            
+            <div class="error-code-badge">{{ error_code | default(404) }}</div>
+            <h3 class="fw-bold mb-2">{{ error_title | default('Academic Resource Not Found') }}</h3>
+            <p class="text-muted mb-4 small">
+                {{ error_message | default('The requested learning module or endpoint could not be resolved. Please verify the URL or navigate back to the academic hub.') }}
+            </p>
+
+            <div class="d-flex flex-wrap justify-content-center gap-2">
+                <a href="{{ url_for('dashboard_view') }}" class="btn btn-primary rounded-pill px-4 shadow-sm">
+                    <i class="fa-solid fa-chart-line me-1.5"></i>Return to Dashboard
+                </a>
+                <a href="{{ url_for('chat_view') }}" class="btn btn-outline-primary rounded-pill px-4">
+                    <i class="fa-solid fa-robot me-1.5"></i>Ask AI Tutor
+                </a>
+                <button onclick="window.history.back()" class="btn btn-outline-secondary rounded-pill px-3">
+                    <i class="fa-solid fa-arrow-left me-1"></i>Go Back
+                </button>
+            </div>
+
+            <hr class="my-4 border-secondary-subtle">
+            <div class="text-muted small">
+                TalentLens Academic Intelligence Platform &bull; NLP Engine Operational
+            </div>
+        </div>
+    </div>
+</body>
+</html>

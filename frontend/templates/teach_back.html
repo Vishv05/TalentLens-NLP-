@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Feynman Technique Studio — TalentLens</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; color: #1e293b; }
+        .feynman-card { border-radius: 18px; border: 1px solid #e2e8f0; background: #ffffff; box-shadow: 0 10px 25px rgba(0,0,0,0.04); }
+        .specs-stage { background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); border-radius: 16px; padding: 24px; text-align: center; position: relative; }
+        .specs-bubble { background: #ffffff; border-radius: 16px; padding: 16px 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); font-weight: 500; display: inline-block; max-width: 90%; position: relative; margin-bottom: 15px; }
+        .specs-bubble::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); border-width: 10px 10px 0; border-style: solid; border-color: #ffffff transparent; display: block; width: 0; }
+        .bird-avatar-circle { width: 90px; height: 90px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 8px 20px rgba(14,165,233,0.3); border: 4px solid #38bdf8; font-size: 3rem; }
+        .meter-box { background: #f1f5f9; border-radius: 12px; padding: 14px; text-align: center; }
+        .badge-analogy { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; border-radius: 20px; padding: 4px 12px; font-size: 0.8rem; margin: 2px; }
+        .badge-jargon { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; border-radius: 20px; padding: 4px 12px; font-size: 0.8rem; margin: 2px; }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    {% set active_page = 'teach_back' %}
+    {% include 'navbar.html' %}
+
+    <main class="container py-4 my-auto">
+        <!-- Header -->
+        <div class="d-flex flex-wrap align-items-center justify-content-between mb-4 gap-2 border-bottom pb-3">
+            <div>
+                <span class="badge bg-warning-subtle text-dark border border-warning px-3 py-1 mb-2"><i class="fa-solid fa-lightbulb me-1"></i>Active Recall & Intuition</span>
+                <h3 class="fw-bold mb-1">The Feynman Technique Studio</h3>
+                <p class="text-muted small mb-0"><em>"If you can't explain it simply to a 10-year-old, you don't understand it yourself."</em> — Richard Feynman. Teach a concept to Specs!</p>
+            </div>
+            <div class="d-flex gap-2 align-items-center">
+                <span class="badge bg-primary rounded-pill px-3 py-2"><i class="fa-solid fa-graduation-cap me-1"></i>Teach-Back Lab</span>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- Left: Teach Input Form -->
+            <div class="col-lg-6">
+                <div class="card feynman-card p-4 h-100 d-flex flex-column">
+                    <h5 class="fw-bold mb-3"><i class="fa-solid fa-chalkboard-user text-primary me-2"></i>Teach Your Chosen Concept</h5>
+                    
+                    <form id="feynmanForm" class="d-flex flex-column flex-grow-1">
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-7">
+                                <label class="form-label small fw-semibold text-muted">Concept to Teach:</label>
+                                <select class="form-select" id="conceptSelect" onchange="onConceptChange()">
+                                    <!-- Populated dynamically -->
+                                </select>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-label small fw-semibold text-muted">Target Student:</label>
+                                <select class="form-select" id="audienceSelect">
+                                    <option value="child" selected>👶 10-Year-Old (Fun & Simple)</option>
+                                    <option value="highschool">🎒 High School Beginner</option>
+                                    <option value="nontech">💼 Non-Technical Peer</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Golden Rules Banner -->
+                        <div class="alert alert-warning py-2 px-3 small mb-3 border-0 d-flex align-items-center gap-2" style="border-radius: 10px;">
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <div><strong>Golden Rule:</strong> Use vivid analogies (pizza slices, lego, recipes). Avoid circular definitions or ungrounded textbook jargon!</div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <label class="form-label small fw-semibold text-muted mb-0">Your Simple Explanation:</label>
+                            <span class="small text-muted" id="feynmanWordCount">0 words</span>
+                        </div>
+                        <div class="mb-3 flex-grow-1">
+                            <textarea class="form-control" id="feynmanInput" rows="6" placeholder="Imagine Specs is sitting right in front of you. Start like this: 'Think of this concept like a giant toy box where...' or 'Imagine you're making pizza...'" required style="height: 100%; min-height: 160px;"></textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-outline-secondary btn-sm" id="feynmanVoiceBtn" onclick="toggleFeynmanVoice()">
+                                    <i class="fa-solid fa-microphone me-1"></i><span id="feynmanVoiceText">Dictate</span>
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="setSampleMetaphor()">Insert Example Metaphor</button>
+                            </div>
+                            <button type="submit" class="btn btn-warning px-4 fw-bold text-dark shadow-sm" id="btnSubmitFeynman">
+                                <i class="fa-solid fa-paper-plane me-2"></i>Teach Specs Now!
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Right: Specs Companion & Feynman Report Card -->
+            <div class="col-lg-6">
+                <div class="card feynman-card p-4 h-100 d-flex flex-column">
+                    <!-- Specs Stage -->
+                    <div class="specs-stage mb-3">
+                        <div class="specs-bubble shadow-sm" id="specsSpeechBubble">
+                            <span id="specsSpeechText">Chirp! Hey there! Pick any concept above and teach it to me like I'm 10 years old! I'm listening! 🐥</span>
+                        </div>
+                        <div class="bird-avatar-circle" id="specsAvatar">
+                            <i class="fa-solid fa-crow text-primary"></i>
+                        </div>
+                        <div class="fw-bold mt-2 text-dark" id="specsMoodLabel">Specs &bull; Ready to Learn!</div>
+                    </div>
+
+                    <!-- Report Card Section -->
+                    <div id="feynmanReportCard" class="d-none flex-grow-1 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <h6 class="fw-bold mb-0"><i class="fa-solid fa-award text-warning me-1"></i>Feynman Mastery Score</h6>
+                                <span class="badge bg-success px-3 py-2 fw-bold" id="feynmanBadge">Master Mentor</span>
+                            </div>
+                            <div class="progress mb-3" style="height: 12px;">
+                                <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" id="feynmanProgressBar" style="width: 0%"></div>
+                            </div>
+
+                            <!-- 3 Score Meters -->
+                            <div class="row g-2 mb-3">
+                                <div class="col-4">
+                                    <div class="meter-box">
+                                        <div class="text-muted small" style="font-size: 0.75rem;">Simplicity</div>
+                                        <h5 class="fw-bold text-primary mb-0" id="meterSimplicity">0%</h5>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="meter-box">
+                                        <div class="text-muted small" style="font-size: 0.75rem;">Accuracy</div>
+                                        <h5 class="fw-bold text-success mb-0" id="meterAccuracy">0%</h5>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="meter-box">
+                                        <div class="text-muted small" style="font-size: 0.75rem;">Metaphors</div>
+                                        <h5 class="fw-bold text-warning mb-0" id="meterAnalogy">0%</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Diagnostic Flags -->
+                            <div id="circularWarning" class="alert alert-danger py-2 px-3 small d-none mb-2">
+                                <i class="fa-solid fa-triangle-exclamation me-1"></i><strong>Circular Definition Warning:</strong> You used the concept's name repeatedly without unpacking its foundational mechanism.
+                            </div>
+
+                            <div class="mb-2">
+                                <label class="small text-muted fw-bold d-block mb-1">Metaphors & Similes Detected:</label>
+                                <div id="analogiesContainer">
+                                    <span class="text-muted small">None yet</span>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="small text-muted fw-bold d-block mb-1">Unexplained Jargon Flagged:</label>
+                                <div id="jargonContainer">
+                                    <span class="text-success small"><i class="fa-solid fa-check me-1"></i>Clean! No heavy jargon detected.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-light rounded-3 border d-flex align-items-center justify-content-between mt-auto">
+                            <span class="small fw-semibold text-muted">Reward Earned:</span>
+                            <span class="badge bg-primary px-3 py-2" id="feynmanXpBadge">+40 XP</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let recognition = null;
+        let isRecording = false;
+
+        async function initFeynman() {
+            try {
+                const res = await fetch("/api/feynman/topics");
+                const data = await res.json();
+                window.feynmanTopics = data.topics || [];
+                const sel = document.getElementById("conceptSelect");
+                sel.innerHTML = "";
+                window.feynmanTopics.forEach(t => {
+                    const opt = document.createElement("option");
+                    opt.value = t.topic;
+                    opt.textContent = `${t.topic} (${t.subject})`;
+                    sel.appendChild(opt);
+                });
+                onConceptChange();
+            } catch (err) {
+                console.error("Feynman init error", err);
+            }
+        }
+
+        function onConceptChange() {
+            const topic = document.getElementById("conceptSelect").value;
+            document.getElementById("specsSpeechText").textContent = `Chirp! I'm ready! Teach me what "${topic}" is using simple words or a story! 🐣`;
+        }
+
+        document.getElementById("feynmanInput").addEventListener("input", function() {
+            const count = this.value.trim().split(/\s+/).filter(Boolean).length;
+            document.getElementById("feynmanWordCount").textContent = `${count} words`;
+        });
+
+        function setSampleMetaphor() {
+            const topic = document.getElementById("conceptSelect").value;
+            const input = document.getElementById("feynmanInput");
+            input.value = `Imagine you have a giant sentence made of Lego blocks. ${topic} is like taking the big toy apart into individual single bricks so you can organize, count, and color them one by one! Think of it like slicing a pizza into single slices so everyone can take a bite.`;
+            input.dispatchEvent(new Event("input"));
+        }
+
+        function toggleFeynmanVoice() {
+            const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRec) {
+                alert("Speech recognition is not supported in this browser. Please use Chrome/Edge or type your explanation.");
+                return;
+            }
+
+            if (!recognition) {
+                recognition = new SpeechRec();
+                recognition.continuous = true;
+                recognition.interimResults = true;
+                recognition.lang = "en-US";
+
+                recognition.onresult = function(event) {
+                    let fullText = "";
+                    for (let i = 0; i < event.results.length; i++) {
+                        fullText += event.results[i][0].transcript + " ";
+                    }
+                    document.getElementById("feynmanInput").value = fullText;
+                    document.getElementById("feynmanInput").dispatchEvent(new Event("input"));
+                };
+
+                recognition.onend = function() {
+                    isRecording = false;
+                    document.getElementById("feynmanVoiceBtn").classList.remove("btn-danger");
+                    document.getElementById("feynmanVoiceText").textContent = "Dictate";
+                };
+            }
+
+            if (isRecording) {
+                recognition.stop();
+                isRecording = false;
+                document.getElementById("feynmanVoiceBtn").classList.remove("btn-danger");
+                document.getElementById("feynmanVoiceText").textContent = "Dictate";
+            } else {
+                recognition.start();
+                isRecording = true;
+                document.getElementById("feynmanVoiceBtn").classList.add("btn-danger");
+                document.getElementById("feynmanVoiceText").textContent = "Listening...";
+            }
+        }
+
+        document.getElementById("feynmanForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const text = document.getElementById("feynmanInput").value.trim();
+            const topic = document.getElementById("conceptSelect").value;
+            const audience = document.getElementById("audienceSelect").value;
+
+            const btn = document.getElementById("btnSubmitFeynman");
+            btn.disabled = true;
+            btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span>Specs is Thinking...`;
+
+            try {
+                const res = await fetch("/api/feynman/evaluate", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        topic: topic,
+                        explanation: text,
+                        audience_level: audience
+                    })
+                });
+                const data = await res.json();
+                renderFeynmanReport(data);
+            } catch (err) {
+                alert("Evaluation error. Please retry.");
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fa-solid fa-paper-plane me-2"></i>Teach Specs Now!`;
+            }
+        });
+
+        function renderFeynmanReport(data) {
+            document.getElementById("feynmanReportCard").classList.remove("d-none");
+            
+            // Speech Bubble from Specs
+            document.getElementById("specsSpeechText").textContent = data.specs_dialogue;
+            document.getElementById("specsMoodLabel").textContent = `Specs • Mood: ${data.specs_mood.toUpperCase()}`;
+
+            // Avatar Icon
+            const avatar = document.getElementById("specsAvatar");
+            if (data.specs_mood === "celebrating") {
+                avatar.innerHTML = `<i class="fa-solid fa-star text-warning"></i>`;
+            } else if (data.specs_mood === "curious") {
+                avatar.innerHTML = `<i class="fa-solid fa-lightbulb text-warning"></i>`;
+            } else if (data.specs_mood === "thinking") {
+                avatar.innerHTML = `<i class="fa-solid fa-brain text-info"></i>`;
+            } else {
+                avatar.innerHTML = `<i class="fa-solid fa-question text-danger"></i>`;
+            }
+
+            // Scores
+            document.getElementById("feynmanBadge").textContent = data.mastery_title;
+            document.getElementById("feynmanProgressBar").style.width = `${data.feynman_score}%`;
+            document.getElementById("meterSimplicity").textContent = `${data.simplicity_score}%`;
+            document.getElementById("meterAccuracy").textContent = `${data.accuracy_score}%`;
+            document.getElementById("meterAnalogy").textContent = `${data.analogy_score}%`;
+            document.getElementById("feynmanXpBadge").textContent = `+${data.xp_awarded} XP`;
+
+            // Circular Warning
+            const circWarn = document.getElementById("circularWarning");
+            if (data.circularity_detected) {
+                circWarn.classList.remove("d-none");
+            } else {
+                circWarn.classList.add("d-none");
+            }
+
+            // Analogies
+            const anDiv = document.getElementById("analogiesContainer");
+            anDiv.innerHTML = "";
+            if (data.analogies_found && data.analogies_found.length > 0) {
+                data.analogies_found.forEach(a => {
+                    const sp = document.createElement("span");
+                    sp.className = "badge-analogy";
+                    sp.innerHTML = `<i class="fa-solid fa-lightbulb me-1"></i>${a}`;
+                    anDiv.appendChild(sp);
+                });
+            } else {
+                anDiv.innerHTML = `<span class="text-muted small fst-italic">No analogies found. Try using words like 'like', 'imagine', 'think of', 'pizza', 'lego'!</span>`;
+            }
+
+            // Jargon
+            const jarDiv = document.getElementById("jargonContainer");
+            jarDiv.innerHTML = "";
+            if (data.jargon_detected && data.jargon_detected.length > 0) {
+                data.jargon_detected.forEach(j => {
+                    const sp = document.createElement("span");
+                    sp.className = "badge-jargon";
+                    sp.innerHTML = `<i class="fa-solid fa-triangle-exclamation me-1"></i>${j}`;
+                    jarDiv.appendChild(sp);
+                });
+            } else {
+                jarDiv.innerHTML = `<span class="text-success small fw-semibold"><i class="fa-solid fa-circle-check me-1"></i>Clean! No heavy unexplained jargon detected.</span>`;
+            }
+
+            // Speak Specs dialogue
+            if ("speechSynthesis" in window && data.specs_dialogue) {
+                window.speechSynthesis.cancel();
+                const utter = new SpeechSynthesisUtterance(data.specs_dialogue);
+                utter.pitch = 1.2;
+                utter.rate = 1.05;
+                window.speechSynthesis.speak(utter);
+            }
+        }
+
+        window.onload = initFeynman;
+    </script>
+</body>
+</html>

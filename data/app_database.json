@@ -1,0 +1,2547 @@
+{
+  "users": [
+    {
+      "name": "Course Instructor",
+      "email": "admin@gmail.com",
+      "role": "admin",
+      "password_hash": "scrypt:32768:8:1$hMiLp14GZ1nuZ7Qa$b050c941dabd57aea5abe68f280e075634a1fd5aa8a2026b5b9b6d68b82ddcbfd60d2e0dce47f5ef5ce3139cc35d7c453b87535975eefb6e622b02f9e8e8ab66",
+      "created_at": "2026-09-28 16:10:31.171911+00:00",
+      "learning_preferences": {
+        "preferred_subject": "Natural Language Processing",
+        "difficulty": "Advanced"
+      },
+      "_id": "6aba91775b52a2ee1f9af897"
+    },
+    {
+      "name": "Course Instructor",
+      "email": "admin@gmai.com",
+      "role": "admin",
+      "password_hash": "scrypt:32768:8:1$blKZyYFF8sleh55P$58fc5fb36b7ccaaece0439064bc2b5efafb92de9ca4b2420a559d6b23b831a169270da4642191c5c5759c2cef9e6d5889f4b7ff95dab0adceceed16ddd542063",
+      "created_at": "2026-09-28 16:10:31.316855+00:00",
+      "learning_preferences": {
+        "preferred_subject": "Natural Language Processing",
+        "difficulty": "Advanced"
+      },
+      "_id": "6aba91775b52a2ee1f9af898"
+    },
+    {
+      "name": "Vishv Patel",
+      "email": "student@gmail.com",
+      "role": "student",
+      "password_hash": "scrypt:32768:8:1$8udyYvsDabALQski$2f8d72e85256ffd01e48d2d43c521e1810ecc96c2d5c1b214b438761aeea4074e8830be47589a3fbaa148c9cb9ee894e06e17c5d2ffe2370c2adc14cf0744a22",
+      "created_at": "2026-08-10T09:30:00+00:00",
+      "last_active": "Recent (Active Today)",
+      "learning_preferences": {
+        "preferred_subject": "Natural Language Processing",
+        "difficulty": "Medium"
+      },
+      "_id": "6aba91775b52a2ee1f9af899",
+      "last_login": "2026-10-24T02:30:41.939852+00:00",
+      "reset_code": null,
+      "reset_code_expires_at": null,
+      "password_updated_at": "2026-10-24T02:30:40.252633+00:00"
+    },
+    {
+      "name": "Rushit Shah",
+      "email": "rushit24@gmail.com",
+      "role": "student",
+      "password_hash": "scrypt:32768:8:1$16Uji27PGPiKCWUg$c6b449fe827d98ac97dbaec89d3e8f762d1be3c1073fb3f3a933755b1283ac7c0761e58f4003d97cc4a06377c6ad8a1d0912a70d97102ea8aced325f14193e81",
+      "created_at": "2026-02-22T14:20:00+00:00",
+      "last_active": "Logged in Earlier (Feb 2026)",
+      "learning_preferences": {
+        "preferred_subject": "Machine Learning",
+        "difficulty": "Medium"
+      },
+      "_id": "6aba91775b52a2ee1f9af8a7"
+    },
+    {
+      "name": "Arjun Singh",
+      "email": "arjun12@gmail.com",
+      "role": "student",
+      "password_hash": "scrypt:32768:8:1$YsCzgRWY4U2d68iV$4b0b5a587e9dc5e938aa1dd61044f220d7b5321c5a064af96b08399cc82ccaf8834d1b634142a893ff3966ce542eb7babae9e6aa7a0b2cae4b9da55ea809af23",
+      "created_at": "2026-02-23T11:45:00+00:00",
+      "last_active": "Logged in Earlier (Feb 2026)",
+      "learning_preferences": {
+        "preferred_subject": "Natural Language Processing",
+        "difficulty": "Medium"
+      },
+      "_id": "6aba91775b52a2ee1f9af8b2"
+    },
+    {
+      "name": "Diya Patel",
+      "email": "diya12@gmail.com",
+      "role": "student",
+      "password_hash": "scrypt:32768:8:1$1fj2SvMZMMYtzIUu$a22c1c23c09fe956dfc75d4926f38d8a30f2b6e157a3f5228b45a7a85751ac15af1f16c912b9a8aab285cf7c78f2688a4282f91ad8dbb5c86a075ccee768c3ff",
+      "created_at": "2026-03-05T16:10:00+00:00",
+      "last_active": "Logged in Earlier (Mar 2026)",
+      "learning_preferences": {
+        "preferred_subject": "Python Programming",
+        "difficulty": "Advanced"
+      },
+      "_id": "6aba91785b52a2ee1f9af8bb"
+    },
+    {
+      "name": "Academic Student",
+      "email": "student_test@example.com",
+      "role": "student",
+      "password_hash": "scrypt:32768:8:1$G2TvwJQwYAsTNrv9$ad5ea8581c7d262956a1b048e60913652d1dbe5b9d98038b21334c2f9e2bdbbd9ae74ce7e55ae5e9007356be1424b5dc0225e35c554d772d3a1dbd7c8ecfb190",
+      "created_at": "2026-09-29 10:11:39.497261+00:00",
+      "learning_preferences": {
+        "preferred_subject": "Natural Language Processing",
+        "difficulty": "Medium"
+      },
+      "_id": "6abb8edb3f61e4c1db102b1d"
+    },
+    {
+      "name": "Dhruvil Sojitra",
+      "email": "dhruvil12@gmail.com",
+      "role": "student",
+      "password_hash": "scrypt:32768:8:1$jzf8ZUMjehINk6v1$d5aaad9d601d3f6cec49614c9e5264ed56cffd754213aa3dfaa7c2668c83e03f3795fdb0bb8fb2ce29e050d032ebd64ecb4fbfd70602f1821a85ae320ab0d97b",
+      "created_at": "2026-09-29 10:35:04.982686+00:00",
+      "learning_preferences": {
+        "preferred_subject": "Natural Language Processing",
+        "difficulty": "Medium"
+      },
+      "_id": "6abb9458630c8d7f9c4c72e1",
+      "reset_code": null,
+      "reset_code_expires_at": null,
+      "password_updated_at": "2026-09-30T14:05:15.240457+00:00",
+      "last_login": "2026-09-30T14:05:19.381973+00:00",
+      "last_active": "Recent (Active Today)"
+    }
+  ],
+  "quizzes": [
+    {
+      "quiz_id": "000287c5-b73c-4ea6-ae27-4c921db9d11b",
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "subject": "Natural Language Processing",
+      "topic": "Tokenization",
+      "difficulty": "Medium",
+      "score": 92.0,
+      "timestamp": "2026-09-27T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af89a"
+    },
+    {
+      "quiz_id": "a67bf817-d13f-4e96-ae9c-d8cea010dd97",
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "subject": "Natural Language Processing",
+      "topic": "TF-IDF",
+      "difficulty": "Medium",
+      "score": 88.0,
+      "timestamp": "2026-09-26T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af89b"
+    },
+    {
+      "quiz_id": "8e065397-fb8e-4aca-b070-0413462e3ae0",
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "subject": "Natural Language Processing",
+      "topic": "Word Embeddings",
+      "difficulty": "Medium",
+      "score": 85.0,
+      "timestamp": "2026-09-25T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af89c"
+    },
+    {
+      "quiz_id": "2369fa82-db39-40a9-8797-37e2419e1f89",
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "subject": "Python Programming",
+      "topic": "Time & Space Complexity",
+      "difficulty": "Medium",
+      "score": 90.0,
+      "timestamp": "2026-09-24T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af89d"
+    },
+    {
+      "quiz_id": "07d6e4b7-5626-4943-8f20-067cac89f49c",
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "subject": "Machine Learning",
+      "topic": "Supervised Learning",
+      "difficulty": "Medium",
+      "score": 82.0,
+      "timestamp": "2026-09-23T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af89e"
+    },
+    {
+      "quiz_id": "c1d51745-453d-4ecf-b783-f81b63f58280",
+      "user_id": "6aba91775b52a2ee1f9af8a7",
+      "subject": "Machine Learning",
+      "topic": "Supervised Learning",
+      "difficulty": "Medium",
+      "score": 86.0,
+      "timestamp": "2026-08-14T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af8a8"
+    },
+    {
+      "quiz_id": "98cc8ce1-dd25-4b7e-af78-5170dea184d1",
+      "user_id": "6aba91775b52a2ee1f9af8a7",
+      "subject": "Machine Learning",
+      "topic": "Evaluation Metrics",
+      "difficulty": "Medium",
+      "score": 82.0,
+      "timestamp": "2026-08-11T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af8a9"
+    },
+    {
+      "quiz_id": "43b4ff2a-b55b-476a-8ccd-1fe0a4ab76a0",
+      "user_id": "6aba91775b52a2ee1f9af8a7",
+      "subject": "Database Management Systems",
+      "topic": "SQL Queries & Joins",
+      "difficulty": "Medium",
+      "score": 80.0,
+      "timestamp": "2026-08-09T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af8aa"
+    },
+    {
+      "quiz_id": "872bb01e-bae3-42c3-9dde-7d4f780174b6",
+      "user_id": "6aba91775b52a2ee1f9af8a7",
+      "subject": "Python Programming",
+      "topic": "OOP in Python",
+      "difficulty": "Medium",
+      "score": 84.0,
+      "timestamp": "2026-08-07T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af8ab"
+    },
+    {
+      "quiz_id": "62892595-eaa6-4826-8b07-eaa5e39f34d3",
+      "user_id": "6aba91775b52a2ee1f9af8b2",
+      "subject": "Natural Language Processing",
+      "topic": "Lemmatization",
+      "difficulty": "Medium",
+      "score": 78.0,
+      "timestamp": "2026-08-17T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af8b3"
+    },
+    {
+      "quiz_id": "214966e3-eedd-4238-abbb-3820812bde00",
+      "user_id": "6aba91775b52a2ee1f9af8b2",
+      "subject": "Natural Language Processing",
+      "topic": "Part-of-Speech Tagging",
+      "difficulty": "Medium",
+      "score": 74.0,
+      "timestamp": "2026-08-15T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af8b4"
+    },
+    {
+      "quiz_id": "ad4b1e67-6ffd-43a2-bd72-5c7370b7622f",
+      "user_id": "6aba91775b52a2ee1f9af8b2",
+      "subject": "Database Management Systems",
+      "topic": "ACID Properties",
+      "difficulty": "Medium",
+      "score": 76.0,
+      "timestamp": "2026-08-13T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af8b5"
+    },
+    {
+      "quiz_id": "b89ce4b7-81c5-4428-bcdc-589db2cf3b5f",
+      "user_id": "6aba91785b52a2ee1f9af8bb",
+      "subject": "Python Programming",
+      "topic": "OOP in Python",
+      "difficulty": "Medium",
+      "score": 90.0,
+      "timestamp": "2026-08-29T16:10:31.318762+00:00",
+      "_id": "6aba91785b52a2ee1f9af8bc"
+    },
+    {
+      "quiz_id": "c0667258-5ebf-48ac-af16-eebf8e0440dd",
+      "user_id": "6aba91785b52a2ee1f9af8bb",
+      "subject": "Python Programming",
+      "topic": "Time & Space Complexity",
+      "difficulty": "Medium",
+      "score": 88.0,
+      "timestamp": "2026-08-27T16:10:31.318762+00:00",
+      "_id": "6aba91785b52a2ee1f9af8bd"
+    },
+    {
+      "quiz_id": "b22a7ab3-c3ce-4345-bcc5-2b70cbf66deb",
+      "user_id": "6aba91785b52a2ee1f9af8bb",
+      "subject": "Database Management Systems",
+      "topic": "Normalization",
+      "difficulty": "Medium",
+      "score": 84.0,
+      "timestamp": "2026-08-24T16:10:31.318762+00:00",
+      "_id": "6aba91785b52a2ee1f9af8be"
+    },
+    {
+      "quiz_id": "ccab4350-dc2a-45fc-a47f-066ef72427a6",
+      "user_id": "6aba91785b52a2ee1f9af8bb",
+      "subject": "Machine Learning",
+      "topic": "Supervised Learning",
+      "difficulty": "Medium",
+      "score": 86.0,
+      "timestamp": "2026-08-21T16:10:31.318762+00:00",
+      "_id": "6aba91785b52a2ee1f9af8bf"
+    },
+    {
+      "quiz_id": "5c740209-6cd7-4cfb-b807-458a08b283ac",
+      "user_id": "6aba91775b52a2ee1f9af897",
+      "subject": "Natural Language Processing",
+      "topic": "TF-IDF",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "id": "q_tfidf_1",
+          "type": "mcq",
+          "question": "In TF-IDF, what does Inverse Document Frequency (IDF) measure?",
+          "options": [
+            "How often a word appears in a single document",
+            "How rare or common a word is across the entire corpus",
+            "The total character length of a document",
+            "The grammatical correct weight of a word"
+          ],
+          "correct_answer": "How rare or common a word is across the entire corpus",
+          "explanation": "IDF penalizes common stop words and rewards unique topical terms."
+        },
+        {
+          "id": "q_tfidf_2",
+          "type": "true_false",
+          "question": "True or False: If a word appears in every single document in a corpus, its IDF value will be close to 0.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct_answer": "True",
+          "explanation": "log(N/N) = log(1) = 0, giving no weight to ubiquitous terms."
+        },
+        {
+          "id": "q_tfidf_3",
+          "type": "short_answer",
+          "question": "Why are common words like 'the' or 'is' given a low weight in TF-IDF?",
+          "correct_answer": "Common words appear in almost every document, resulting in a low IDF score near zero.",
+          "explanation": "Words appearing in all documents carry low informative power."
+        }
+      ],
+      "user_answers": [],
+      "score": 0.0,
+      "timestamp": "2026-09-28 16:10:33.346706+00:00",
+      "_id": "6aba91795b52a2ee1f9af8c8"
+    },
+    {
+      "quiz_id": "47af3f3c-2aee-4dbf-9e19-a15f49cd5d13",
+      "user_id": "guest_user",
+      "subject": "Natural Language Processing",
+      "topic": "Tokenization",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "id": "q_tok_1",
+          "type": "mcq",
+          "question": "What is the primary objective of tokenization in an NLP pipeline?",
+          "options": [
+            "To translate text into another language",
+            "To break raw text into smaller units like words or subwords",
+            "To remove all verbs from a sentence",
+            "To convert audio signals to text"
+          ],
+          "correct_answer": "To break raw text into smaller units like words or subwords",
+          "explanation": "Tokenization breaks a sequence of text into pieces called tokens."
+        },
+        {
+          "id": "q_tok_2",
+          "type": "true_false",
+          "question": "True or False: Lemmatization always produces valid dictionary words, whereas stemming may produce non-words.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct_answer": "True",
+          "explanation": "Lemmatization uses vocabulary dictionaries and morphological context to generate valid lemmas."
+        },
+        {
+          "id": "q_tok_3",
+          "type": "short_answer",
+          "question": "Define what a token is in natural language processing.",
+          "correct_answer": "A token is a meaningful unit of text, such as a word, character, or subword, generated during tokenization.",
+          "explanation": "Tokens serve as the fundamental input units for subsequent vectorization and modeling."
+        }
+      ],
+      "user_answers": [
+        {
+          "question_id": "q_tok_1",
+          "question": "What is the primary objective of tokenization in an NLP pipeline?",
+          "type": "mcq",
+          "student_answer": "To break raw text into smaller units like words or subwords",
+          "correct_answer": "To break raw text into smaller units like words or subwords",
+          "is_correct": true,
+          "score_percent": 100.0,
+          "feedback": "Correct!"
+        },
+        {
+          "question_id": "q_tok_2",
+          "question": "True or False: Lemmatization always produces valid dictionary words, whereas stemming may produce non-words.",
+          "type": "true_false",
+          "student_answer": "True",
+          "correct_answer": "True",
+          "is_correct": true,
+          "score_percent": 100.0,
+          "feedback": "Correct!"
+        },
+        {
+          "question_id": "q_tok_3",
+          "question": "Define what a token is in natural language processing.",
+          "type": "short_answer",
+          "student_answer": "A token is a meaningful unit of text generated during tokenization.",
+          "correct_answer": "A token is a meaningful unit of text, such as a word, character, or subword, generated during tokenization.",
+          "is_correct": true,
+          "score_percent": 84.44,
+          "semantic_similarity": 94.01,
+          "keyword_coverage": 66.67,
+          "feedback": "Partially correct (84.44%). You captured core elements, but ensure you include key terminology."
+        }
+      ],
+      "score": 94.81,
+      "timestamp": "2026-09-28 16:10:33.454412+00:00",
+      "_id": "6aba91795b52a2ee1f9af8c9",
+      "evaluated_at": "2026-09-28T16:10:33.581227+00:00"
+    },
+    {
+      "quiz_id": "230da7c8-c6c1-4075-9cac-52b9702cf0e7",
+      "user_id": "6aba91775b52a2ee1f9af897",
+      "subject": "Natural Language Processing",
+      "topic": "TF-IDF",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "id": "q_tfidf_1",
+          "type": "mcq",
+          "question": "In TF-IDF, what does Inverse Document Frequency (IDF) measure?",
+          "options": [
+            "How often a word appears in a single document",
+            "How rare or common a word is across the entire corpus",
+            "The total character length of a document",
+            "The grammatical correct weight of a word"
+          ],
+          "correct_answer": "How rare or common a word is across the entire corpus",
+          "explanation": "IDF penalizes common stop words and rewards unique topical terms."
+        },
+        {
+          "id": "q_tfidf_2",
+          "type": "true_false",
+          "question": "True or False: If a word appears in every single document in a corpus, its IDF value will be close to 0.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct_answer": "True",
+          "explanation": "log(N/N) = log(1) = 0, giving no weight to ubiquitous terms."
+        },
+        {
+          "id": "q_tfidf_3",
+          "type": "short_answer",
+          "question": "Why are common words like 'the' or 'is' given a low weight in TF-IDF?",
+          "correct_answer": "Common words appear in almost every document, resulting in a low IDF score near zero.",
+          "explanation": "Words appearing in all documents carry low informative power."
+        }
+      ],
+      "user_answers": [],
+      "score": 0.0,
+      "timestamp": "2026-09-28 16:38:05.363371+00:00",
+      "_id": "6aba97edebfcad860ef1ec9e"
+    },
+    {
+      "quiz_id": "be3f2fd9-b9bd-468a-8486-52e0720c7fd3",
+      "user_id": "guest_user",
+      "subject": "Natural Language Processing",
+      "topic": "Tokenization",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "id": "q_tok_1",
+          "type": "mcq",
+          "question": "What is the primary objective of tokenization in an NLP pipeline?",
+          "options": [
+            "To translate text into another language",
+            "To break raw text into smaller units like words or subwords",
+            "To remove all verbs from a sentence",
+            "To convert audio signals to text"
+          ],
+          "correct_answer": "To break raw text into smaller units like words or subwords",
+          "explanation": "Tokenization breaks a sequence of text into pieces called tokens."
+        },
+        {
+          "id": "q_tok_2",
+          "type": "true_false",
+          "question": "True or False: Lemmatization always produces valid dictionary words, whereas stemming may produce non-words.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct_answer": "True",
+          "explanation": "Lemmatization uses vocabulary dictionaries and morphological context to generate valid lemmas."
+        },
+        {
+          "id": "q_tok_3",
+          "type": "short_answer",
+          "question": "Define what a token is in natural language processing.",
+          "correct_answer": "A token is a meaningful unit of text, such as a word, character, or subword, generated during tokenization.",
+          "explanation": "Tokens serve as the fundamental input units for subsequent vectorization and modeling."
+        }
+      ],
+      "user_answers": [
+        {
+          "question_id": "q_tok_1",
+          "question": "What is the primary objective of tokenization in an NLP pipeline?",
+          "type": "mcq",
+          "student_answer": "To break raw text into smaller units like words or subwords",
+          "correct_answer": "To break raw text into smaller units like words or subwords",
+          "is_correct": true,
+          "score_percent": 100.0,
+          "feedback": "Correct!"
+        },
+        {
+          "question_id": "q_tok_2",
+          "question": "True or False: Lemmatization always produces valid dictionary words, whereas stemming may produce non-words.",
+          "type": "true_false",
+          "student_answer": "True",
+          "correct_answer": "True",
+          "is_correct": true,
+          "score_percent": 100.0,
+          "feedback": "Correct!"
+        },
+        {
+          "question_id": "q_tok_3",
+          "question": "Define what a token is in natural language processing.",
+          "type": "short_answer",
+          "student_answer": "A token is a meaningful unit of text generated during tokenization.",
+          "correct_answer": "A token is a meaningful unit of text, such as a word, character, or subword, generated during tokenization.",
+          "is_correct": true,
+          "score_percent": 84.44,
+          "semantic_similarity": 94.01,
+          "keyword_coverage": 66.67,
+          "feedback": "Partially correct (84.44%). You captured core elements, but ensure you include key terminology."
+        }
+      ],
+      "score": 94.81,
+      "timestamp": "2026-09-28 16:38:05.552057+00:00",
+      "_id": "6aba97edebfcad860ef1ec9f",
+      "evaluated_at": "2026-09-28T16:38:05.655095+00:00"
+    },
+    {
+      "quiz_id": "e1f9418e-3f97-44f6-8229-743ca63be882",
+      "user_id": "6aba91775b52a2ee1f9af897",
+      "subject": "Natural Language Processing",
+      "topic": "TF-IDF",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "id": "q_tfidf_1",
+          "type": "mcq",
+          "question": "In TF-IDF, what does Inverse Document Frequency (IDF) measure?",
+          "options": [
+            "How often a word appears in a single document",
+            "How rare or common a word is across the entire corpus",
+            "The total character length of a document",
+            "The grammatical correct weight of a word"
+          ],
+          "correct_answer": "How rare or common a word is across the entire corpus",
+          "explanation": "IDF penalizes common stop words and rewards unique topical terms."
+        },
+        {
+          "id": "q_tfidf_2",
+          "type": "true_false",
+          "question": "True or False: If a word appears in every single document in a corpus, its IDF value will be close to 0.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct_answer": "True",
+          "explanation": "log(N/N) = log(1) = 0, giving no weight to ubiquitous terms."
+        },
+        {
+          "id": "q_tfidf_3",
+          "type": "short_answer",
+          "question": "Why are common words like 'the' or 'is' given a low weight in TF-IDF?",
+          "correct_answer": "Common words appear in almost every document, resulting in a low IDF score near zero.",
+          "explanation": "Words appearing in all documents carry low informative power."
+        }
+      ],
+      "user_answers": [],
+      "score": 0.0,
+      "timestamp": "2026-09-29 10:11:40.645945+00:00",
+      "_id": "6abb8edc3f61e4c1db102b1f"
+    },
+    {
+      "quiz_id": "12ba3548-77e6-4c41-ab42-9e42a35f4696",
+      "user_id": "guest_user",
+      "subject": "Natural Language Processing",
+      "topic": "Tokenization",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "id": "q_tok_1",
+          "type": "mcq",
+          "question": "What is the primary objective of tokenization in an NLP pipeline?",
+          "options": [
+            "To translate text into another language",
+            "To break raw text into smaller units like words or subwords",
+            "To remove all verbs from a sentence",
+            "To convert audio signals to text"
+          ],
+          "correct_answer": "To break raw text into smaller units like words or subwords",
+          "explanation": "Tokenization breaks a sequence of text into pieces called tokens."
+        },
+        {
+          "id": "q_tok_2",
+          "type": "true_false",
+          "question": "True or False: Lemmatization always produces valid dictionary words, whereas stemming may produce non-words.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct_answer": "True",
+          "explanation": "Lemmatization uses vocabulary dictionaries and morphological context to generate valid lemmas."
+        },
+        {
+          "id": "q_tok_3",
+          "type": "short_answer",
+          "question": "Define what a token is in natural language processing.",
+          "correct_answer": "A token is a meaningful unit of text, such as a word, character, or subword, generated during tokenization.",
+          "explanation": "Tokens serve as the fundamental input units for subsequent vectorization and modeling."
+        }
+      ],
+      "user_answers": [
+        {
+          "question_id": "q_tok_1",
+          "question": "What is the primary objective of tokenization in an NLP pipeline?",
+          "type": "mcq",
+          "student_answer": "To break raw text into smaller units like words or subwords",
+          "correct_answer": "To break raw text into smaller units like words or subwords",
+          "is_correct": true,
+          "score_percent": 100.0,
+          "feedback": "Correct!"
+        },
+        {
+          "question_id": "q_tok_2",
+          "question": "True or False: Lemmatization always produces valid dictionary words, whereas stemming may produce non-words.",
+          "type": "true_false",
+          "student_answer": "True",
+          "correct_answer": "True",
+          "is_correct": true,
+          "score_percent": 100.0,
+          "feedback": "Correct!"
+        },
+        {
+          "question_id": "q_tok_3",
+          "question": "Define what a token is in natural language processing.",
+          "type": "short_answer",
+          "student_answer": "A token is a meaningful unit of text generated during tokenization.",
+          "correct_answer": "A token is a meaningful unit of text, such as a word, character, or subword, generated during tokenization.",
+          "is_correct": true,
+          "score_percent": 84.44,
+          "semantic_similarity": 94.01,
+          "keyword_coverage": 66.67,
+          "feedback": "Partially correct (84.44%). You captured core elements, but ensure you include key terminology."
+        }
+      ],
+      "score": 94.81,
+      "timestamp": "2026-09-29 10:11:40.780724+00:00",
+      "_id": "6abb8edc3f61e4c1db102b20",
+      "evaluated_at": "2026-09-29T10:11:40.863416+00:00"
+    },
+    {
+      "quiz_id": "692b444f-2adf-4a92-96af-8bc06ea479b3",
+      "user_id": "6abb9458630c8d7f9c4c72e1",
+      "subject": "Natural Language Processing",
+      "topic": "Tokenization",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "id": "q_tok_1",
+          "type": "mcq",
+          "question": "What is the primary objective of tokenization in an NLP pipeline?",
+          "options": [
+            "To translate text into another language",
+            "To break raw text into smaller units like words or subwords",
+            "To remove all verbs from a sentence",
+            "To convert audio signals to text"
+          ],
+          "correct_answer": "To break raw text into smaller units like words or subwords",
+          "explanation": "Tokenization breaks a sequence of text into pieces called tokens."
+        },
+        {
+          "id": "q_tok_2",
+          "type": "true_false",
+          "question": "True or False: Lemmatization always produces valid dictionary words, whereas stemming may produce non-words.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct_answer": "True",
+          "explanation": "Lemmatization uses vocabulary dictionaries and morphological context to generate valid lemmas."
+        },
+        {
+          "id": "q_tok_3",
+          "type": "short_answer",
+          "question": "Define what a token is in natural language processing.",
+          "correct_answer": "A token is a meaningful unit of text, such as a word, character, or subword, generated during tokenization.",
+          "explanation": "Tokens serve as the fundamental input units for subsequent vectorization and modeling."
+        }
+      ],
+      "user_answers": [
+        {
+          "question_id": "q_tok_1",
+          "question": "What is the primary objective of tokenization in an NLP pipeline?",
+          "type": "mcq",
+          "student_answer": "To break raw text into smaller units like words or subwords",
+          "correct_answer": "To break raw text into smaller units like words or subwords",
+          "is_correct": true,
+          "score_percent": 100.0,
+          "feedback": "Correct!"
+        },
+        {
+          "question_id": "q_tok_2",
+          "question": "True or False: Lemmatization always produces valid dictionary words, whereas stemming may produce non-words.",
+          "type": "true_false",
+          "student_answer": "True",
+          "correct_answer": "True",
+          "is_correct": true,
+          "score_percent": 100.0,
+          "feedback": "Correct!"
+        },
+        {
+          "question_id": "q_tok_3",
+          "question": "Define what a token is in natural language processing.",
+          "type": "short_answer",
+          "student_answer": "Chunk of words from sentence.",
+          "correct_answer": "A token is a meaningful unit of text, such as a word, character, or subword, generated during tokenization.",
+          "is_correct": false,
+          "score_percent": 23.59,
+          "semantic_similarity": 30.31,
+          "keyword_coverage": 11.11,
+          "feedback": "Incorrect (23.59%). Consider reviewing the definition and key points."
+        }
+      ],
+      "score": 74.53,
+      "timestamp": "2026-09-29 10:41:26.793373+00:00",
+      "_id": "6abb95d6630c8d7f9c4c72e5",
+      "evaluated_at": "2026-09-29T10:41:46.743661+00:00"
+    },
+    {
+      "quiz_id": "6e0422bb-baf3-4929-a6e4-4bead13d5435",
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "subject": "Natural Language Processing",
+      "topic": "TF-IDF",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "id": "q_tfidf_1",
+          "type": "mcq",
+          "question": "In TF-IDF, what does Inverse Document Frequency (IDF) measure?",
+          "options": [
+            "How often a word appears in a single document",
+            "How rare or common a word is across the entire corpus",
+            "The total character length of a document",
+            "The grammatical correct weight of a word"
+          ],
+          "correct_answer": "How rare or common a word is across the entire corpus",
+          "explanation": "IDF penalizes common stop words and rewards unique topical terms."
+        },
+        {
+          "id": "q_tfidf_2",
+          "type": "true_false",
+          "question": "True or False: If a word appears in every single document in a corpus, its IDF value will be close to 0.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct_answer": "True",
+          "explanation": "log(N/N) = log(1) = 0, giving no weight to ubiquitous terms."
+        },
+        {
+          "id": "q_tfidf_3",
+          "type": "short_answer",
+          "question": "Why are common words like 'the' or 'is' given a low weight in TF-IDF?",
+          "correct_answer": "Common words appear in almost every document, resulting in a low IDF score near zero.",
+          "explanation": "Words appearing in all documents carry low informative power."
+        }
+      ],
+      "user_answers": [],
+      "score": 0.0,
+      "timestamp": "2026-09-30 13:44:28.304978+00:00",
+      "_id": "6abd123c49b50d923c7bb422"
+    },
+    {
+      "quiz_id": "89e2f09a-2bbf-40d7-9328-5545d28e7635",
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "subject": "Natural Language Processing",
+      "topic": "Tokenization",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "id": "q_tok_1",
+          "type": "mcq",
+          "question": "What is the primary objective of tokenization in an NLP pipeline?",
+          "options": [
+            "To translate text into another language",
+            "To break raw text into smaller units like words or subwords",
+            "To remove all verbs from a sentence",
+            "To convert audio signals to text"
+          ],
+          "correct_answer": "To break raw text into smaller units like words or subwords",
+          "explanation": "Tokenization breaks a sequence of text into pieces called tokens."
+        },
+        {
+          "id": "q_tok_2",
+          "type": "true_false",
+          "question": "True or False: Lemmatization always produces valid dictionary words, whereas stemming may produce non-words.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct_answer": "True",
+          "explanation": "Lemmatization uses vocabulary dictionaries and morphological context to generate valid lemmas."
+        },
+        {
+          "id": "q_tok_3",
+          "type": "short_answer",
+          "question": "Define what a token is in natural language processing.",
+          "correct_answer": "A token is a meaningful unit of text, such as a word, character, or subword, generated during tokenization.",
+          "explanation": "Tokens serve as the fundamental input units for subsequent vectorization and modeling."
+        }
+      ],
+      "user_answers": [
+        {
+          "question_id": "q_tok_1",
+          "question": "What is the primary objective of tokenization in an NLP pipeline?",
+          "type": "mcq",
+          "student_answer": "To break raw text into smaller units like words or subwords",
+          "correct_answer": "To break raw text into smaller units like words or subwords",
+          "is_correct": true,
+          "score_percent": 100.0,
+          "feedback": "Correct!"
+        },
+        {
+          "question_id": "q_tok_2",
+          "question": "True or False: Lemmatization always produces valid dictionary words, whereas stemming may produce non-words.",
+          "type": "true_false",
+          "student_answer": "True",
+          "correct_answer": "True",
+          "is_correct": true,
+          "score_percent": 100.0,
+          "feedback": "Correct!"
+        },
+        {
+          "question_id": "q_tok_3",
+          "question": "Define what a token is in natural language processing.",
+          "type": "short_answer",
+          "student_answer": "A token is a meaningful unit of text generated during tokenization.",
+          "correct_answer": "A token is a meaningful unit of text, such as a word, character, or subword, generated during tokenization.",
+          "is_correct": true,
+          "score_percent": 84.44,
+          "semantic_similarity": 94.01,
+          "keyword_coverage": 66.67,
+          "feedback": "Partially correct (84.44%). You captured core elements, but ensure you include key terminology."
+        }
+      ],
+      "score": 94.81,
+      "timestamp": "2026-09-30 13:44:28.467272+00:00",
+      "_id": "6abd123c49b50d923c7bb423",
+      "evaluated_at": "2026-09-30T13:44:28.558106+00:00"
+    },
+    {
+      "quiz_id": "b7c70464-a6b3-4d7d-9708-0b4cdfccf427",
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "subject": "Natural Language Processing",
+      "topic": "TF-IDF",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "id": "q_tfidf_1",
+          "type": "mcq",
+          "question": "In TF-IDF, what does Inverse Document Frequency (IDF) measure?",
+          "options": [
+            "How often a word appears in a single document",
+            "How rare or common a word is across the entire corpus",
+            "The total character length of a document",
+            "The grammatical correct weight of a word"
+          ],
+          "correct_answer": "How rare or common a word is across the entire corpus",
+          "explanation": "IDF penalizes common stop words and rewards unique topical terms."
+        },
+        {
+          "id": "q_tfidf_2",
+          "type": "true_false",
+          "question": "True or False: If a word appears in every single document in a corpus, its IDF value will be close to 0.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct_answer": "True",
+          "explanation": "log(N/N) = log(1) = 0, giving no weight to ubiquitous terms."
+        },
+        {
+          "id": "q_tfidf_3",
+          "type": "short_answer",
+          "question": "Why are common words like 'the' or 'is' given a low weight in TF-IDF?",
+          "correct_answer": "Common words appear in almost every document, resulting in a low IDF score near zero.",
+          "explanation": "Words appearing in all documents carry low informative power."
+        }
+      ],
+      "user_answers": [],
+      "score": 0.0,
+      "timestamp": "2026-09-30 13:47:28.001422+00:00",
+      "_id": "6abd12f055c759260086d4f7"
+    },
+    {
+      "quiz_id": "44160ff0-cdc7-4faf-9c93-2cff9754a888",
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "subject": "Natural Language Processing",
+      "topic": "Tokenization",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "id": "q_tok_1",
+          "type": "mcq",
+          "question": "What is the primary objective of tokenization in an NLP pipeline?",
+          "options": [
+            "To translate text into another language",
+            "To break raw text into smaller units like words or subwords",
+            "To remove all verbs from a sentence",
+            "To convert audio signals to text"
+          ],
+          "correct_answer": "To break raw text into smaller units like words or subwords",
+          "explanation": "Tokenization breaks a sequence of text into pieces called tokens."
+        },
+        {
+          "id": "q_tok_2",
+          "type": "true_false",
+          "question": "True or False: Lemmatization always produces valid dictionary words, whereas stemming may produce non-words.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct_answer": "True",
+          "explanation": "Lemmatization uses vocabulary dictionaries and morphological context to generate valid lemmas."
+        },
+        {
+          "id": "q_tok_3",
+          "type": "short_answer",
+          "question": "Define what a token is in natural language processing.",
+          "correct_answer": "A token is a meaningful unit of text, such as a word, character, or subword, generated during tokenization.",
+          "explanation": "Tokens serve as the fundamental input units for subsequent vectorization and modeling."
+        }
+      ],
+      "user_answers": [
+        {
+          "question_id": "q_tok_1",
+          "question": "What is the primary objective of tokenization in an NLP pipeline?",
+          "type": "mcq",
+          "student_answer": "To break raw text into smaller units like words or subwords",
+          "correct_answer": "To break raw text into smaller units like words or subwords",
+          "is_correct": true,
+          "score_percent": 100.0,
+          "feedback": "Correct!"
+        },
+        {
+          "question_id": "q_tok_2",
+          "question": "True or False: Lemmatization always produces valid dictionary words, whereas stemming may produce non-words.",
+          "type": "true_false",
+          "student_answer": "True",
+          "correct_answer": "True",
+          "is_correct": true,
+          "score_percent": 100.0,
+          "feedback": "Correct!"
+        },
+        {
+          "question_id": "q_tok_3",
+          "question": "Define what a token is in natural language processing.",
+          "type": "short_answer",
+          "student_answer": "A token is a meaningful unit of text generated during tokenization.",
+          "correct_answer": "A token is a meaningful unit of text, such as a word, character, or subword, generated during tokenization.",
+          "is_correct": true,
+          "score_percent": 84.44,
+          "semantic_similarity": 94.01,
+          "keyword_coverage": 66.67,
+          "feedback": "Partially correct (84.44%). You captured core elements, but ensure you include key terminology."
+        }
+      ],
+      "score": 94.81,
+      "timestamp": "2026-09-30 13:47:28.219061+00:00",
+      "_id": "6abd12f055c759260086d4f8",
+      "evaluated_at": "2026-09-30T13:47:28.310901+00:00"
+    },
+    {
+      "quiz_id": "8057c458-524b-42d7-87ab-de553584a819",
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "subject": "Natural Language Processing",
+      "topic": "TF-IDF",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "id": "q_tfidf_1",
+          "type": "mcq",
+          "question": "In TF-IDF, what does Inverse Document Frequency (IDF) measure?",
+          "options": [
+            "How often a word appears in a single document",
+            "How rare or common a word is across the entire corpus",
+            "The total character length of a document",
+            "The grammatical correct weight of a word"
+          ],
+          "correct_answer": "How rare or common a word is across the entire corpus",
+          "explanation": "IDF penalizes common stop words and rewards unique topical terms."
+        },
+        {
+          "id": "q_tfidf_2",
+          "type": "true_false",
+          "question": "True or False: If a word appears in every single document in a corpus, its IDF value will be close to 0.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct_answer": "True",
+          "explanation": "log(N/N) = log(1) = 0, giving no weight to ubiquitous terms."
+        },
+        {
+          "id": "q_tfidf_3",
+          "type": "short_answer",
+          "question": "Why are common words like 'the' or 'is' given a low weight in TF-IDF?",
+          "correct_answer": "Common words appear in almost every document, resulting in a low IDF score near zero.",
+          "explanation": "Words appearing in all documents carry low informative power."
+        }
+      ],
+      "user_answers": [],
+      "score": 0.0,
+      "timestamp": "2026-09-30 13:58:47.932461+00:00",
+      "_id": "6abd1597b06372cda9311b22"
+    },
+    {
+      "quiz_id": "b8a7e0de-ba88-4ae8-9e13-cc13dbaca6d1",
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "subject": "Natural Language Processing",
+      "topic": "Tokenization",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "id": "q_tok_1",
+          "type": "mcq",
+          "question": "What is the primary objective of tokenization in an NLP pipeline?",
+          "options": [
+            "To translate text into another language",
+            "To break raw text into smaller units like words or subwords",
+            "To remove all verbs from a sentence",
+            "To convert audio signals to text"
+          ],
+          "correct_answer": "To break raw text into smaller units like words or subwords",
+          "explanation": "Tokenization breaks a sequence of text into pieces called tokens."
+        },
+        {
+          "id": "q_tok_2",
+          "type": "true_false",
+          "question": "True or False: Lemmatization always produces valid dictionary words, whereas stemming may produce non-words.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct_answer": "True",
+          "explanation": "Lemmatization uses vocabulary dictionaries and morphological context to generate valid lemmas."
+        },
+        {
+          "id": "q_tok_3",
+          "type": "short_answer",
+          "question": "Define what a token is in natural language processing.",
+          "correct_answer": "A token is a meaningful unit of text, such as a word, character, or subword, generated during tokenization.",
+          "explanation": "Tokens serve as the fundamental input units for subsequent vectorization and modeling."
+        }
+      ],
+      "user_answers": [
+        {
+          "question_id": "q_tok_1",
+          "question": "What is the primary objective of tokenization in an NLP pipeline?",
+          "type": "mcq",
+          "student_answer": "To break raw text into smaller units like words or subwords",
+          "correct_answer": "To break raw text into smaller units like words or subwords",
+          "is_correct": true,
+          "score_percent": 100.0,
+          "feedback": "Correct!"
+        },
+        {
+          "question_id": "q_tok_2",
+          "question": "True or False: Lemmatization always produces valid dictionary words, whereas stemming may produce non-words.",
+          "type": "true_false",
+          "student_answer": "True",
+          "correct_answer": "True",
+          "is_correct": true,
+          "score_percent": 100.0,
+          "feedback": "Correct!"
+        },
+        {
+          "question_id": "q_tok_3",
+          "question": "Define what a token is in natural language processing.",
+          "type": "short_answer",
+          "student_answer": "A token is a meaningful unit of text generated during tokenization.",
+          "correct_answer": "A token is a meaningful unit of text, such as a word, character, or subword, generated during tokenization.",
+          "is_correct": true,
+          "score_percent": 84.44,
+          "semantic_similarity": 94.01,
+          "keyword_coverage": 66.67,
+          "feedback": "Partially correct (84.44%). You captured core elements, but ensure you include key terminology."
+        }
+      ],
+      "score": 94.81,
+      "timestamp": "2026-09-30 13:58:48.057090+00:00",
+      "_id": "6abd1598b06372cda9311b23",
+      "evaluated_at": "2026-09-30T13:58:48.143563+00:00"
+    },
+    {
+      "quiz_id": "67152fc4-979b-4764-a068-b40648ba1eab",
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "subject": "Natural Language Processing",
+      "topic": "TF-IDF",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "id": "q_tfidf_1",
+          "type": "mcq",
+          "question": "In TF-IDF, what does Inverse Document Frequency (IDF) measure?",
+          "options": [
+            "How often a word appears in a single document",
+            "How rare or common a word is across the entire corpus",
+            "The total character length of a document",
+            "The grammatical correct weight of a word"
+          ],
+          "correct_answer": "How rare or common a word is across the entire corpus",
+          "explanation": "IDF penalizes common stop words and rewards unique topical terms."
+        },
+        {
+          "id": "q_tfidf_2",
+          "type": "true_false",
+          "question": "True or False: If a word appears in every single document in a corpus, its IDF value will be close to 0.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct_answer": "True",
+          "explanation": "log(N/N) = log(1) = 0, giving no weight to ubiquitous terms."
+        },
+        {
+          "id": "q_tfidf_3",
+          "type": "short_answer",
+          "question": "Why are common words like 'the' or 'is' given a low weight in TF-IDF?",
+          "correct_answer": "Common words appear in almost every document, resulting in a low IDF score near zero.",
+          "explanation": "Words appearing in all documents carry low informative power."
+        }
+      ],
+      "user_answers": [],
+      "score": 0.0,
+      "timestamp": "2026-09-30 14:44:41.530680+00:00",
+      "_id": "6abd205924ce05f47c008801"
+    },
+    {
+      "quiz_id": "96bee31b-8c3e-49d1-aa82-905f9cfb5407",
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "subject": "Natural Language Processing",
+      "topic": "Tokenization",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "id": "q_tok_1",
+          "type": "mcq",
+          "question": "What is the primary objective of tokenization in an NLP pipeline?",
+          "options": [
+            "To translate text into another language",
+            "To break raw text into smaller units like words or subwords",
+            "To remove all verbs from a sentence",
+            "To convert audio signals to text"
+          ],
+          "correct_answer": "To break raw text into smaller units like words or subwords",
+          "explanation": "Tokenization breaks a sequence of text into pieces called tokens."
+        },
+        {
+          "id": "q_tok_2",
+          "type": "true_false",
+          "question": "True or False: Lemmatization always produces valid dictionary words, whereas stemming may produce non-words.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct_answer": "True",
+          "explanation": "Lemmatization uses vocabulary dictionaries and morphological context to generate valid lemmas."
+        },
+        {
+          "id": "q_tok_3",
+          "type": "short_answer",
+          "question": "Define what a token is in natural language processing.",
+          "correct_answer": "A token is a meaningful unit of text, such as a word, character, or subword, generated during tokenization.",
+          "explanation": "Tokens serve as the fundamental input units for subsequent vectorization and modeling."
+        }
+      ],
+      "user_answers": [
+        {
+          "question_id": "q_tok_1",
+          "question": "What is the primary objective of tokenization in an NLP pipeline?",
+          "type": "mcq",
+          "student_answer": "To break raw text into smaller units like words or subwords",
+          "correct_answer": "To break raw text into smaller units like words or subwords",
+          "is_correct": true,
+          "score_percent": 100.0,
+          "feedback": "Correct!"
+        },
+        {
+          "question_id": "q_tok_2",
+          "question": "True or False: Lemmatization always produces valid dictionary words, whereas stemming may produce non-words.",
+          "type": "true_false",
+          "student_answer": "True",
+          "correct_answer": "True",
+          "is_correct": true,
+          "score_percent": 100.0,
+          "feedback": "Correct!"
+        },
+        {
+          "question_id": "q_tok_3",
+          "question": "Define what a token is in natural language processing.",
+          "type": "short_answer",
+          "student_answer": "A token is a meaningful unit of text generated during tokenization.",
+          "correct_answer": "A token is a meaningful unit of text, such as a word, character, or subword, generated during tokenization.",
+          "is_correct": true,
+          "score_percent": 84.44,
+          "semantic_similarity": 94.01,
+          "keyword_coverage": 66.67,
+          "feedback": "Partially correct (84.44%). You captured core elements, but ensure you include key terminology."
+        }
+      ],
+      "score": 94.81,
+      "timestamp": "2026-09-30 14:44:41.679050+00:00",
+      "_id": "6abd205924ce05f47c008802",
+      "evaluated_at": "2026-09-30T14:44:41.774722+00:00"
+    },
+    {
+      "quiz_id": "e229f54e-139e-4239-aeb3-dc0e44038489",
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "subject": "Natural Language Processing",
+      "topic": "TF-IDF",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "id": "q_tfidf_1",
+          "type": "mcq",
+          "question": "In TF-IDF, what does Inverse Document Frequency (IDF) measure?",
+          "options": [
+            "How often a word appears in a single document",
+            "How rare or common a word is across the entire corpus",
+            "The total character length of a document",
+            "The grammatical correct weight of a word"
+          ],
+          "correct_answer": "How rare or common a word is across the entire corpus",
+          "explanation": "IDF penalizes common stop words and rewards unique topical terms."
+        },
+        {
+          "id": "q_tfidf_2",
+          "type": "true_false",
+          "question": "True or False: If a word appears in every single document in a corpus, its IDF value will be close to 0.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct_answer": "True",
+          "explanation": "log(N/N) = log(1) = 0, giving no weight to ubiquitous terms."
+        },
+        {
+          "id": "q_tfidf_3",
+          "type": "short_answer",
+          "question": "Why are common words like 'the' or 'is' given a low weight in TF-IDF?",
+          "correct_answer": "Common words appear in almost every document, resulting in a low IDF score near zero.",
+          "explanation": "Words appearing in all documents carry low informative power."
+        }
+      ],
+      "user_answers": [],
+      "score": 0.0,
+      "timestamp": "2026-10-01 04:09:33.947104+00:00",
+      "_id": "6abddcfd1e5769dd28e8fb58"
+    },
+    {
+      "quiz_id": "8188f191-cfbf-48bf-b355-d123be95eef3",
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "subject": "Natural Language Processing",
+      "topic": "Tokenization",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "id": "q_tok_1",
+          "type": "mcq",
+          "question": "What is the primary objective of tokenization in an NLP pipeline?",
+          "options": [
+            "To translate text into another language",
+            "To break raw text into smaller units like words or subwords",
+            "To remove all verbs from a sentence",
+            "To convert audio signals to text"
+          ],
+          "correct_answer": "To break raw text into smaller units like words or subwords",
+          "explanation": "Tokenization breaks a sequence of text into pieces called tokens."
+        },
+        {
+          "id": "q_tok_2",
+          "type": "true_false",
+          "question": "True or False: Lemmatization always produces valid dictionary words, whereas stemming may produce non-words.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct_answer": "True",
+          "explanation": "Lemmatization uses vocabulary dictionaries and morphological context to generate valid lemmas."
+        },
+        {
+          "id": "q_tok_3",
+          "type": "short_answer",
+          "question": "Define what a token is in natural language processing.",
+          "correct_answer": "A token is a meaningful unit of text, such as a word, character, or subword, generated during tokenization.",
+          "explanation": "Tokens serve as the fundamental input units for subsequent vectorization and modeling."
+        }
+      ],
+      "user_answers": [
+        {
+          "question_id": "q_tok_1",
+          "question": "What is the primary objective of tokenization in an NLP pipeline?",
+          "type": "mcq",
+          "student_answer": "To break raw text into smaller units like words or subwords",
+          "correct_answer": "To break raw text into smaller units like words or subwords",
+          "is_correct": true,
+          "score_percent": 100.0,
+          "feedback": "Correct!"
+        },
+        {
+          "question_id": "q_tok_2",
+          "question": "True or False: Lemmatization always produces valid dictionary words, whereas stemming may produce non-words.",
+          "type": "true_false",
+          "student_answer": "True",
+          "correct_answer": "True",
+          "is_correct": true,
+          "score_percent": 100.0,
+          "feedback": "Correct!"
+        },
+        {
+          "question_id": "q_tok_3",
+          "question": "Define what a token is in natural language processing.",
+          "type": "short_answer",
+          "student_answer": "A token is a meaningful unit of text generated during tokenization.",
+          "correct_answer": "A token is a meaningful unit of text, such as a word, character, or subword, generated during tokenization.",
+          "is_correct": true,
+          "score_percent": 84.44,
+          "semantic_similarity": 94.01,
+          "keyword_coverage": 66.67,
+          "feedback": "Partially correct (84.44%). You captured core elements, but ensure you include key terminology."
+        }
+      ],
+      "score": 94.81,
+      "timestamp": "2026-10-01 04:09:34.150152+00:00",
+      "_id": "6abddcfe1e5769dd28e8fb59",
+      "evaluated_at": "2026-10-01T04:09:34.285662+00:00"
+    },
+    {
+      "quiz_id": "8b17741d-4ee1-475a-a19c-52e70261349f",
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "subject": "Natural Language Processing",
+      "topic": "TF-IDF",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "id": "q_tfidf_1",
+          "type": "mcq",
+          "question": "In TF-IDF, what does Inverse Document Frequency (IDF) measure?",
+          "options": [
+            "How often a word appears in a single document",
+            "How rare or common a word is across the entire corpus",
+            "The total character length of a document",
+            "The grammatical correct weight of a word"
+          ],
+          "correct_answer": "How rare or common a word is across the entire corpus",
+          "explanation": "IDF penalizes common stop words and rewards unique topical terms."
+        },
+        {
+          "id": "q_tfidf_2",
+          "type": "true_false",
+          "question": "True or False: If a word appears in every single document in a corpus, its IDF value will be close to 0.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct_answer": "True",
+          "explanation": "log(N/N) = log(1) = 0, giving no weight to ubiquitous terms."
+        },
+        {
+          "id": "q_tfidf_3",
+          "type": "short_answer",
+          "question": "Why are common words like 'the' or 'is' given a low weight in TF-IDF?",
+          "correct_answer": "Common words appear in almost every document, resulting in a low IDF score near zero.",
+          "explanation": "Words appearing in all documents carry low informative power."
+        }
+      ],
+      "user_answers": [],
+      "score": 0.0,
+      "timestamp": "2026-10-01 04:16:29.645017+00:00",
+      "_id": "6abdde9d7c005f6fe376fc0f"
+    },
+    {
+      "quiz_id": "56d490f2-dce5-480d-99e8-d61b50444bd7",
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "subject": "Natural Language Processing",
+      "topic": "Tokenization",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "id": "q_tok_1",
+          "type": "mcq",
+          "question": "What is the primary objective of tokenization in an NLP pipeline?",
+          "options": [
+            "To translate text into another language",
+            "To break raw text into smaller units like words or subwords",
+            "To remove all verbs from a sentence",
+            "To convert audio signals to text"
+          ],
+          "correct_answer": "To break raw text into smaller units like words or subwords",
+          "explanation": "Tokenization breaks a sequence of text into pieces called tokens."
+        },
+        {
+          "id": "q_tok_2",
+          "type": "true_false",
+          "question": "True or False: Lemmatization always produces valid dictionary words, whereas stemming may produce non-words.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct_answer": "True",
+          "explanation": "Lemmatization uses vocabulary dictionaries and morphological context to generate valid lemmas."
+        },
+        {
+          "id": "q_tok_3",
+          "type": "short_answer",
+          "question": "Define what a token is in natural language processing.",
+          "correct_answer": "A token is a meaningful unit of text, such as a word, character, or subword, generated during tokenization.",
+          "explanation": "Tokens serve as the fundamental input units for subsequent vectorization and modeling."
+        }
+      ],
+      "user_answers": [
+        {
+          "question_id": "q_tok_1",
+          "question": "What is the primary objective of tokenization in an NLP pipeline?",
+          "type": "mcq",
+          "student_answer": "To break raw text into smaller units like words or subwords",
+          "correct_answer": "To break raw text into smaller units like words or subwords",
+          "is_correct": true,
+          "score_percent": 100.0,
+          "feedback": "Correct!"
+        },
+        {
+          "question_id": "q_tok_2",
+          "question": "True or False: Lemmatization always produces valid dictionary words, whereas stemming may produce non-words.",
+          "type": "true_false",
+          "student_answer": "True",
+          "correct_answer": "True",
+          "is_correct": true,
+          "score_percent": 100.0,
+          "feedback": "Correct!"
+        },
+        {
+          "question_id": "q_tok_3",
+          "question": "Define what a token is in natural language processing.",
+          "type": "short_answer",
+          "student_answer": "A token is a meaningful unit of text generated during tokenization.",
+          "correct_answer": "A token is a meaningful unit of text, such as a word, character, or subword, generated during tokenization.",
+          "is_correct": true,
+          "score_percent": 84.44,
+          "semantic_similarity": 94.01,
+          "keyword_coverage": 66.67,
+          "feedback": "Partially correct (84.44%). You captured core elements, but ensure you include key terminology."
+        }
+      ],
+      "score": 94.81,
+      "timestamp": "2026-10-01 04:16:29.965821+00:00",
+      "_id": "6abdde9d7c005f6fe376fc10",
+      "evaluated_at": "2026-10-01T04:16:30.278954+00:00"
+    },
+    {
+      "quiz_id": "81a2791b-4430-4f09-a13d-0b76a36be4a2",
+      "user_id": "6abb9458630c8d7f9c4c72e1",
+      "subject": "Natural Language Processing",
+      "topic": "Tokenization",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "id": "q_tok_1",
+          "type": "mcq",
+          "question": "What is the primary objective of tokenization in an NLP pipeline?",
+          "options": [
+            "To translate text into another language",
+            "To break raw text into smaller units like words or subwords",
+            "To remove all verbs from a sentence",
+            "To convert audio signals to text"
+          ],
+          "correct_answer": "To break raw text into smaller units like words or subwords",
+          "explanation": "Tokenization breaks a sequence of text into pieces called tokens."
+        },
+        {
+          "id": "q_tok_2",
+          "type": "true_false",
+          "question": "True or False: Lemmatization always produces valid dictionary words, whereas stemming may produce non-words.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct_answer": "True",
+          "explanation": "Lemmatization uses vocabulary dictionaries and morphological context to generate valid lemmas."
+        },
+        {
+          "id": "q_tok_3",
+          "type": "short_answer",
+          "question": "Define what a token is in natural language processing.",
+          "correct_answer": "A token is a meaningful unit of text, such as a word, character, or subword, generated during tokenization.",
+          "explanation": "Tokens serve as the fundamental input units for subsequent vectorization and modeling."
+        }
+      ],
+      "user_answers": [],
+      "score": 0.0,
+      "timestamp": "2026-10-03 03:44:37.978401+00:00",
+      "_id": "6ac07a255a8a4d75fccbe4b3"
+    },
+    {
+      "quiz_id": "c2214b2d-4d24-4186-9c12-9f689447da67",
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "subject": "Natural Language Processing",
+      "topic": "TF-IDF",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "id": "q_tfidf_1",
+          "type": "mcq",
+          "question": "In TF-IDF, what does Inverse Document Frequency (IDF) measure?",
+          "options": [
+            "How often a word appears in a single document",
+            "How rare or common a word is across the entire corpus",
+            "The total character length of a document",
+            "The grammatical correct weight of a word"
+          ],
+          "correct_answer": "How rare or common a word is across the entire corpus",
+          "explanation": "IDF penalizes common stop words and rewards unique topical terms."
+        },
+        {
+          "id": "q_tfidf_2",
+          "type": "true_false",
+          "question": "True or False: If a word appears in every single document in a corpus, its IDF value will be close to 0.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct_answer": "True",
+          "explanation": "log(N/N) = log(1) = 0, giving no weight to ubiquitous terms."
+        },
+        {
+          "id": "q_tfidf_3",
+          "type": "short_answer",
+          "question": "Why are common words like 'the' or 'is' given a low weight in TF-IDF?",
+          "correct_answer": "Common words appear in almost every document, resulting in a low IDF score near zero.",
+          "explanation": "Words appearing in all documents carry low informative power."
+        }
+      ],
+      "user_answers": [],
+      "score": 0.0,
+      "timestamp": "2026-10-24 02:30:33.476255+00:00",
+      "_id": "6adc18491138d0494c130971"
+    },
+    {
+      "quiz_id": "29388996-58f6-4748-9f4c-febfea155203",
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "subject": "Natural Language Processing",
+      "topic": "Tokenization",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "id": "q_tok_1",
+          "type": "mcq",
+          "question": "What is the primary objective of tokenization in an NLP pipeline?",
+          "options": [
+            "To translate text into another language",
+            "To break raw text into smaller units like words or subwords",
+            "To remove all verbs from a sentence",
+            "To convert audio signals to text"
+          ],
+          "correct_answer": "To break raw text into smaller units like words or subwords",
+          "explanation": "Tokenization breaks a sequence of text into pieces called tokens."
+        },
+        {
+          "id": "q_tok_2",
+          "type": "true_false",
+          "question": "True or False: Lemmatization always produces valid dictionary words, whereas stemming may produce non-words.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct_answer": "True",
+          "explanation": "Lemmatization uses vocabulary dictionaries and morphological context to generate valid lemmas."
+        },
+        {
+          "id": "q_tok_3",
+          "type": "short_answer",
+          "question": "Define what a token is in natural language processing.",
+          "correct_answer": "A token is a meaningful unit of text, such as a word, character, or subword, generated during tokenization.",
+          "explanation": "Tokens serve as the fundamental input units for subsequent vectorization and modeling."
+        }
+      ],
+      "user_answers": [
+        {
+          "question_id": "q_tok_1",
+          "question": "What is the primary objective of tokenization in an NLP pipeline?",
+          "type": "mcq",
+          "student_answer": "To break raw text into smaller units like words or subwords",
+          "correct_answer": "To break raw text into smaller units like words or subwords",
+          "is_correct": true,
+          "score_percent": 100.0,
+          "feedback": "Correct!"
+        },
+        {
+          "question_id": "q_tok_2",
+          "question": "True or False: Lemmatization always produces valid dictionary words, whereas stemming may produce non-words.",
+          "type": "true_false",
+          "student_answer": "True",
+          "correct_answer": "True",
+          "is_correct": true,
+          "score_percent": 100.0,
+          "feedback": "Correct!"
+        },
+        {
+          "question_id": "q_tok_3",
+          "question": "Define what a token is in natural language processing.",
+          "type": "short_answer",
+          "student_answer": "A token is a meaningful unit of text generated during tokenization.",
+          "correct_answer": "A token is a meaningful unit of text, such as a word, character, or subword, generated during tokenization.",
+          "is_correct": true,
+          "score_percent": 84.44,
+          "semantic_similarity": 94.01,
+          "keyword_coverage": 66.67,
+          "feedback": "Partially correct (84.44%). You captured core elements, but ensure you include key terminology."
+        }
+      ],
+      "score": 94.81,
+      "timestamp": "2026-10-24 02:30:33.776196+00:00",
+      "_id": "6adc18491138d0494c130972",
+      "evaluated_at": "2026-10-24T02:30:33.940844+00:00"
+    }
+  ],
+  "conversations": [
+    {
+      "user_id": "6aba91775b52a2ee1f9af8a7",
+      "user_question": "What is the difference between classification and regression?",
+      "subject": "Machine Learning",
+      "topic": "Supervised Learning",
+      "intent": "ASK_EXPLANATION",
+      "timestamp": "2026-09-24T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af8ac"
+    },
+    {
+      "user_id": "6aba91775b52a2ee1f9af8a7",
+      "user_question": "Can you provide examples of LEFT JOIN vs INNER JOIN?",
+      "subject": "Database Management Systems",
+      "topic": "SQL Queries & Joins",
+      "intent": "ASK_EXAMPLE",
+      "timestamp": "2026-09-24T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af8ad"
+    },
+    {
+      "user_id": "6aba91775b52a2ee1f9af8b2",
+      "user_question": "What is the difference between stemming and lemmatization?",
+      "subject": "Natural Language Processing",
+      "topic": "Lemmatization",
+      "intent": "ASK_COMPARISON",
+      "timestamp": "2026-09-24T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af8b6"
+    },
+    {
+      "user_id": "6aba91775b52a2ee1f9af8b2",
+      "user_question": "Explain atomicity and consistency in transaction processing.",
+      "subject": "Database Management Systems",
+      "topic": "ACID Properties",
+      "intent": "ASK_EXPLANATION",
+      "timestamp": "2026-09-24T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af8b7"
+    },
+    {
+      "user_id": "6aba91785b52a2ee1f9af8bb",
+      "user_question": "How do abstract base classes and multiple inheritance work in Python?",
+      "subject": "Python Programming",
+      "topic": "OOP in Python",
+      "intent": "ASK_EXPLANATION",
+      "timestamp": "2026-09-24T16:10:31.318762+00:00",
+      "_id": "6aba91785b52a2ee1f9af8c0"
+    },
+    {
+      "user_id": "6aba91785b52a2ee1f9af8bb",
+      "user_question": "When is BCNF required over 3NF in relational schema design?",
+      "subject": "Database Management Systems",
+      "topic": "Normalization",
+      "intent": "ASK_COMPARISON",
+      "timestamp": "2026-09-24T16:10:31.318762+00:00",
+      "_id": "6aba91785b52a2ee1f9af8c1"
+    },
+    {
+      "user_id": "6aba91775b52a2ee1f9af897",
+      "conversation_id": "default_session",
+      "user_question": "What is TF-IDF in Natural Language Processing?",
+      "ai_response": "### \ud83d\udca1 Term Frequency - Inverse Document Frequency (TF-IDF)\n\n**Direct Answer:**\nTF-IDF is a numerical statistic intended to reflect how important a word is to a document in a collection or corpus.\n\n**Explanation:**\nTF-IDF evaluates word relevance rather than simple frequency. Term Frequency (TF) measures how often a word occurs in a document. Inverse Document Frequency (IDF) measures how rare a word is across the entire collection of documents. Common words like 'is', 'the', and 'and' get low weights, while unique topical words get high weights.\n\n**Example:**\n```\nIn a dataset of medical papers, the word 'patient' may appear in every document (low IDF), whereas 'hypertrophic' appears in only a few (high IDF).\n```\n\n**Key Takeaways:**\n\u2022 Used for text mining, document classification, and information retrieval.\n\u2022 TF(t, d) = (Count of t in d) / (Total words in d).\n\u2022 IDF(t, D) = log(Total documents / Documents containing t).\n\u2022 TF-IDF(t, d, D) = TF(t, d) * IDF(t, D).\n\n---\n\ud83d\udca1 *Ask any follow-up question or request a code demonstration!*",
+      "subject": "Operating Systems",
+      "topic": "Natural Language Processing",
+      "intent": "ASK_DEFINITION",
+      "nlp_analysis": {
+        "tokens": [
+          "What",
+          "is",
+          "TF",
+          "-",
+          "IDF",
+          "in",
+          "Natural",
+          "Language",
+          "Processing",
+          "?"
+        ],
+        "lemmas": [
+          "what",
+          "be",
+          "TF",
+          "-",
+          "IDF",
+          "in",
+          "Natural",
+          "Language",
+          "processing",
+          "?"
+        ],
+        "pos_tags": [
+          [
+            "What",
+            "PRON",
+            "WP"
+          ],
+          [
+            "is",
+            "AUX",
+            "VBZ"
+          ],
+          [
+            "TF",
+            "PROPN",
+            "NNP"
+          ],
+          [
+            "-",
+            "PUNCT",
+            "HYPH"
+          ],
+          [
+            "IDF",
+            "PROPN",
+            "NNP"
+          ],
+          [
+            "in",
+            "ADP",
+            "IN"
+          ],
+          [
+            "Natural",
+            "PROPN",
+            "NNP"
+          ],
+          [
+            "Language",
+            "PROPN",
+            "NNP"
+          ],
+          [
+            "Processing",
+            "NOUN",
+            "NN"
+          ],
+          [
+            "?",
+            "PUNCT",
+            "."
+          ]
+        ],
+        "entities": [],
+        "stopwords": [
+          "What",
+          "is",
+          "in"
+        ],
+        "intent": "ASK_DEFINITION",
+        "intent_confidence": 0.548,
+        "subject": "Operating Systems",
+        "topic": "Natural Language Processing",
+        "similarity_score": 74.39,
+        "retrieved_concept": "Term Frequency - Inverse Document Frequency (TF-IDF)",
+        "user_notes_match": null
+      },
+      "timestamp": "2026-09-28 16:10:33.326147+00:00",
+      "_id": "6aba91795b52a2ee1f9af8c7"
+    },
+    {
+      "user_id": "6aba91775b52a2ee1f9af897",
+      "conversation_id": "default_session",
+      "user_question": "What is TF-IDF in Natural Language Processing?",
+      "ai_response": "### \ud83d\udca1 Term Frequency - Inverse Document Frequency (TF-IDF)\n\n**Direct Answer:**\nTF-IDF is a numerical statistic intended to reflect how important a word is to a document in a collection or corpus.\n\n**Explanation:**\nTF-IDF evaluates word relevance rather than simple frequency. Term Frequency (TF) measures how often a word occurs in a document. Inverse Document Frequency (IDF) measures how rare a word is across the entire collection of documents. Common words like 'is', 'the', and 'and' get low weights, while unique topical words get high weights.\n\n**Example:**\n```\nIn a dataset of medical papers, the word 'patient' may appear in every document (low IDF), whereas 'hypertrophic' appears in only a few (high IDF).\n```\n\n**Key Takeaways:**\n\u2022 Used for text mining, document classification, and information retrieval.\n\u2022 TF(t, d) = (Count of t in d) / (Total words in d).\n\u2022 IDF(t, D) = log(Total documents / Documents containing t).\n\u2022 TF-IDF(t, d, D) = TF(t, d) * IDF(t, D).\n\n---\n\ud83d\udca1 *Ask any follow-up question or request a code demonstration!*",
+      "subject": "Operating Systems",
+      "topic": "Natural Language Processing",
+      "intent": "ASK_DEFINITION",
+      "nlp_analysis": {
+        "tokens": [
+          "What",
+          "is",
+          "TF",
+          "-",
+          "IDF",
+          "in",
+          "Natural",
+          "Language",
+          "Processing",
+          "?"
+        ],
+        "lemmas": [
+          "what",
+          "be",
+          "TF",
+          "-",
+          "IDF",
+          "in",
+          "Natural",
+          "Language",
+          "processing",
+          "?"
+        ],
+        "pos_tags": [
+          [
+            "What",
+            "PRON",
+            "WP"
+          ],
+          [
+            "is",
+            "AUX",
+            "VBZ"
+          ],
+          [
+            "TF",
+            "PROPN",
+            "NNP"
+          ],
+          [
+            "-",
+            "PUNCT",
+            "HYPH"
+          ],
+          [
+            "IDF",
+            "PROPN",
+            "NNP"
+          ],
+          [
+            "in",
+            "ADP",
+            "IN"
+          ],
+          [
+            "Natural",
+            "PROPN",
+            "NNP"
+          ],
+          [
+            "Language",
+            "PROPN",
+            "NNP"
+          ],
+          [
+            "Processing",
+            "NOUN",
+            "NN"
+          ],
+          [
+            "?",
+            "PUNCT",
+            "."
+          ]
+        ],
+        "entities": [],
+        "stopwords": [
+          "What",
+          "is",
+          "in"
+        ],
+        "intent": "ASK_DEFINITION",
+        "intent_confidence": 0.548,
+        "subject": "Operating Systems",
+        "topic": "Natural Language Processing",
+        "similarity_score": 74.39,
+        "retrieved_concept": "Term Frequency - Inverse Document Frequency (TF-IDF)",
+        "user_notes_match": null
+      },
+      "timestamp": "2026-09-28 16:38:05.324392+00:00",
+      "_id": "6aba97edebfcad860ef1ec9d"
+    },
+    {
+      "user_id": "6aba91775b52a2ee1f9af897",
+      "conversation_id": "default_session",
+      "user_question": "What is TF-IDF in Natural Language Processing?",
+      "ai_response": "### \ud83d\udca1 Term Frequency - Inverse Document Frequency (TF-IDF)\n\n**Direct Answer:**\nTF-IDF is a numerical statistic intended to reflect how important a word is to a document in a collection or corpus.\n\n**Explanation:**\nTF-IDF evaluates word relevance rather than simple frequency. Term Frequency (TF) measures how often a word occurs in a document. Inverse Document Frequency (IDF) measures how rare a word is across the entire collection of documents. Common words like 'is', 'the', and 'and' get low weights, while unique topical words get high weights.\n\n**Example:**\n```\nIn a dataset of medical papers, the word 'patient' may appear in every document (low IDF), whereas 'hypertrophic' appears in only a few (high IDF).\n```\n\n**Key Takeaways:**\n\u2022 Used for text mining, document classification, and information retrieval.\n\u2022 TF(t, d) = (Count of t in d) / (Total words in d).\n\u2022 IDF(t, D) = log(Total documents / Documents containing t).\n\u2022 TF-IDF(t, d, D) = TF(t, d) * IDF(t, D).\n\n---\n\ud83d\udca1 *Ask any follow-up question or request a code demonstration!*",
+      "subject": "Operating Systems",
+      "topic": "Natural Language Processing",
+      "intent": "ASK_DEFINITION",
+      "nlp_analysis": {
+        "tokens": [
+          "What",
+          "is",
+          "TF",
+          "-",
+          "IDF",
+          "in",
+          "Natural",
+          "Language",
+          "Processing",
+          "?"
+        ],
+        "lemmas": [
+          "what",
+          "be",
+          "TF",
+          "-",
+          "IDF",
+          "in",
+          "Natural",
+          "Language",
+          "processing",
+          "?"
+        ],
+        "pos_tags": [
+          [
+            "What",
+            "PRON",
+            "WP"
+          ],
+          [
+            "is",
+            "AUX",
+            "VBZ"
+          ],
+          [
+            "TF",
+            "PROPN",
+            "NNP"
+          ],
+          [
+            "-",
+            "PUNCT",
+            "HYPH"
+          ],
+          [
+            "IDF",
+            "PROPN",
+            "NNP"
+          ],
+          [
+            "in",
+            "ADP",
+            "IN"
+          ],
+          [
+            "Natural",
+            "PROPN",
+            "NNP"
+          ],
+          [
+            "Language",
+            "PROPN",
+            "NNP"
+          ],
+          [
+            "Processing",
+            "NOUN",
+            "NN"
+          ],
+          [
+            "?",
+            "PUNCT",
+            "."
+          ]
+        ],
+        "entities": [],
+        "stopwords": [
+          "What",
+          "is",
+          "in"
+        ],
+        "intent": "ASK_DEFINITION",
+        "intent_confidence": 0.548,
+        "subject": "Operating Systems",
+        "topic": "Natural Language Processing",
+        "similarity_score": 74.39,
+        "retrieved_concept": "Term Frequency - Inverse Document Frequency (TF-IDF)",
+        "user_notes_match": null
+      },
+      "timestamp": "2026-09-29 10:11:40.600742+00:00",
+      "_id": "6abb8edc3f61e4c1db102b1e"
+    },
+    {
+      "user_id": "6abb9458630c8d7f9c4c72e1",
+      "conversation_id": "default_session",
+      "user_question": "What is Lemmatization",
+      "ai_response": "### \ud83d\udca1 Lemmatization in NLP\n\n**Direct Answer:**\nLemmatization is the linguistic process of grouping together the inflected forms of a word so they can be analyzed as a single item, identified by the word's lemma or dictionary form.\n\n**Explanation:**\nUnlike stemming, which simply chops off prefixes or suffixes using crude heuristic rules, lemmatization leverages vocabulary dictionaries and full morphological analysis of words. It considers the context and Part-of-Speech (POS) of the word. For example, the word 'running' becomes 'run', 'better' becomes 'good' (when adjective), and 'mice' becomes 'mouse'.\n\n**Example:**\n```\nInput: 'The feet were running better' -> Lemmatized: 'The foot be run good'\n```\n\n**Key Takeaways:**\n\u2022 Uses morphological context and vocabulary lookup (e.g., WordNet, spaCy).\n\u2022 Produces valid dictionary words (lemmas).\n\u2022 Preserves semantic meaning better than stemming.\n\n---\n\ud83d\udca1 *Ask any follow-up question or request a code demonstration!*",
+      "subject": "Natural Language Processing",
+      "topic": "Lemmatization",
+      "intent": "ASK_DEFINITION",
+      "nlp_analysis": {
+        "tokens": [
+          "What",
+          "is",
+          "Lemmatization"
+        ],
+        "lemmas": [
+          "what",
+          "be",
+          "lemmatization"
+        ],
+        "pos_tags": [
+          [
+            "What",
+            "PRON",
+            "WP"
+          ],
+          [
+            "is",
+            "AUX",
+            "VBZ"
+          ],
+          [
+            "Lemmatization",
+            "NOUN",
+            "NN"
+          ]
+        ],
+        "entities": [],
+        "stopwords": [
+          "What",
+          "is"
+        ],
+        "intent": "ASK_DEFINITION",
+        "intent_confidence": 0.638,
+        "subject": "Natural Language Processing",
+        "topic": "Lemmatization",
+        "similarity_score": 72.84,
+        "retrieved_concept": "Lemmatization in NLP",
+        "user_notes_match": null
+      },
+      "timestamp": "2026-09-29 10:37:23.885277+00:00",
+      "_id": "6abb94e3630c8d7f9c4c72e2"
+    },
+    {
+      "user_id": "6abb9458630c8d7f9c4c72e1",
+      "conversation_id": "default_session",
+      "user_question": "What is tokenization in NLP?",
+      "ai_response": "### \ud83d\udca1 Tokenization in NLP\n\n**Direct Answer:**\nTokenization is the process of breaking raw text down into smaller meaningful units called tokens, such as words, subwords, or characters.\n\n**Explanation:**\nTokenization is the foundational first step in any NLP pipeline. Raw text cannot be processed directly by computers, so tokenization breaks down sentences into individual words or subwords. There are word-level tokenizers, character-level tokenizers, and subword-level tokenizers (like Byte-Pair Encoding used in LLMs). For instance, 'I love NLP!' becomes ['I', 'love', 'NLP', '!'].\n\n**Example:**\n```\nInput: 'Tokenization is simple.' -> Output tokens: ['Tokenization', 'is', 'simple', '.']\n```\n\n**Key Takeaways:**\n\u2022 Serves as the entry point for linguistic preprocessing and text vectorization.\n\u2022 Handles punctuation and whitespace normalization.\n\u2022 Types include Word Tokenization, Sentence Tokenization, and Subword Tokenization (BPE, WordPiece).\n\n---\n\ud83d\udca1 *Ask any follow-up question or request a code demonstration!*",
+      "subject": "Natural Language Processing",
+      "topic": "Tokenization",
+      "intent": "ASK_DEFINITION",
+      "nlp_analysis": {
+        "tokens": [
+          "What",
+          "is",
+          "tokenization",
+          "in",
+          "NLP",
+          "?"
+        ],
+        "lemmas": [
+          "what",
+          "be",
+          "tokenization",
+          "in",
+          "NLP",
+          "?"
+        ],
+        "pos_tags": [
+          [
+            "What",
+            "PRON",
+            "WP"
+          ],
+          [
+            "is",
+            "AUX",
+            "VBZ"
+          ],
+          [
+            "tokenization",
+            "NOUN",
+            "NN"
+          ],
+          [
+            "in",
+            "ADP",
+            "IN"
+          ],
+          [
+            "NLP",
+            "PROPN",
+            "NNP"
+          ],
+          [
+            "?",
+            "PUNCT",
+            "."
+          ]
+        ],
+        "entities": [
+          {
+            "text": "NLP",
+            "label": "ORG"
+          }
+        ],
+        "stopwords": [
+          "What",
+          "is",
+          "in"
+        ],
+        "intent": "ASK_DEFINITION",
+        "intent_confidence": 0.58,
+        "subject": "Natural Language Processing",
+        "topic": "Tokenization",
+        "similarity_score": 86.07,
+        "retrieved_concept": "Tokenization in NLP",
+        "user_notes_match": null
+      },
+      "timestamp": "2026-09-29 10:37:57.895954+00:00",
+      "_id": "6abb9505630c8d7f9c4c72e3"
+    },
+    {
+      "user_id": "6abb9458630c8d7f9c4c72e1",
+      "conversation_id": "default_session",
+      "user_question": "What are ACID properties in DBMS?",
+      "ai_response": "### \ud83d\udca1 ACID Properties in Database Transactions\n\n**Direct Answer:**\nACID is a set of four fundamental properties (Atomicity, Consistency, Isolation, Durability) that guarantee database transactions are processed reliably.\n\n**Explanation:**\nAtomicity ensures 'all or nothing' execution (if one step fails, the entire transaction is rolled back). Consistency ensures the database moves from one valid state to another, preserving all constraints. Isolation ensures concurrent transactions execute independently without interference (using locking or MVCC). Durability ensures committed transaction changes survive system crashes (using Write-Ahead Logging).\n\n**Example:**\n```\nBank transfer: Deducting $100 from Account A and crediting $100 to Account B must be atomic; both succeed or both rollback.\n```\n\n**Key Takeaways:**\n\u2022 Atomicity: All operations succeed or none do (Rollback/Commit).\n\u2022 Consistency: Enforces schema integrity rules and constraints.\n\u2022 Isolation: Concurrency control prevents dirty reads and non-repeatable reads.\n\u2022 Durability: Committed data is written to non-volatile storage.\n\n---\n\ud83d\udca1 *Ask any follow-up question or request a code demonstration!*",
+      "subject": "Database Management Systems",
+      "topic": "Acid Properties",
+      "intent": "ASK_DEFINITION",
+      "nlp_analysis": {
+        "tokens": [
+          "What",
+          "are",
+          "ACID",
+          "properties",
+          "in",
+          "DBMS",
+          "?"
+        ],
+        "lemmas": [
+          "what",
+          "be",
+          "ACID",
+          "property",
+          "in",
+          "DBMS",
+          "?"
+        ],
+        "pos_tags": [
+          [
+            "What",
+            "PRON",
+            "WP"
+          ],
+          [
+            "are",
+            "AUX",
+            "VBP"
+          ],
+          [
+            "ACID",
+            "PROPN",
+            "NNP"
+          ],
+          [
+            "properties",
+            "NOUN",
+            "NNS"
+          ],
+          [
+            "in",
+            "ADP",
+            "IN"
+          ],
+          [
+            "DBMS",
+            "PROPN",
+            "NNP"
+          ],
+          [
+            "?",
+            "PUNCT",
+            "."
+          ]
+        ],
+        "entities": [
+          {
+            "text": "ACID",
+            "label": "ORG"
+          },
+          {
+            "text": "DBMS",
+            "label": "ORG"
+          }
+        ],
+        "stopwords": [
+          "What",
+          "are",
+          "in"
+        ],
+        "intent": "ASK_DEFINITION",
+        "intent_confidence": 0.487,
+        "subject": "Database Management Systems",
+        "topic": "Acid Properties",
+        "similarity_score": 71.21,
+        "retrieved_concept": "ACID Properties in Database Transactions",
+        "user_notes_match": null
+      },
+      "timestamp": "2026-09-29 10:38:14.326564+00:00",
+      "_id": "6abb9516630c8d7f9c4c72e4"
+    },
+    {
+      "user_id": "6abb9458630c8d7f9c4c72e1",
+      "conversation_id": "default_session",
+      "user_question": "What is Retrievel Augmented Generation",
+      "ai_response": "### \ud83d\udcd8 Retrievel Augmented Generation\n\n**Direct Overview:**\n**Retrievel Augmented Generation** is a key concept that plays a vital role in its domain by providing fundamental principles, structured mechanisms, and practical problem-solving capabilities.\n\n**Core Principles & Working:**\n1. **Definition & Purpose:** It defines standard operating procedures and structures designed for efficiency, clarity, and reliability.\n2. **Key Application:** Widely applied across modern systems, academic frameworks, and real-world implementations.\n3. **Best Practices:** Focus on understanding the core logic, breaking complex requirements into manageable steps, and verifying outcomes through testing.\n\n---\n\ud83d\udca1 *Feel free to ask for a specific code example, formula derivation, or further explanation!*",
+      "subject": "Natural Language Processing",
+      "topic": "Retrievel Augmented Generation",
+      "intent": "ASK_DEFINITION",
+      "nlp_analysis": {
+        "tokens": [
+          "What",
+          "is",
+          "Retrievel",
+          "Augmented",
+          "Generation"
+        ],
+        "lemmas": [
+          "what",
+          "be",
+          "Retrievel",
+          "Augmented",
+          "generation"
+        ],
+        "pos_tags": [
+          [
+            "What",
+            "PRON",
+            "WP"
+          ],
+          [
+            "is",
+            "AUX",
+            "VBZ"
+          ],
+          [
+            "Retrievel",
+            "PROPN",
+            "NNP"
+          ],
+          [
+            "Augmented",
+            "PROPN",
+            "NNP"
+          ],
+          [
+            "Generation",
+            "NOUN",
+            "NN"
+          ]
+        ],
+        "entities": [],
+        "stopwords": [
+          "What",
+          "is"
+        ],
+        "intent": "ASK_DEFINITION",
+        "intent_confidence": 0.698,
+        "subject": "Natural Language Processing",
+        "topic": "Retrievel Augmented Generation",
+        "similarity_score": 23.46,
+        "retrieved_concept": null,
+        "user_notes_match": null
+      },
+      "timestamp": "2026-09-30 04:58:18.426243+00:00",
+      "_id": "6abc96ea50ba7be8ac32f283"
+    },
+    {
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "user_question": "How does subword tokenization handle out-of-vocabulary words?",
+      "subject": "Natural Language Processing",
+      "topic": "Tokenization",
+      "intent": "ASK_EXPLANATION",
+      "timestamp": "2026-10-20T02:34:22.165718+00:00",
+      "_id": "6adc192ea8c888380789280a"
+    },
+    {
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "user_question": "What is the mathematical formulation of Inverse Document Frequency?",
+      "subject": "Natural Language Processing",
+      "topic": "TF-IDF",
+      "intent": "ASK_DEFINITION",
+      "timestamp": "2026-10-20T02:34:22.165718+00:00",
+      "_id": "6adc192ea8c888380789280b"
+    },
+    {
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "user_question": "What is the difference between L1 and L2 regularization?",
+      "subject": "Machine Learning",
+      "topic": "Supervised Learning",
+      "intent": "ASK_COMPARISON",
+      "timestamp": "2026-10-20T02:34:22.165718+00:00",
+      "_id": "6adc192ea8c888380789280c"
+    }
+  ],
+  "learning_progress": [
+    {
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "subject": "Natural Language Processing",
+      "topic": "Tokenization",
+      "accuracy": 100.0,
+      "questions_attempted": 27,
+      "correct_answers": 27,
+      "incorrect_answers": 0,
+      "difficulty_level": "Medium",
+      "last_updated": "2026-10-24T02:30:33.971323+00:00",
+      "_id": "6aba91775b52a2ee1f9af8a2"
+    },
+    {
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "subject": "Natural Language Processing",
+      "topic": "TF-IDF",
+      "accuracy": 88.0,
+      "questions_attempted": 5,
+      "correct_answers": 4,
+      "incorrect_answers": 1,
+      "difficulty_level": "Medium",
+      "last_updated": "2026-09-26T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af8a3"
+    },
+    {
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "subject": "Natural Language Processing",
+      "topic": "Word Embeddings",
+      "accuracy": 85.0,
+      "questions_attempted": 5,
+      "correct_answers": 4,
+      "incorrect_answers": 1,
+      "difficulty_level": "Medium",
+      "last_updated": "2026-09-26T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af8a4"
+    },
+    {
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "subject": "Python Programming",
+      "topic": "Time & Space Complexity",
+      "accuracy": 90.0,
+      "questions_attempted": 5,
+      "correct_answers": 5,
+      "incorrect_answers": 0,
+      "difficulty_level": "Medium",
+      "last_updated": "2026-09-26T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af8a5"
+    },
+    {
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "subject": "Machine Learning",
+      "topic": "Supervised Learning",
+      "accuracy": 82.0,
+      "questions_attempted": 5,
+      "correct_answers": 4,
+      "incorrect_answers": 1,
+      "difficulty_level": "Medium",
+      "last_updated": "2026-09-26T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af8a6"
+    },
+    {
+      "user_id": "6aba91775b52a2ee1f9af8a7",
+      "subject": "Machine Learning",
+      "topic": "Supervised Learning",
+      "accuracy": 86.0,
+      "questions_attempted": 6,
+      "correct_answers": 5,
+      "incorrect_answers": 1,
+      "difficulty_level": "Medium",
+      "last_updated": "2026-09-26T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af8ae"
+    },
+    {
+      "user_id": "6aba91775b52a2ee1f9af8a7",
+      "subject": "Machine Learning",
+      "topic": "Evaluation Metrics",
+      "accuracy": 82.0,
+      "questions_attempted": 5,
+      "correct_answers": 4,
+      "incorrect_answers": 1,
+      "difficulty_level": "Medium",
+      "last_updated": "2026-09-26T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af8af"
+    },
+    {
+      "user_id": "6aba91775b52a2ee1f9af8a7",
+      "subject": "Database Management Systems",
+      "topic": "SQL Queries & Joins",
+      "accuracy": 80.0,
+      "questions_attempted": 5,
+      "correct_answers": 4,
+      "incorrect_answers": 1,
+      "difficulty_level": "Medium",
+      "last_updated": "2026-09-26T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af8b0"
+    },
+    {
+      "user_id": "6aba91775b52a2ee1f9af8a7",
+      "subject": "Python Programming",
+      "topic": "OOP in Python",
+      "accuracy": 84.0,
+      "questions_attempted": 5,
+      "correct_answers": 4,
+      "incorrect_answers": 1,
+      "difficulty_level": "Medium",
+      "last_updated": "2026-09-26T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af8b1"
+    },
+    {
+      "user_id": "6aba91775b52a2ee1f9af8b2",
+      "subject": "Natural Language Processing",
+      "topic": "Lemmatization",
+      "accuracy": 78.0,
+      "questions_attempted": 5,
+      "correct_answers": 4,
+      "incorrect_answers": 1,
+      "difficulty_level": "Medium",
+      "last_updated": "2026-09-26T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af8b8"
+    },
+    {
+      "user_id": "6aba91775b52a2ee1f9af8b2",
+      "subject": "Natural Language Processing",
+      "topic": "Part-of-Speech Tagging",
+      "accuracy": 74.0,
+      "questions_attempted": 5,
+      "correct_answers": 4,
+      "incorrect_answers": 1,
+      "difficulty_level": "Medium",
+      "last_updated": "2026-09-26T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af8b9"
+    },
+    {
+      "user_id": "6aba91775b52a2ee1f9af8b2",
+      "subject": "Database Management Systems",
+      "topic": "ACID Properties",
+      "accuracy": 76.0,
+      "questions_attempted": 5,
+      "correct_answers": 4,
+      "incorrect_answers": 1,
+      "difficulty_level": "Medium",
+      "last_updated": "2026-09-26T16:10:31.318762+00:00",
+      "_id": "6aba91775b52a2ee1f9af8ba"
+    },
+    {
+      "user_id": "6aba91785b52a2ee1f9af8bb",
+      "subject": "Python Programming",
+      "topic": "OOP in Python",
+      "accuracy": 90.0,
+      "questions_attempted": 6,
+      "correct_answers": 5,
+      "incorrect_answers": 1,
+      "difficulty_level": "Medium",
+      "last_updated": "2026-09-26T16:10:31.318762+00:00",
+      "_id": "6aba91785b52a2ee1f9af8c2"
+    },
+    {
+      "user_id": "6aba91785b52a2ee1f9af8bb",
+      "subject": "Python Programming",
+      "topic": "Time & Space Complexity",
+      "accuracy": 88.0,
+      "questions_attempted": 5,
+      "correct_answers": 4,
+      "incorrect_answers": 1,
+      "difficulty_level": "Medium",
+      "last_updated": "2026-09-26T16:10:31.318762+00:00",
+      "_id": "6aba91785b52a2ee1f9af8c3"
+    },
+    {
+      "user_id": "6aba91785b52a2ee1f9af8bb",
+      "subject": "Database Management Systems",
+      "topic": "Normalization",
+      "accuracy": 84.0,
+      "questions_attempted": 5,
+      "correct_answers": 4,
+      "incorrect_answers": 1,
+      "difficulty_level": "Medium",
+      "last_updated": "2026-09-26T16:10:31.318762+00:00",
+      "_id": "6aba91785b52a2ee1f9af8c4"
+    },
+    {
+      "user_id": "6aba91785b52a2ee1f9af8bb",
+      "subject": "Machine Learning",
+      "topic": "Supervised Learning",
+      "accuracy": 86.0,
+      "questions_attempted": 5,
+      "correct_answers": 4,
+      "incorrect_answers": 1,
+      "difficulty_level": "Medium",
+      "last_updated": "2026-09-26T16:10:31.318762+00:00",
+      "_id": "6aba91785b52a2ee1f9af8c5"
+    },
+    {
+      "user_id": "guest_user",
+      "subject": "Natural Language Processing",
+      "topic": "Tokenization",
+      "questions_attempted": 9,
+      "correct_answers": 9,
+      "incorrect_answers": 0,
+      "accuracy": 100.0,
+      "difficulty_level": "Medium",
+      "last_updated": "2026-09-29T10:11:40.870189+00:00",
+      "_id": "6aba91795b52a2ee1f9af8ca"
+    },
+    {
+      "user_id": "6abb9458630c8d7f9c4c72e1",
+      "subject": "Natural Language Processing",
+      "topic": "Tokenization",
+      "questions_attempted": 3,
+      "correct_answers": 2,
+      "incorrect_answers": 1,
+      "accuracy": 66.67,
+      "difficulty_level": "Medium",
+      "last_updated": "2026-09-29 10:41:46.755268+00:00",
+      "_id": "6abb95ea630c8d7f9c4c72e6"
+    }
+  ],
+  "spaced_repetition": [
+    {
+      "user_id": "guest_user",
+      "topic": "Tokenization",
+      "last_score": 100.0,
+      "last_reviewed": "2026-09-29T10:11:41.043411+00:00",
+      "next_review_date": "2064-05-24T10:11:41.043402+00:00",
+      "repetitions": 9,
+      "interval": 13752,
+      "ease_factor": 3.4,
+      "_id": "6aba91795b52a2ee1f9af8cb"
+    },
+    {
+      "user_id": "6abb9458630c8d7f9c4c72e1",
+      "topic": "Tokenization",
+      "last_score": 74.53,
+      "last_reviewed": "2026-09-29 10:41:46.766844+00:00",
+      "next_review_date": "2026-09-30 10:41:46.766828+00:00",
+      "repetitions": 1,
+      "interval": 1,
+      "ease_factor": 2.36,
+      "_id": "6abb95ea630c8d7f9c4c72e7"
+    },
+    {
+      "user_id": "6aba91775b52a2ee1f9af899",
+      "topic": "Tokenization",
+      "last_score": 100.0,
+      "last_reviewed": "2026-10-24T02:30:34.308018+00:00",
+      "next_review_date": "2027-10-24T02:30:34.307977+00:00",
+      "repetitions": 19,
+      "interval": 365,
+      "ease_factor": 4.4,
+      "_id": "6abd123c49b50d923c7bb424"
+    }
+  ],
+  "user_documents": []
+}

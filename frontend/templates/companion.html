@@ -1,0 +1,196 @@
+<!-- Standalone Smart Flying Bird with Glasses AI Companion Widget Component -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/companion.css') }}">
+
+<div id="duo-companion-widget" class="flight-roaming" aria-label="Specs the Flying Bird AI Tutor">
+    <!-- Dynamic Speech Bubble Above Flying Bird -->
+    <div class="duo-speech-bubble" id="duo-speech-bubble">
+        <span id="duo-speech-text">Tweet! Soaring through your learning dashboard!</span>
+        <button class="duo-bubble-close" id="duo-bubble-close" title="Dismiss tip">&times;</button>
+    </div>
+
+    <!-- Standalone Flying Bird Sprite Button (Frameless, Transparent, Full Flying Rig) -->
+    <div class="smart-bird-sprite" id="duo-avatar-btn" title="Click Specs to chat or change flight mode!">
+        <span class="duo-badge-dot" id="duo-badge-dot"></span>
+
+        <!-- Standalone Smart Bird wearing glasses SVG (Layered for 3D Flying Wing Flapping) -->
+        <svg class="bird-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <!-- Body & Feather Gradients -->
+                <linearGradient id="birdBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#38bdf8"/>
+                    <stop offset="55%" stop-color="#0ea5e9"/>
+                    <stop offset="100%" stop-color="#0284c7"/>
+                </linearGradient>
+                <linearGradient id="birdBellyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#ffffff"/>
+                    <stop offset="100%" stop-color="#e0f2fe"/>
+                </linearGradient>
+                <linearGradient id="birdWingLeftGrad" x1="100%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#0284c7"/>
+                    <stop offset="60%" stop-color="#0369a1"/>
+                    <stop offset="100%" stop-color="#075985"/>
+                </linearGradient>
+                <linearGradient id="birdWingRightGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#0284c7"/>
+                    <stop offset="60%" stop-color="#0369a1"/>
+                    <stop offset="100%" stop-color="#075985"/>
+                </linearGradient>
+                <linearGradient id="beakGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#fbbf24"/>
+                    <stop offset="100%" stop-color="#f59e0b"/>
+                </linearGradient>
+            </defs>
+
+            <!-- Tail Feathers (Behind Body) -->
+            <g class="bird-tail">
+                <path d="M 54 80 L 42 102 Q 54 96 66 102 L 54 80 Z" fill="#0369a1"/>
+                <path d="M 48 80 L 32 98 Q 44 94 50 82 Z" fill="#0284c7"/>
+                <path d="M 60 80 L 76 98 Q 64 94 58 82 Z" fill="#0284c7"/>
+            </g>
+
+            <!-- Left Flapping Wing (Back Wing) -->
+            <g class="bird-wing bird-wing-left">
+                <!-- Wing Outer Feathers -->
+                <path class="wing-layer-outer" d="M 32 50 C 14 32 -2 38 2 58 C 5 69 18 70 30 58 Z" fill="url(#birdWingLeftGrad)"/>
+                <!-- Wing Inner Feathers Layer -->
+                <path class="wing-layer-inner" d="M 28 52 C 14 40 4 46 8 59 C 14 66 23 64 27 54 Z" fill="#38bdf8" opacity="0.75"/>
+            </g>
+
+            <!-- Main Bird Body -->
+            <g class="bird-main-body">
+                <!-- Rounded Torso -->
+                <ellipse class="body-torso" cx="54" cy="62" rx="34" ry="36" fill="url(#birdBodyGrad)"/>
+                
+                <!-- Soft Bib / Belly Feathers -->
+                <ellipse class="body-belly" cx="54" cy="70" rx="24" ry="22" fill="url(#birdBellyGrad)"/>
+
+                <!-- Head Feather Tuft / Crest (Plume) -->
+                <g class="bird-crest">
+                    <path d="M 49 26 Q 46 8 60 16 Q 52 20 50 26 Z" fill="#0284c7"/>
+                    <path d="M 44 28 Q 38 14 49 20 Q 46 24 44 28 Z" fill="#0369a1"/>
+                </g>
+
+                <!-- Soft Rosy Pink Cheeks -->
+                <circle cx="30" cy="66" r="6.5" fill="#f472b6" opacity="0.65"/>
+                <circle cx="78" cy="66" r="6.5" fill="#f472b6" opacity="0.65"/>
+
+                <!-- Large Intelligent Eyes with Blinking Eyelids -->
+                <g class="bird-eyes">
+                    <!-- Left Sclera -->
+                    <circle cx="37" cy="53" r="11" fill="#ffffff"/>
+                    <!-- Left Pupil (Tracking) -->
+                    <circle class="bird-pupil bird-pupil-left" cx="39" cy="53" r="5.8" fill="#0f172a"/>
+                    <!-- Left Eye Catchlights -->
+                    <circle cx="41" cy="50" r="2.4" fill="#ffffff"/>
+                    <circle cx="37" cy="55" r="1.2" fill="#ffffff"/>
+
+                    <!-- Right Sclera -->
+                    <circle cx="71" cy="53" r="11" fill="#ffffff"/>
+                    <!-- Right Pupil (Tracking) -->
+                    <circle class="bird-pupil bird-pupil-right" cx="69" cy="53" r="5.8" fill="#0f172a"/>
+                    <!-- Right Eye Catchlights -->
+                    <circle cx="71" cy="50" r="2.4" fill="#ffffff"/>
+                    <circle cx="67" cy="55" r="1.2" fill="#ffffff"/>
+
+                    <!-- Blinking Eyelids -->
+                    <path class="bird-eyelid bird-eyelid-left" d="M 26 53 Q 37 42 48 53 Q 37 64 26 53 Z" fill="#0ea5e9"/>
+                    <path class="bird-eyelid bird-eyelid-right" d="M 60 53 Q 71 42 82 53 Q 71 64 60 53 Z" fill="#0ea5e9"/>
+                </g>
+
+                <!-- Cool Black Glasses (Specs) -->
+                <g class="bird-glasses">
+                    <!-- Left Rim -->
+                    <circle cx="37" cy="53" r="13" fill="none" stroke="#0f172a" stroke-width="3.8"/>
+                    <!-- Right Rim -->
+                    <circle cx="71" cy="53" r="13" fill="none" stroke="#0f172a" stroke-width="3.8"/>
+                    <!-- Bridge -->
+                    <path d="M 50 53 Q 54 49 58 53" fill="none" stroke="#0f172a" stroke-width="3.8" stroke-linecap="round"/>
+                    <!-- Temples -->
+                    <path d="M 24 53 L 14 51" fill="none" stroke="#0f172a" stroke-width="3.2" stroke-linecap="round"/>
+                    <path d="M 84 53 L 94 51" fill="none" stroke="#0f172a" stroke-width="3.2" stroke-linecap="round"/>
+                    <!-- Lens Reflection Glints -->
+                    <path class="glass-glint" d="M 30 46 L 39 40" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" opacity="0.85"/>
+                    <path class="glass-glint" d="M 64 46 L 73 40" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" opacity="0.85"/>
+                </g>
+
+                <!-- Beak -->
+                <path class="bird-beak" d="M 45 61 Q 54 75 63 61 Z" fill="url(#beakGrad)"/>
+                <path d="M 47 61 Q 54 65 61 61" stroke="#d97706" stroke-width="1.2" fill="none"/>
+            </g>
+
+            <!-- Right Flapping Wing (Front Wing) -->
+            <g class="bird-wing bird-wing-right">
+                <!-- Wing Outer Feathers -->
+                <path class="wing-layer-outer" d="M 76 50 C 94 32 110 38 106 58 C 103 69 90 70 78 58 Z" fill="url(#birdWingRightGrad)"/>
+                <!-- Wing Inner Feathers Layer -->
+                <path class="wing-layer-inner" d="M 80 52 C 94 40 104 46 100 59 C 94 66 85 64 81 54 Z" fill="#38bdf8" opacity="0.75"/>
+            </g>
+
+            <!-- Bird Feet (Tucked in Flight, Extended on Perch) -->
+            <g class="bird-feet">
+                <ellipse class="foot foot-left" cx="42" cy="97" rx="7.5" ry="4" fill="#f59e0b"/>
+                <ellipse class="foot foot-right" cx="66" cy="97" rx="7.5" ry="4" fill="#f59e0b"/>
+            </g>
+        </svg>
+    </div>
+</div>
+
+<!-- Companion Popover Drawer -->
+<div class="duo-popover-card" id="duo-popover-card">
+    <div class="duo-card-header">
+        <div class="d-flex align-items-center gap-2">
+            <span class="specs-avatar-mini"><i class="fa-solid fa-glasses"></i></span>
+            <div>
+                <h6 class="mb-0 fw-bold">Specs — AI Study Escort</h6>
+                <small class="text-white-50" style="font-size: 11px;">Your Active Flight Mascot</small>
+            </div>
+        </div>
+        <div class="d-flex align-items-center gap-1">
+            <button class="duo-action-btn" id="duo-chirp-btn" title="Make Specs Chirp!"><i class="fa-solid fa-music"></i></button>
+            <button class="duo-close-btn" id="duo-close-btn" title="Close Drawer">&times;</button>
+        </div>
+    </div>
+
+    <div class="duo-card-body">
+        <!-- Flight Mode Switcher -->
+        <div class="flight-controls-bar">
+            <span class="flight-ctrl-label"><i class="fa-solid fa-wind me-1 text-primary"></i>Flight:</span>
+            <div class="flight-btn-group">
+                <button type="button" class="flight-mode-btn active" data-mode="roam" title="Specs freely soars around the dashboard"><i class="fa-solid fa-paper-plane me-1"></i>Soar</button>
+                <button type="button" class="flight-mode-btn" data-mode="hover" title="Specs stays hovering gently nearby"><i class="fa-solid fa-anchor me-1"></i>Hover</button>
+                <button type="button" class="flight-mode-btn" data-mode="perch" title="Specs perches peacefully to rest"><i class="fa-solid fa-tree me-1"></i>Perch</button>
+            </div>
+        </div>
+
+        <!-- Gamification Stats Row -->
+        <div class="duo-stats-row">
+            <div class="duo-stat-pill streak">
+                <div class="val" id="duo-streak-val">🔥 1</div>
+                <div class="lbl">Day Streak</div>
+            </div>
+            <div class="duo-stat-pill xp">
+                <div class="val" id="duo-xp-val">⚡ 0</div>
+                <div class="lbl">Total XP</div>
+            </div>
+            <div class="duo-stat-pill level">
+                <div class="val" id="duo-level-val">🏆 1</div>
+                <div class="lbl">Level</div>
+            </div>
+        </div>
+
+        <div class="duo-assistant-prompt">
+            <p class="small text-muted mb-0"><i class="fa-solid fa-sparkles text-warning me-1"></i>Ask me any question about your study material while you explore:</p>
+        </div>
+
+        <!-- Quick Question Input -->
+        <div class="duo-chat-box">
+            <input type="text" class="duo-chat-input" id="duo-chat-input" placeholder="Ask Specs anything...">
+            <button class="duo-send-btn" id="duo-send-btn" title="Send question"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+
+        <!-- Answer Display Area -->
+        <div class="duo-answer-area" id="duo-answer-area"></div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/companion.js') }}"></script>

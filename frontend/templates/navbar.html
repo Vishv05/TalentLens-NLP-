@@ -1,0 +1,486 @@
+<!-- Universal Student Navigation Bar with Gamified Profile & Formatted Hierarchy -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+
+<nav class="navbar navbar-expand-xl navbar-dark tl-navbar py-2 shadow-sm sticky-top">
+    <div class="container-fluid px-xl-4 px-lg-3 px-3">
+        <!-- Brand Logo & Platform Title -->
+        <a class="navbar-brand fw-bold d-flex align-items-center me-xl-4 me-2" href="{{ url_for('index') }}">
+            <div class="tl-brand-icon bg-primary text-white rounded-3 d-inline-flex align-items-center justify-content-center shadow-sm me-2.5" style="width: 38px; height: 38px;">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div class="d-flex flex-column">
+                <span class="fs-5 fw-bold text-white lh-1">TalentLens</span>
+                <span class="text-white-50 small d-none d-sm-inline" style="font-size: 0.65rem; letter-spacing: 0.05em; font-weight: 600;">STUDENT HUB</span>
+            </div>
+        </a>
+
+        <!-- Mobile Navbar Toggler -->
+        <button class="navbar-toggler border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navMenu">
+            <!-- Left / Center Structured Nav Links (Clean Formatted Layout) -->
+            <ul class="navbar-nav me-auto mb-2 mb-xl-0 d-flex align-items-center">
+                <!-- 1. Dashboard Link -->
+                <li class="nav-item">
+                    <a class="nav-link nav-link-pill {% if active_page == 'dashboard' %}active{% endif %}" href="{{ url_for('dashboard_view') }}">
+                        <i class="fa-solid fa-chart-line me-1.5 text-primary"></i>Dashboard
+                    </a>
+                </li>
+
+                <!-- 2. AI Tutor Chat (Direct Core Entry Point) -->
+                <li class="nav-item">
+                    <a class="nav-link nav-link-pill {% if active_page == 'chat' %}active{% endif %}" href="{{ url_for('chat_view') }}">
+                        <i class="fa-solid fa-robot me-1.5 text-info"></i>AI Tutor Chat
+                    </a>
+                </li>
+
+                <!-- 3. Study Hub Dropdown (Grouped Curriculum & Practice) -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link nav-link-pill dropdown-toggle {% if active_page in ['subjects', 'quiz', 'flashcards'] %}active{% endif %}" href="#" id="studyHubDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-book-open me-1.5 text-warning"></i>Study Hub
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark tl-dropdown-menu" aria-labelledby="studyHubDropdown">
+                        <li class="px-3 py-1 text-uppercase text-white-50" style="font-size: 0.68rem; letter-spacing: 0.05em; font-weight: 700;">Curriculum & Practice</li>
+                        <li>
+                            <a class="dropdown-item tl-dropdown-item {% if active_page == 'subjects' %}active{% endif %}" href="{{ url_for('subjects_view') }}">
+                                <div class="tl-dropdown-icon bg-warning-subtle text-warning">
+                                    <i class="fa-solid fa-book-bookmark"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-semibold">Subjects & Syllabus</div>
+                                    <small class="text-white-50" style="font-size: 0.72rem;">NLP, ML & CS curriculum modules</small>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item tl-dropdown-item {% if active_page == 'quiz' %}active{% endif %}" href="{{ url_for('quiz_view') }}">
+                                <div class="tl-dropdown-icon bg-success-subtle text-success">
+                                    <i class="fa-solid fa-vial"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-semibold">Practice Quizzes</div>
+                                    <small class="text-white-50" style="font-size: 0.72rem;">Adaptive Bloom's taxonomy tests</small>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item tl-dropdown-item {% if active_page == 'flashcards' %}active{% endif %}" href="{{ url_for('flashcards_view') }}">
+                                <div class="tl-dropdown-icon bg-primary-subtle text-primary">
+                                    <i class="fa-solid fa-clone"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-semibold">Smart Flashcards</div>
+                                    <small class="text-white-50" style="font-size: 0.72rem;">SuperMemo-2 spaced repetition</small>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- 4. AI Studios Dropdown (Experiential Simulations & Labs) -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link nav-link-pill dropdown-toggle {% if active_page in ['viva', 'teach_back', 'pipeline'] %}active{% endif %}" href="#" id="studiosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-wand-magic-sparkles me-1.5 text-warning"></i>AI Studios
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark tl-dropdown-menu" aria-labelledby="studiosDropdown">
+                        <li class="px-3 py-1 text-uppercase text-white-50" style="font-size: 0.68rem; letter-spacing: 0.05em; font-weight: 700;">Simulations & Labs</li>
+                        <li>
+                            <a class="dropdown-item tl-dropdown-item {% if active_page == 'viva' %}active{% endif %}" href="{{ url_for('viva_view') }}">
+                                <div class="tl-dropdown-icon bg-danger-subtle text-danger">
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-semibold">Oral Viva Simulator</div>
+                                    <small class="text-white-50" style="font-size: 0.72rem;">Examiner defense & rubric scoring</small>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item tl-dropdown-item {% if active_page == 'teach_back' %}active{% endif %}" href="{{ url_for('teach_back_view') }}">
+                                <div class="tl-dropdown-icon bg-warning-subtle text-warning">
+                                    <i class="fa-solid fa-lightbulb"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-semibold">Teach-Back Studio</div>
+                                    <small class="text-white-50" style="font-size: 0.72rem;">The Feynman technique assistant</small>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item tl-dropdown-item {% if active_page == 'pipeline' %}active{% endif %}" href="{{ url_for('pipeline_view') }}">
+                                <div class="tl-dropdown-icon bg-info-subtle text-info">
+                                    <i class="fa-solid fa-microscope"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-semibold">NLP Pipeline Lab</div>
+                                    <small class="text-white-50" style="font-size: 0.72rem;">Interactive tokens & dense vectors</small>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- 5. Resources & Knowledge Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link nav-link-pill dropdown-toggle {% if active_page in ['knowledge_graph', 'documents', 'transcript'] %}active{% endif %}" href="#" id="resourcesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-layer-group me-1.5 text-primary"></i>Resources
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark tl-dropdown-menu" aria-labelledby="resourcesDropdown">
+                        <li class="px-3 py-1 text-uppercase text-white-50" style="font-size: 0.68rem; letter-spacing: 0.05em; font-weight: 700;">Knowledge & Records</li>
+                        <li>
+                            <a class="dropdown-item tl-dropdown-item {% if active_page == 'knowledge_graph' %}active{% endif %}" href="{{ url_for('knowledge_graph_view') }}">
+                                <div class="tl-dropdown-icon bg-success-subtle text-success">
+                                    <i class="fa-solid fa-diagram-project"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-semibold">Knowledge Concept Graph</div>
+                                    <small class="text-white-50" style="font-size: 0.72rem;">Topological prerequisite graph</small>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item tl-dropdown-item {% if active_page == 'documents' %}active{% endif %}" href="{{ url_for('documents_view') }}">
+                                <div class="tl-dropdown-icon bg-secondary-subtle text-secondary">
+                                    <i class="fa-solid fa-file-pdf"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-semibold">My Notes (RAG)</div>
+                                    <small class="text-white-50" style="font-size: 0.72rem;">Upload lecture notes & cite in chat</small>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item tl-dropdown-item {% if active_page == 'transcript' %}active{% endif %}" href="{{ url_for('transcript_view') }}">
+                                <div class="tl-dropdown-icon bg-warning-subtle text-warning">
+                                    <i class="fa-solid fa-file-signature"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-semibold">Academic Transcript</div>
+                                    <small class="text-white-50" style="font-size: 0.72rem;">Verified course records & audits</small>
+                                </div>
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider border-secondary my-1"></li>
+                        <li>
+                            <a class="dropdown-item tl-dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#architectureBlueprintModal">
+                                <div class="tl-dropdown-icon bg-info-subtle text-info">
+                                    <i class="fa-solid fa-microchip"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-semibold">NLP System Blueprint</div>
+                                    <small class="text-white-50" style="font-size: 0.72rem;">Evaluator defense dossier & pipelines</small>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Right-Hand Utilities & Formatted Profile Cluster -->
+            <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0 ms-auto">
+                {% if user_id %}
+                <!-- Compact Gamification Stats Pill (Opens Gamification Modal on click) -->
+                <button type="button" class="btn tl-stat-pill d-none d-sm-flex align-items-center shadow-sm" data-bs-toggle="modal" data-bs-target="#studentProfileModal" title="Gamification Summary — Click for Badges & Achievements">
+                    <span class="tl-stat-item text-danger" title="Study Streak"><i class="fa-solid fa-fire me-1"></i>{{ gamification.streak_days }}d</span>
+                    <span class="tl-stat-divider"></span>
+                    <span class="tl-stat-item text-warning" title="Total XP"><i class="fa-solid fa-star me-1"></i>{{ gamification.total_xp }} <span class="d-none d-xxl-inline">XP</span></span>
+                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill ms-1.5" style="font-size: 0.7rem;">Lvl {{ gamification.level }}</span>
+                </button>
+                {% endif %}
+
+                <!-- Academic Notification Bell Dropdown -->
+                <div class="dropdown">
+                    <button class="btn tl-icon-btn rounded-circle d-flex align-items-center justify-content-center position-relative shadow-sm" type="button" id="academicNotifBtn" data-bs-toggle="dropdown" aria-expanded="false" title="Academic Notifications & Notices">
+                        <i class="fa-solid fa-bell text-warning"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="notifBadge" style="font-size: 0.65rem;">3</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-lg p-2 tl-dropdown-menu" aria-labelledby="academicNotifBtn" style="min-width: 320px;">
+                        <li class="d-flex justify-content-between align-items-center px-3 py-2 border-bottom border-secondary mb-1">
+                            <span class="fw-bold small text-white"><i class="fa-solid fa-bell text-warning me-1.5"></i>Academic Notices</span>
+                            <button class="btn btn-link btn-sm text-decoration-none text-info p-0" style="font-size: 0.75rem;" onclick="markAllNotifsRead(event)">Mark all read</button>
+                        </li>
+                        <li id="notifItem1">
+                            <div class="px-3 py-2 rounded-3 border-bottom border-secondary-subtle">
+                                <div class="d-flex align-items-center justify-content-between mb-1">
+                                    <span class="badge bg-danger-subtle text-danger" style="font-size: 0.68rem;">Oral Viva</span>
+                                    <span class="text-white-50" style="font-size: 0.7rem;">Today, 10:30 AM</span>
+                                </div>
+                                <div class="fw-semibold small text-white">Oral Viva Rubric Updated</div>
+                                <div class="text-white-50" style="font-size: 0.74rem;">Examiner defense criteria updated to include Subword Tokenization & Out-of-Vocabulary handling.</div>
+                            </div>
+                        </li>
+                        <li id="notifItem2">
+                            <div class="px-3 py-2 rounded-3 border-bottom border-secondary-subtle">
+                                <div class="d-flex align-items-center justify-content-between mb-1">
+                                    <span class="badge bg-primary-subtle text-primary" style="font-size: 0.68rem;">Spaced Repetition</span>
+                                    <span class="text-white-50" style="font-size: 0.7rem;">2 hours ago</span>
+                                </div>
+                                <div class="fw-semibold small text-white">Flashcard Review Due</div>
+                                <div class="text-white-50" style="font-size: 0.74rem;">SuperMemo-2 algorithm scheduled 3 cards for TF-IDF Vector Spaces for optimal long-term memory.</div>
+                            </div>
+                        </li>
+                        <li id="notifItem3">
+                            <div class="px-3 py-2 rounded-3">
+                                <div class="d-flex align-items-center justify-content-between mb-1">
+                                    <span class="badge bg-success-subtle text-success" style="font-size: 0.68rem;">Practice Quiz</span>
+                                    <span class="text-white-50" style="font-size: 0.7rem;">Yesterday</span>
+                                </div>
+                                <div class="fw-semibold small text-white">New Practice Quiz Published</div>
+                                <div class="text-white-50" style="font-size: 0.74rem;">Dense Embeddings module published with 5 adaptive questions.</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Theme Toggle Button (Cleanly integrated in navbar header) -->
+                <button type="button" class="btn tl-icon-btn rounded-circle d-flex align-items-center justify-content-center shadow-sm theme-toggle-btn" onclick="toggleTheme()" title="Switch to Dark / Light Mode" aria-label="Toggle theme">
+                    <i class="fa-solid fa-moon theme-toggle-icon"></i>
+                </button>
+
+                {% if user_id %}
+                <!-- Formatted Student Profile Dropdown -->
+                <div class="dropdown">
+                    <button class="btn tl-user-btn d-flex align-items-center gap-2 rounded-pill shadow-sm dropdown-toggle" type="button" id="userMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Student Menu">
+                        <div class="tl-avatar-circle">
+                            {{ user_name[:1] | upper if user_name else 'S' }}
+                        </div>
+                        <div class="d-none d-md-flex flex-column text-start lh-sm me-1">
+                            <span class="tl-user-name fw-semibold text-truncate" style="max-width: 110px;">{{ user_name or 'Student' }}</span>
+                            <span class="text-white-50" style="font-size: 0.68rem;">Student</span>
+                        </div>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-lg tl-dropdown-menu tl-user-dropdown" aria-labelledby="userMenuDropdown" style="min-width: 290px;">
+                        <!-- Student Info Card Header -->
+                        <li class="px-3 py-2.5 border-bottom border-secondary-subtle">
+                            <div class="d-flex align-items-center gap-2.5">
+                                <div class="tl-avatar-circle tl-avatar-lg">
+                                    {{ user_name[:1] | upper if user_name else 'S' }}
+                                </div>
+                                <div class="overflow-hidden">
+                                    <div class="fw-bold text-white text-truncate">{{ user_name or 'Student' }}</div>
+                                    <div class="text-white-50 small text-truncate" style="font-size: 0.75rem;">{{ user_email or 'student@talentlens.edu' }}</div>
+                                    <div class="d-flex align-items-center gap-1.5 mt-1">
+                                        <span class="badge bg-warning text-dark fw-bold" style="font-size: 0.68rem;"><i class="fa-solid fa-bolt me-1"></i>Lvl {{ gamification.level }}</span>
+                                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle" style="font-size: 0.68rem;">{{ gamification.level_title }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Mini XP Progress -->
+                            <div class="mt-2.5 pt-1">
+                                <div class="d-flex justify-content-between text-white-50 mb-1" style="font-size: 0.7rem;">
+                                    <span>XP: {{ gamification.xp_in_level }} / {{ gamification.xp_needed_next }}</span>
+                                    <span>{{ gamification.level_progress_pct }}% to Lvl {{ gamification.level + 1 }}</span>
+                                </div>
+                                <div class="progress" style="height: 6px; border-radius: 4px; background: rgba(255,255,255,0.12);">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: {{ gamification.level_progress_pct }}%;"></div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Navigation Items -->
+                        <li class="pt-1">
+                            <a class="dropdown-item tl-dropdown-item {% if active_page == 'profile' %}active{% endif %}" href="{{ url_for('profile_view') }}">
+                                <div class="tl-dropdown-icon bg-info-subtle text-info"><i class="fa-solid fa-id-card-clip"></i></div>
+                                <div>
+                                    <div class="fw-semibold">Student Profile</div>
+                                    <small class="text-white-50" style="font-size: 0.72rem;">Academic skills, radar & diagnostics</small>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item tl-dropdown-item {% if active_page == 'transcript' %}active{% endif %}" href="{{ url_for('transcript_view') }}">
+                                <div class="tl-dropdown-icon bg-warning-subtle text-warning"><i class="fa-solid fa-file-signature"></i></div>
+                                <div>
+                                    <div class="fw-semibold">Academic Transcript</div>
+                                    <small class="text-white-50" style="font-size: 0.72rem;">Course credits, rubrics & audit logs</small>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item tl-dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#studentProfileModal">
+                                <div class="tl-dropdown-icon bg-success-subtle text-success"><i class="fa-solid fa-award"></i></div>
+                                <div>
+                                    <div class="fw-semibold">Badges & Achievements</div>
+                                    <small class="text-white-50" style="font-size: 0.72rem;">{{ gamification.total_badges_count }} badges unlocked &bull; View modal</small>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item tl-dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#architectureBlueprintModal">
+                                <div class="tl-dropdown-icon bg-primary-subtle text-primary"><i class="fa-solid fa-microchip"></i></div>
+                                <div>
+                                    <div class="fw-semibold">NLP Architecture Blueprint</div>
+                                    <small class="text-white-50" style="font-size: 0.72rem;">Faculty evaluator dossier & pipelines</small>
+                                </div>
+                            </a>
+                        </li>
+                        {% if user_role == 'admin' %}
+                        <li>
+                            <a class="dropdown-item tl-dropdown-item" href="{{ url_for('admin_view') }}">
+                                <div class="tl-dropdown-icon bg-danger-subtle text-danger"><i class="fa-solid fa-user-shield"></i></div>
+                                <div>
+                                    <div class="fw-semibold">Instructor Portal</div>
+                                    <small class="text-white-50" style="font-size: 0.72rem;">Curriculum & cohort management</small>
+                                </div>
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li><hr class="dropdown-divider border-secondary my-1"></li>
+                        <li>
+                            <a class="dropdown-item tl-dropdown-item text-danger" href="{{ url_for('auth.logout') }}">
+                                <div class="tl-dropdown-icon bg-danger-subtle text-danger"><i class="fa-solid fa-right-from-bracket"></i></div>
+                                <div>
+                                    <div class="fw-semibold text-danger">Sign Out</div>
+                                    <small class="text-white-50" style="font-size: 0.72rem;">End active student session</small>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                {% else %}
+                <a href="{{ url_for('auth.login') }}" class="btn btn-outline-light btn-sm rounded-pill px-3 me-1"><i class="fa-solid fa-right-to-bracket me-1"></i>Sign In</a>
+                <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-sm rounded-pill px-3"><i class="fa-solid fa-user-plus me-1"></i>Register</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Gamified Student Profile Modal -->
+{% if user_id %}
+<div class="modal fade" id="studentProfileModal" tabindex="-1" aria-labelledby="studentProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 20px; overflow: hidden;">
+            <!-- Modal Header Banner -->
+            <div class="p-4 text-white position-relative" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);">
+                <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center shadow" style="width: 64px; height: 64px; font-size: 1.75rem; border: 3px solid rgba(255,255,255,0.2);">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
+                    <div>
+                        <div class="d-flex align-items-center gap-2">
+                            <h5 class="fw-bold mb-0 text-white" id="studentProfileModalLabel">{{ user_name }}</h5>
+                            <span class="badge bg-success-subtle text-success border border-success" style="font-size: 0.7rem;"><i class="fa-solid fa-circle-check me-1"></i>Student</span>
+                        </div>
+                        <div class="text-white-50 small mt-1"><i class="fa-solid fa-envelope me-1"></i>{{ user_email }}</div>
+                        <div class="text-white-50 small" style="font-size: 0.75rem;"><i class="fa-solid fa-calendar-days me-1"></i>Joined: {{ gamification.joined_date or 'Active Learner' }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-body p-4 bg-light">
+                <!-- Level & Title Progression -->
+                <div class="card border-0 shadow-sm p-3 bg-white mb-3" style="border-radius: 14px;">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div>
+                            <span class="badge bg-warning text-dark fw-bold px-2 py-1"><i class="fa-solid fa-bolt me-1"></i>Level {{ gamification.level }}</span>
+                            <span class="fw-bold text-dark ms-1">{{ gamification.level_title }}</span>
+                        </div>
+                        <div class="fw-bold text-primary small"><i class="fa-solid fa-star me-1"></i>{{ gamification.total_xp }} Total XP</div>
+                    </div>
+                    <div class="progress mb-1" style="height: 10px; border-radius: 10px; background-color: #e2e8f0;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: {{ gamification.level_progress_pct }}%;" aria-valuenow="{{ gamification.level_progress_pct }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div class="d-flex justify-content-between text-muted" style="font-size: 0.75rem;">
+                        <span>{{ gamification.xp_in_level }} / {{ gamification.xp_needed_next }} XP in current level</span>
+                        <span>{{ gamification.level_progress_pct }}% to Level {{ gamification.level + 1 }}</span>
+                    </div>
+                </div>
+
+                <!-- 4 Performance Metric Cards -->
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <div class="p-2 bg-white rounded-3 border text-center shadow-sm">
+                            <div class="text-danger small fw-semibold"><i class="fa-solid fa-fire me-1"></i>Study Streak</div>
+                            <h5 class="fw-bold text-dark mb-0">{{ gamification.streak_days }} Days</h5>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-2 bg-white rounded-3 border text-center shadow-sm">
+                            <div class="text-success small fw-semibold"><i class="fa-solid fa-bullseye me-1"></i>Avg Accuracy</div>
+                            <h5 class="fw-bold text-dark mb-0">{{ gamification.average_accuracy }}%</h5>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-2 bg-white rounded-3 border text-center shadow-sm">
+                            <div class="text-info small fw-semibold"><i class="fa-solid fa-comments me-1"></i>Questions Asked</div>
+                            <h5 class="fw-bold text-dark mb-0">{{ gamification.questions_asked }}</h5>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-2 bg-white rounded-3 border text-center shadow-sm">
+                            <div class="text-warning small fw-semibold"><i class="fa-solid fa-vial me-1"></i>Quizzes Taken</div>
+                            <h5 class="fw-bold text-dark mb-0">{{ gamification.quizzes_completed }}</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Badges & Achievements Showcase -->
+                <div class="card border-0 shadow-sm p-3 bg-white mb-3" style="border-radius: 14px;">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h6 class="fw-bold mb-0 text-dark"><i class="fa-solid fa-award text-warning me-2"></i>Achievements & Badges</h6>
+                        <span class="badge bg-primary-subtle text-primary">{{ gamification.total_badges_count }} Unlocked</span>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2 pt-1">
+                        {% for badge in gamification.all_badges %}
+                            {% if badge.unlocked %}
+                            <div class="p-2 rounded-3 border border-success bg-success-subtle d-flex align-items-center gap-2 flex-grow-1" style="min-width: 45%;" title="{{ badge.desc }}">
+                                <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; font-size: 0.9rem;">
+                                    <i class="fa-solid {{ badge.icon }}"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-bold small text-dark" style="font-size: 0.8rem;">{{ badge.name }}</div>
+                                    <div class="text-success" style="font-size: 0.68rem;"><i class="fa-solid fa-check me-1"></i>Unlocked</div>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="p-2 rounded-3 border bg-light text-muted d-flex align-items-center gap-2 flex-grow-1 opacity-75" style="min-width: 45%;" title="{{ badge.desc }}">
+                                <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; font-size: 0.9rem;">
+                                    <i class="fa-solid {{ badge.icon }}"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-semibold small text-muted" style="font-size: 0.8rem;">{{ badge.name }}</div>
+                                    <div class="text-muted" style="font-size: 0.68rem;"><i class="fa-solid fa-lock me-1"></i>Locked</div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Action Footer inside Modal -->
+                <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center">
+                    <a href="{{ url_for('profile_view') }}" class="btn btn-warning btn-sm rounded-pill px-3 fw-bold shadow-sm">
+                        <i class="fa-solid fa-id-card me-1.5"></i>Full Profile Page
+                    </a>
+                    <div class="d-flex gap-2">
+                        <a href="{{ url_for('dashboard_view') }}" class="btn btn-outline-primary btn-sm rounded-pill px-3" data-bs-dismiss="modal"><i class="fa-solid fa-chart-line me-1"></i>Dashboard</a>
+                        <a href="{{ url_for('quiz_view') }}" class="btn btn-primary btn-sm rounded-pill px-3"><i class="fa-solid fa-vial me-1"></i>Practice Quiz</a>
+                        <a href="{{ url_for('auth.logout') }}" class="btn btn-outline-danger btn-sm rounded-pill px-3" title="Sign out"><i class="fa-solid fa-right-from-bracket"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% include 'blueprint_modal.html' %}
+
+<script>
+    function markAllNotifsRead(e) {
+        if (e) e.preventDefault();
+        const badge = document.getElementById('notifBadge');
+        if (badge) {
+            badge.style.display = 'none';
+        }
+        const notifItems = document.querySelectorAll('#academicNotifBtn + ul li[id^="notifItem"]');
+        notifItems.forEach(item => {
+            item.style.opacity = '0.5';
+        });
+    }
+</script>

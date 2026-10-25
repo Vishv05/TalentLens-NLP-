@@ -1,0 +1,9 @@
+{
+  "semantic_weight": 0.65,
+  "keyword_weight": 0.35,
+  "pass_threshold": 50.0,
+  "distinction_threshold": 85.0,
+  "examiner_persona": "balanced",
+  "circularity_penalty": 25.0,
+  "analogy_bonus": 20.0
+}

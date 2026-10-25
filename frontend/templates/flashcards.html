@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Interactive AI Flashcards — TalentLens</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: #f8fafc; color: #1e293b; }
+        .flashcard {
+            width: 100%;
+            height: 330px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+        }
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .flashcard-front {
+            background-color: #ffffff;
+            color: #1e293b;
+            border: 2px solid #e2e8f0;
+        }
+        .flashcard-back {
+            background-color: #0f172a;
+            color: #f8fafc;
+            transform: rotateY(180deg);
+        }
+        .confidence-btn { transition: transform 0.15s; }
+        .confidence-btn:hover { transform: scale(1.05); }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    {% set active_page = 'flashcards' %}
+    {% include 'navbar.html' %}
+
+    <main class="container py-4 my-auto">
+        <div class="d-flex flex-wrap align-items-center justify-content-between mb-4 gap-2">
+            <div>
+                <h3 class="fw-bold mb-1"><i class="fa-solid fa-clone text-primary me-2"></i>Interactive AI Revision Flashcards</h3>
+                <p class="text-muted small mb-0">Click card or press <strong>Spacebar</strong> to flip. Use arrow keys to navigate. Rate confidence to train SM-2 spaced repetition.</p>
+            </div>
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-secondary" onclick="shuffleCards()" title="Shuffle order"><i class="fa-solid fa-shuffle me-1"></i>Shuffle</button>
+                <select id="subjectFilter" class="form-select w-auto">
+                    <option value="All">All Academic Subjects</option>
+                    <option value="Natural Language Processing">Natural Language Processing</option>
+                    <option value="Machine Learning">Machine Learning</option>
+                    <option value="Database Management Systems">Database Management Systems</option>
+                    <option value="Python Programming">Python Programming</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <!-- Flashcard -->
+                <div class="flashcard mb-4" id="flashcard" onclick="this.classList.toggle('flipped')">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <span class="badge bg-primary mb-3" id="cardCategory">Definition</span>
+                            <h4 class="fw-bold px-3" id="cardFront">Click to Start Flashcard Revision</h4>
+                            <div class="mt-auto text-muted small">
+                                <i class="fa-solid fa-rotate me-1"></i>Click card or press <strong>Space</strong> to reveal answer
+                            </div>
+                        </div>
+                        <div class="flashcard-back">
+                            <div class="d-flex justify-content-between w-100 align-items-center mb-2 px-2">
+                                <span class="badge bg-warning text-dark fw-bold">CANONICAL ANSWER</span>
+                                <button class="btn btn-sm text-white-50 p-0" onclick="event.stopPropagation(); readCardAloud();" title="Listen"><i class="fa-solid fa-volume-high"></i></button>
+                            </div>
+                            <p class="px-3 small my-auto text-start" id="cardBack" style="white-space: pre-line; line-height: 1.6;">Answer will appear here.</p>
+                            <div class="mt-auto text-white-50 small">
+                                Click card to flip back to question
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Controls -->
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <button class="btn btn-outline-secondary px-4" id="btnPrev" onclick="prevCard()"><i class="fa-solid fa-arrow-left me-2"></i>Previous</button>
+                    <span class="fw-semibold text-muted" id="cardCounter">Card 1 of 10</span>
+                    <button class="btn btn-primary px-4" id="btnNext" onclick="nextCard()">Next<i class="fa-solid fa-arrow-right ms-2"></i></button>
+                </div>
+
+                <!-- SM-2 Spaced Repetition Self-Assessment Rating Bar -->
+                <div class="card p-3 bg-white border shadow-sm">
+                    <h6 class="small fw-bold text-muted mb-2"><i class="fa-solid fa-brain me-1 text-primary"></i>Rate Recall Confidence (Feeds SuperMemo-2 Spaced Repetition):</h6>
+                    <div class="d-flex justify-content-center gap-2">
+                        <button class="btn btn-outline-danger btn-sm confidence-btn" onclick="rateCard('forgot')"><i class="fa-solid fa-xmark me-1"></i>Forgot (0%)</button>
+                        <button class="btn btn-outline-warning btn-sm confidence-btn text-dark" onclick="rateCard('hard')"><i class="fa-solid fa-triangle-exclamation me-1"></i>Hard (60%)</button>
+                        <button class="btn btn-outline-info btn-sm confidence-btn" onclick="rateCard('good')"><i class="fa-solid fa-thumbs-up me-1"></i>Good (85%)</button>
+                        <button class="btn btn-outline-success btn-sm confidence-btn" onclick="rateCard('easy')"><i class="fa-solid fa-check-double me-1"></i>Easy (100%)</button>
+                    </div>
+                    <div id="rateStatus" class="small text-success mt-2 fw-semibold" style="height: 18px;"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
+        <div class="container">
+            TalentLens &copy; 2026 — Interactive Flashcards & SM-2 Engine
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let cards = [];
+        let currentIndex = 0;
+
+        function loadCards(subject) {
+            fetch(`/api/flashcards/list?subject=${encodeURIComponent(subject)}`)
+                .then(res => res.json())
+                .then(data => {
+                    cards = data.flashcards;
+                    currentIndex = 0;
+                    renderCard();
+                });
+        }
+
+        function renderCard() {
+            if (cards.length === 0) {
+                document.getElementById("cardFront").innerText = "No flashcards found for this subject.";
+                document.getElementById("cardBack").innerText = "";
+                return;
+            }
+            const card = cards[currentIndex];
+            document.getElementById("flashcard").classList.remove("flipped");
+            document.getElementById("cardCategory").innerText = `${card.subject} • ${card.topic} • ${card.category}`;
+            document.getElementById("cardFront").innerText = card.front;
+            document.getElementById("cardBack").innerText = card.back;
+            document.getElementById("cardCounter").innerText = `Card ${currentIndex + 1} of ${cards.length}`;
+            document.getElementById("rateStatus").innerText = "";
+        }
+
+        function nextCard() {
+            if (currentIndex < cards.length - 1) {
+                currentIndex++;
+                renderCard();
+            }
+        }
+
+        function prevCard() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                renderCard();
+            }
+        }
+
+        function shuffleCards() {
+            for (let i = cards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [cards[i], cards[j]] = [cards[j], cards[i]];
+            }
+            currentIndex = 0;
+            renderCard();
+        }
+
+        function readCardAloud() {
+            if ('speechSynthesis' in window && cards[currentIndex]) {
+                window.speechSynthesis.cancel();
+                const text = cards[currentIndex].back;
+                const utterance = new SpeechSynthesisUtterance(text.replace(/[•\n]/g, ' '));
+                utterance.rate = 1.0;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function rateCard(rating) {
+            if (!cards[currentIndex]) return;
+            const topic = cards[currentIndex].topic;
+            fetch('/api/spaced-repetition/flashcard-rate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ topic, rating })
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("rateStatus").innerText = `✓ Saved ${rating.toUpperCase()} review for ${topic}! Next review interval scheduled.`;
+                setTimeout(() => {
+                    nextCard();
+                }, 750);
+            });
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            if (e.code === 'Space') {
+                e.preventDefault();
+                document.getElementById('flashcard').classList.toggle('flipped');
+            } else if (e.code === 'ArrowRight') {
+                nextCard();
+            } else if (e.code === 'ArrowLeft') {
+                prevCard();
+            }
+        });
+
+        document.getElementById("subjectFilter").addEventListener("change", function(e) {
+            loadCards(e.target.value);
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            loadCards("All");
+        });
+    </script>
+    {% include 'companion.html' %}
+</body>
+</html>

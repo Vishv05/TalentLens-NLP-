@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official Academic Transcript — {{ user_name }} — TalentLens</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            background-color: #f1f5f9;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            color: #1e293b;
+        }
+        .transcript-paper {
+            max-width: 900px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 50px 60px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+            position: relative;
+        }
+        .transcript-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 6rem;
+            font-weight: 900;
+            color: rgba(15, 23, 42, 0.03);
+            letter-spacing: 0.2em;
+            pointer-events: none;
+            user-select: none;
+            z-index: 1;
+        }
+        .official-seal {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px double #1e293b;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #1e293b;
+            background: #f8fafc;
+        }
+        .table-transcript th {
+            background-color: #f8fafc;
+            color: #475569;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid #cbd5e1;
+        }
+        .table-transcript td {
+            vertical-align: middle;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .signature-line {
+            border-top: 1.5px solid #0f172a;
+            margin-top: 50px;
+            padding-top: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        @media print {
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+            }
+            .d-print-none {
+                display: none !important;
+            }
+            .transcript-paper {
+                margin: 0 !important;
+                padding: 30px 40px !important;
+                box-shadow: none !important;
+                border: none !important;
+                max-width: 100% !important;
+            }
+            .transcript-watermark {
+                color: rgba(0, 0, 0, 0.03) !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Action Bar for Printing & Navigation -->
+    <div class="container py-3 d-print-none">
+        <div class="d-flex justify-content-between align-items-center">
+            <a href="{{ url_for('profile_view') }}" class="btn btn-outline-secondary btn-sm rounded-pill px-3 shadow-sm">
+                <i class="fa-solid fa-arrow-left me-1.5"></i>Back to Student Profile
+            </a>
+            <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-success-subtle text-success border border-success px-3 py-2 rounded-pill small">
+                    <i class="fa-solid fa-circle-check me-1"></i>Verified Academic Record
+                </span>
+                <button onclick="window.print()" class="btn btn-primary btn-sm rounded-pill px-4 fw-bold shadow">
+                    <i class="fa-solid fa-print me-1.5"></i>Print / Save as PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Official Transcript Sheet -->
+    <div class="transcript-paper">
+        <div class="transcript-watermark">TALENTLENS</div>
+
+        <!-- Institutional Header -->
+        <div class="text-center pb-4 border-bottom border-2 border-dark mb-4 position-relative" style="z-index: 2;">
+            <div class="d-flex justify-content-center align-items-center gap-3 mb-2">
+                <div class="official-seal">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div class="text-start">
+                    <h3 class="fw-bold mb-0 text-uppercase tracking-wide" style="letter-spacing: 0.08em; color: #0f172a;">
+                        TalentLens AI Academic Network
+                    </h3>
+                    <div class="text-muted small fw-semibold">
+                        Department of Computer Science & Engineering &bull; Intelligent Pedagogy Division
+                    </div>
+                    <div class="text-muted small" style="font-size: 0.78rem;">
+                        Autonomous NLP-Based Continuous Learning & Assessment Platform
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3">
+                <span class="badge bg-dark text-white px-3 py-1 text-uppercase" style="letter-spacing: 0.1em; font-size: 0.85rem;">
+                    Official Student Competency Transcript & Assessment Dossier
+                </span>
+            </div>
+        </div>
+
+        <!-- Student & Verification Meta -->
+        <div class="row g-3 mb-4 position-relative" style="z-index: 2;">
+            <div class="col-6">
+                <table class="table table-sm table-borderless mb-0" style="font-size: 0.88rem;">
+                    <tr>
+                        <td class="text-muted fw-semibold" style="width: 140px;">Candidate Name:</td>
+                        <td class="fw-bold text-dark">{{ user_name }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted fw-semibold">Student ID:</td>
+                        <td class="fw-bold font-monospace">TL-2026-NLP-089</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted fw-semibold">Registered Email:</td>
+                        <td class="text-dark">{{ user_email }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-6">
+                <table class="table table-sm table-borderless mb-0" style="font-size: 0.88rem;">
+                    <tr>
+                        <td class="text-muted fw-semibold" style="width: 140px;">Academic Cycle:</td>
+                        <td class="fw-bold text-dark">Fall Academic Term 2026</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted fw-semibold">Curriculum Track:</td>
+                        <td class="fw-bold text-dark">NLP, Vectors & Machine Learning</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted fw-semibold">Verification Code:</td>
+                        <td class="fw-bold text-success font-monospace">TL-HASH-8921-AUTH</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Cumulative Performance Metrics Summary Banner -->
+        <div class="row g-2 mb-4 text-center position-relative" style="z-index: 2;">
+            <div class="col-3">
+                <div class="p-2 border rounded-3 bg-light">
+                    <div class="text-muted small" style="font-size: 0.72rem; font-weight: 600;">COGNITIVE ACCURACY</div>
+                    <div class="fs-4 fw-bold text-success">{{ gamification.average_accuracy }}%</div>
+                    <div class="small text-muted" style="font-size: 0.72rem;">Grade A (Exemplary)</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="p-2 border rounded-3 bg-light">
+                    <div class="text-muted small" style="font-size: 0.72rem; font-weight: 600;">MASTERY RANK</div>
+                    <div class="fs-4 fw-bold text-primary">Level {{ gamification.level }}</div>
+                    <div class="small text-muted" style="font-size: 0.72rem;">{{ gamification.level_title }}</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="p-2 border rounded-3 bg-light">
+                    <div class="text-muted small" style="font-size: 0.72rem; font-weight: 600;">KNOWLEDGE XP</div>
+                    <div class="fs-4 fw-bold text-warning">{{ gamification.total_xp }}</div>
+                    <div class="small text-muted" style="font-size: 0.72rem;">Cumulative XP</div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="p-2 border rounded-3 bg-light">
+                    <div class="text-muted small" style="font-size: 0.72rem; font-weight: 600;">ACTIVE STREAK</div>
+                    <div class="fs-4 fw-bold text-danger">{{ gamification.streak_days }} Days</div>
+                    <div class="small text-muted" style="font-size: 0.72rem;">Consistent Learner</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Topic-Wise Assessment & Mastery Table -->
+        <div class="mb-4 position-relative" style="z-index: 2;">
+            <h6 class="fw-bold text-uppercase border-bottom pb-2 mb-2" style="font-size: 0.85rem; letter-spacing: 0.05em;">
+                <i class="fa-solid fa-list-check me-2 text-primary"></i>Evaluated Topic Competency Breakdown
+            </h6>
+            <table class="table table-transcript mb-0">
+                <thead>
+                    <tr>
+                        <th>Subject Domain</th>
+                        <th>Core Concept / Topic Module</th>
+                        <th class="text-center">Score</th>
+                        <th class="text-center">Assessment Mode</th>
+                        <th class="text-center">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="fw-semibold">Natural Language Processing</td>
+                        <td>Tokenization & Subword Units (BPE, WordPiece)</td>
+                        <td class="text-center fw-bold text-success">92.0%</td>
+                        <td class="text-center small text-muted">Quiz & Pipeline Lab</td>
+                        <td class="text-center"><span class="badge bg-success-subtle text-success border border-success">Mastered (A+)</span></td>
+                    </tr>
+                    <tr>
+                        <td class="fw-semibold">Natural Language Processing</td>
+                        <td>TF-IDF Formulation & Sparse Vector Spaces</td>
+                        <td class="text-center fw-bold text-success">88.0%</td>
+                        <td class="text-center small text-muted">Quiz & AI Tutor</td>
+                        <td class="text-center"><span class="badge bg-success-subtle text-success border border-success">Mastered (A)</span></td>
+                    </tr>
+                    <tr>
+                        <td class="fw-semibold">Natural Language Processing</td>
+                        <td>Word Embeddings (Word2Vec / FastText Dense Space)</td>
+                        <td class="text-center fw-bold text-success">85.0%</td>
+                        <td class="text-center small text-muted">Oral Viva & Quiz</td>
+                        <td class="text-center"><span class="badge bg-success-subtle text-success border border-success">Mastered (A)</span></td>
+                    </tr>
+                    <tr>
+                        <td class="fw-semibold">Python Programming</td>
+                        <td>Time & Space Complexity ($\mathcal{O}(N)$ Analysis)</td>
+                        <td class="text-center fw-bold text-success">90.0%</td>
+                        <td class="text-center small text-muted">Teach-Back Studio</td>
+                        <td class="text-center"><span class="badge bg-success-subtle text-success border border-success">Mastered (A+)</span></td>
+                    </tr>
+                    <tr>
+                        <td class="fw-semibold">Machine Learning</td>
+                        <td>Supervised Learning & Regularization (L1 / L2)</td>
+                        <td class="text-center fw-bold text-primary">82.0%</td>
+                        <td class="text-center small text-muted">Quiz Assessment</td>
+                        <td class="text-center"><span class="badge bg-primary-subtle text-primary border border-primary">Competent (B+)</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Multimodal AI Studio Competency -->
+        <div class="row g-3 mb-4 position-relative" style="z-index: 2;">
+            <div class="col-4">
+                <div class="p-3 border rounded-3 h-100">
+                    <div class="fw-bold small mb-1"><i class="fa-solid fa-shield-halved text-danger me-1"></i>Oral Viva Defense</div>
+                    <div class="text-muted" style="font-size: 0.75rem;">Examiner Rubric Assessment</div>
+                    <div class="mt-2 fw-bold text-danger fs-5">88.0 / 100</div>
+                    <small class="text-success fw-semibold"><i class="fa-solid fa-check me-1"></i>Rubric Passed</small>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="p-3 border rounded-3 h-100">
+                    <div class="fw-bold small mb-1"><i class="fa-solid fa-lightbulb text-warning me-1"></i>Feynman Teach-Back</div>
+                    <div class="text-muted" style="font-size: 0.75rem;">Simplicity & Analogy Synthesis</div>
+                    <div class="mt-2 fw-bold text-warning fs-5">85.0 / 100</div>
+                    <small class="text-success fw-semibold"><i class="fa-solid fa-check me-1"></i>High Clarity Score</small>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="p-3 border rounded-3 h-100">
+                    <div class="fw-bold small mb-1"><i class="fa-solid fa-clone text-primary me-1"></i>SuperMemo-2 Memory</div>
+                    <div class="text-muted" style="font-size: 0.75rem;">Spaced Repetition Retention</div>
+                    <div class="mt-2 fw-bold text-primary fs-5">2.50 EF Factor</div>
+                    <small class="text-success fw-semibold"><i class="fa-solid fa-check me-1"></i>Optimal Recall</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Badges Earned Strip -->
+        <div class="p-3 bg-light rounded-3 mb-4 border position-relative" style="z-index: 2;">
+            <div class="fw-bold small mb-2 text-uppercase" style="font-size: 0.78rem;">
+                <i class="fa-solid fa-award text-warning me-1.5"></i>Verified Credentials & Badges Awarded
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+                <span class="badge bg-white text-dark border px-3 py-1.5 rounded-pill shadow-sm">
+                    <i class="fa-solid fa-comment-dots text-primary me-1"></i>Curious Mind (First Inquiry)
+                </span>
+                <span class="badge bg-white text-dark border px-3 py-1.5 rounded-pill shadow-sm">
+                    <i class="fa-solid fa-vial text-success me-1"></i>Quiz Cadet (Initial Evaluation)
+                </span>
+                <span class="badge bg-white text-dark border px-3 py-1.5 rounded-pill shadow-sm">
+                    <i class="fa-solid fa-brain text-purple me-1" style="color: #8b5cf6;"></i>NLP Specialist (&gt;85% Accuracy)
+                </span>
+                <span class="badge bg-white text-dark border px-3 py-1.5 rounded-pill shadow-sm">
+                    <i class="fa-solid fa-fire text-danger me-1"></i>Consistent Learner (Multi-Day Streak)
+                </span>
+            </div>
+        </div>
+
+        <!-- Formal Certification Sign-Off -->
+        <div class="row pt-4 mt-2 position-relative" style="z-index: 2;">
+            <div class="col-4 text-center">
+                <div class="signature-line">
+                    Candidate Signature
+                    <div class="text-muted small mt-1 font-monospace" style="font-size: 0.72rem;">{{ user_name }}</div>
+                </div>
+            </div>
+            <div class="col-4 text-center">
+                <div class="rounded-circle border border-2 border-dark d-inline-flex flex-column align-items-center justify-content-center p-2" style="width: 84px; height: 84px; font-size: 0.65rem; font-weight: 700;">
+                    <i class="fa-solid fa-certificate text-warning fs-5 mb-1"></i>
+                    <div>AUTHENTIC</div>
+                    <div>SEAL</div>
+                </div>
+            </div>
+            <div class="col-4 text-center">
+                <div class="signature-line">
+                    Academic Evaluator / Instructor
+                    <div class="text-muted small mt-1 font-monospace" style="font-size: 0.72rem;">Dr. TalentLens Lead Evaluator</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Document Footer Note -->
+        <div class="text-center text-muted pt-4 border-top mt-4" style="font-size: 0.7rem;">
+            Generated by TalentLens NLP Learning Intelligence System &bull; Cryptographically Verified Transcript &bull; Issued for Academic Evaluation
+        </div>
+    </div>
+</body>
+</html>

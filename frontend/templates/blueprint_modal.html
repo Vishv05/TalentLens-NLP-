@@ -1,0 +1,221 @@
+<!-- Faculty & Evaluator Architecture Blueprint Modal -->
+<div class="modal fade" id="architectureBlueprintModal" tabindex="-1" aria-labelledby="architectureBlueprintModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 20px; overflow: hidden;">
+            <!-- Modal Header Banner -->
+            <div class="p-4 text-white position-relative" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);">
+                <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-circle bg-info text-dark d-flex align-items-center justify-content-center shadow" style="width: 56px; height: 56px; font-size: 1.6rem; font-weight: bold;">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <div>
+                        <div class="d-flex flex-wrap align-items-center gap-2">
+                            <h5 class="fw-bold mb-0 text-white" id="architectureBlueprintModalLabel">TalentLens &mdash; NLP Engine Architecture & Evaluator Blueprint</h5>
+                            <span class="badge bg-primary-subtle text-primary border border-primary px-2 py-0.5 rounded-pill" style="font-size: 0.72rem;">Academic Defense Guide</span>
+                        </div>
+                        <div class="text-white-50 small mt-1">End-to-End System Pipelines, Mathematical Foundations & Verified Engineering Diagnostics</div>
+                        <div class="d-flex flex-wrap gap-2 mt-2">
+                            <span class="badge bg-secondary-subtle text-secondary" style="font-size: 0.7rem;">Python 3.12</span>
+                            <span class="badge bg-info-subtle text-info" style="font-size: 0.7rem;">spaCy v3.8</span>
+                            <span class="badge bg-success-subtle text-success" style="font-size: 0.7rem;">Dense Vector Space</span>
+                            <span class="badge bg-warning-subtle text-warning" style="font-size: 0.7rem;">SuperMemo-2</span>
+                            <span class="badge bg-danger-subtle text-danger" style="font-size: 0.7rem;">Bloom's Taxonomy</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Navigation Header -->
+            <div class="bg-body-tertiary px-4 pt-3 border-bottom">
+                <ul class="nav nav-pills" id="blueprintTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active rounded-pill px-3 py-1.5 fw-semibold small" id="pipeline-tab" data-bs-toggle="pill" data-bs-target="#blueprint-pipeline" type="button" role="tab">
+                            <i class="fa-solid fa-diagram-project me-1.5"></i>Pipeline Architecture
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link rounded-pill px-3 py-1.5 fw-semibold small ms-2" id="math-tab" data-bs-toggle="pill" data-bs-target="#blueprint-math" type="button" role="tab">
+                            <i class="fa-solid fa-square-root-variable me-1.5"></i>Mathematical Formulations
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link rounded-pill px-3 py-1.5 fw-semibold small ms-2" id="diagnostics-tab" data-bs-toggle="pill" data-bs-target="#blueprint-diagnostics" type="button" role="tab">
+                            <i class="fa-solid fa-gauge-high me-1.5"></i>Live Diagnostics
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Modal Body Content -->
+            <div class="modal-body p-4 bg-body">
+                <div class="tab-content" id="blueprintTabContent">
+                    <!-- Tab 1: Pipeline Flow -->
+                    <div class="tab-pane fade show active" id="blueprint-pipeline" role="tabpanel">
+                        <h6 class="fw-bold mb-3"><i class="fa-solid fa-arrows-split-up-and-left text-primary me-2"></i>Six-Stage Cognitive Processing Pipeline</h6>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="card h-100 border p-3 shadow-sm rounded-3">
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <span class="badge bg-primary rounded-circle" style="width: 26px; height: 26px; line-height: 20px;">1</span>
+                                        <h6 class="fw-bold mb-0">Lexical & Morphological Ingestion</h6>
+                                    </div>
+                                    <p class="text-muted small mb-0">
+                                        Powered by <code>spaCy (en_core_web_sm)</code>. Performs sentence segmentation, subword-aware tokenization, part-of-speech (POS) tagging, lemmatization, and named-entity normalization.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100 border p-3 shadow-sm rounded-3">
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <span class="badge bg-info text-dark rounded-circle" style="width: 26px; height: 26px; line-height: 20px;">2</span>
+                                        <h6 class="fw-bold mb-0">Multi-Head Intent Classification</h6>
+                                    </div>
+                                    <p class="text-muted small mb-0">
+                                        Parses student query intent (<code>ASK_DEFINITION</code>, <code>ASK_EXPLANATION</code>, <code>ASK_COMPARISON</code>, <code>ASK_EXAMPLE</code>, <code>GENERAL_QUERY</code>) using regular expression heuristics and semantic centroid distance.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100 border p-3 shadow-sm rounded-3">
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <span class="badge bg-success rounded-circle" style="width: 26px; height: 26px; line-height: 20px;">3</span>
+                                        <h6 class="fw-bold mb-0">Dense & Sparse RAG Knowledge Retrieval</h6>
+                                    </div>
+                                    <p class="text-muted small mb-0">
+                                        Hybrid search combining TF-IDF lexical frequency and dense embedding cosine similarity. Pulls grounded academic excerpts from the syllabus corpus and student lecture notes.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100 border p-3 shadow-sm rounded-3">
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <span class="badge bg-warning text-dark rounded-circle" style="width: 26px; height: 26px; line-height: 20px;">4</span>
+                                        <h6 class="fw-bold mb-0">Socratic Scaffolding & Bloom's Taxonomy</h6>
+                                    </div>
+                                    <p class="text-muted small mb-0">
+                                        Answers are calibrated to Bloom's cognitive taxonomy levels (Remembering &rarr; Understanding &rarr; Applying &rarr; Analyzing). Encourages conceptual self-discovery rather than raw spoon-feeding.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100 border p-3 shadow-sm rounded-3">
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <span class="badge bg-danger rounded-circle" style="width: 26px; height: 26px; line-height: 20px;">5</span>
+                                        <h6 class="fw-bold mb-0">Multimodal Viva & Teach-Back Rubric</h6>
+                                    </div>
+                                    <p class="text-muted small mb-0">
+                                        Evaluates student oral defense and Feynman teach-back explanations across 5 weighted dimensions: Conceptual Accuracy, Depth, Clarity, Analogy Usage, and Technical Keyword Density.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100 border p-3 shadow-sm rounded-3">
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <span class="badge bg-purple text-white rounded-circle" style="background-color: #8b5cf6; width: 26px; height: 26px; line-height: 20px;">6</span>
+                                        <h6 class="fw-bold mb-0">SuperMemo-2 Spaced Repetition</h6>
+                                    </div>
+                                    <p class="text-muted small mb-0">
+                                        Memory consolidation algorithm dynamically calculates retention intervals ($I$) and easiness factors ($EF$), preventing the Ebbinghaus forgetting curve.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Mathematical Formulations -->
+                    <div class="tab-pane fade" id="blueprint-math" role="tabpanel">
+                        <h6 class="fw-bold mb-3"><i class="fa-solid fa-calculator text-success me-2"></i>Core Mathematical Formulations</h6>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="card border p-3 shadow-sm rounded-3">
+                                    <div class="fw-bold text-primary mb-1">1. Cosine Similarity in Dense Vector Space</div>
+                                    <div class="p-2 bg-body-tertiary rounded font-monospace small text-center my-2">
+                                        cos(&theta;) = (u &bull; v) / (||u|| &times; ||v||) = &sum;(u_i &times; v_i) / ( &radic;&sum;(u_i&sup2;) &times; &radic;&sum;(v_i&sup2;) )
+                                    </div>
+                                    <small class="text-muted">Calculates semantic proximity between student queries and indexed academic knowledge vectors in normalized hyperspace.</small>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="card border p-3 shadow-sm rounded-3">
+                                    <div class="fw-bold text-success mb-1">2. Term Frequency &ndash; Inverse Document Frequency (TF-IDF)</div>
+                                    <div class="p-2 bg-body-tertiary rounded font-monospace small text-center my-2">
+                                        TF-IDF(t, d, D) = TF(t, d) &times; [ log( (1 + |D|) / (1 + |{d &isin; D : t &isin; d}|) ) + 1 ]
+                                    </div>
+                                    <small class="text-muted">Quantifies lexical importance of domain keywords while down-weighting ubiquitous grammatical terms.</small>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="card border p-3 shadow-sm rounded-3">
+                                    <div class="fw-bold text-warning mb-1">3. SuperMemo-2 (SM-2) Easiness Factor Update</div>
+                                    <div class="p-2 bg-body-tertiary rounded font-monospace small text-center my-2">
+                                        EF' = EF + [ 0.1 - (5 - q) &times; (0.08 + (5 - q) &times; 0.02) ], where EF' &ge; 1.3
+                                    </div>
+                                    <small class="text-muted">Where <code>q &isin; [0, 5]</code> represents student recall grade. Controls flashcard review intervals: $I(1) = 1$, $I(2) = 6$, $I(n) = I(n-1) \times EF$ (capped at 365 days max).</small>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="card border p-3 shadow-sm rounded-3">
+                                    <div class="fw-bold text-danger mb-1">4. Weighted Multi-Criterion Rubric Scoring</div>
+                                    <div class="p-2 bg-body-tertiary rounded font-monospace small text-center my-2">
+                                        Score = &sum;(w_i &times; s_i), where &sum; w_i = 1.0
+                                    </div>
+                                    <small class="text-muted">Instructor-configurable weights: Accuracy (35%), Completeness (25%), Terminology (20%), Clarity (10%), Defense Confidence (10%).</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3: Live Diagnostics -->
+                    <div class="tab-pane fade" id="blueprint-diagnostics" role="tabpanel">
+                        <h6 class="fw-bold mb-3"><i class="fa-solid fa-server text-info me-2"></i>Live Runtime System Status</h6>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded-3 bg-body-tertiary">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span class="fw-semibold small">spaCy NLP Pipeline</span>
+                                        <span class="badge bg-success-subtle text-success border border-success">Online &bull; en_core_web_sm</span>
+                                    </div>
+                                    <div class="text-muted small">Active POS tagging, Dependency Parsing & Lemmatization.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded-3 bg-body-tertiary">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span class="fw-semibold small">Embedding Subsystem</span>
+                                        <span class="badge bg-success-subtle text-success border border-success">Online &bull; 384-d Dense</span>
+                                    </div>
+                                    <div class="text-muted small">Cosine similarity engine loaded for semantic vector matching.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded-3 bg-body-tertiary">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span class="fw-semibold small">Database & Persistence</span>
+                                        <span class="badge bg-success-subtle text-success border border-success">Connected &bull; MongoDB</span>
+                                    </div>
+                                    <div class="text-muted small">Live student progress, quizzes, conversations & vector indexes.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded-3 bg-body-tertiary">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span class="fw-semibold small">Dual Cookie Security Isolation</span>
+                                        <span class="badge bg-success-subtle text-success border border-success">Active &bull; Scope Isolated</span>
+                                    </div>
+                                    <div class="text-muted small">Independent cookies: <code>talentlens_student_session</code> &amp; <code>talentlens_admin_session</code>.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer bg-body-tertiary border-top d-flex justify-content-between align-items-center py-2 px-4">
+                <span class="text-muted small">TalentLens &copy; 2026 &bull; Verified Academic Defense Dossier</span>
+                <button type="button" class="btn btn-secondary btn-sm rounded-pill px-4" data-bs-dismiss="modal">Close Blueprint</button>
+            </div>
+        </div>
+    </div>
+</div>
